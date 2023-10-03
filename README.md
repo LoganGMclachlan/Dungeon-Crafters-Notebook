@@ -1,4 +1,4 @@
-Bounty Board
+Dungeon Crafters Notebook
 
 This react and vite app allows users to create and manage information for a TTRPG.
 They can customize categories and store data in them.
