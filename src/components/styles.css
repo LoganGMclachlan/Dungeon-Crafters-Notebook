@@ -1,0 +1,43 @@
+.background{
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+
+body{
+    background-image: url('/src/assets/background.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+.menu{
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    border: 3px solid black;
+    background-color: beige;
+}
+
+.tab-container{
+    width:100%;
+    margin-bottom: 10px;
+}
+
+.tab{
+    width:25%;
+    height: 50px;
+    background-color: black;
+    border: none;
+    color:white;
+    cursor: pointer;
+    font-size: 16px;
+}
+.tab:hover{
+    text-decoration: underline;
+}
+
+.selected{
+    background-color: beige;
+    color:black
+}
