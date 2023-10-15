@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import Layout from './components/Layout'
 import Home from './components/home/Home'
-import NoPage from './components/NoPage'
 const NoPage = lazy(() => import('./components/NoPage'))
 const Login = lazy(() => import('./components/authentication/Login'))
 const Register = lazy(() => import('./components/authentication/Register'))
@@ -23,18 +22,19 @@ export default function App() {
   }, [user])
 
   return (
+    
+  <Suspense fallback="Loading Page...">
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route index element={<Home user={user} logout={() => setUser(null)}/>}/>
-        <Suspense fallback="Loading Page...">
-          <Route path="login" element={<Login setUser={setUser}/>}/>
-          <Route path="register" element={<Register setUser={setUser}/>}/>
+          <Route path="login" element={<Login user={user} setUser={setUser}/>}/>
+          <Route path="register" element={<Register user={user} setUser={setUser}/>}/>
           <Route path="dashboard" element={<Dashboard user={user}/>}/>
           <Route path="*" element={<NoPage/>}/>
-        </Suspense>
       </Route>
     </Routes>
   </BrowserRouter>
+  </Suspense>
   )
 }
