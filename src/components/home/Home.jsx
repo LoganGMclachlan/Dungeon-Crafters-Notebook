@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Home({user,logout}){
     const [tabSelected, setTabSelected] = useState("select_game")
 
     return(
     <div className='menu'>
-    {!user
+    {user
         ?
         <>
             <div className='tab-container'>
@@ -28,12 +29,34 @@ export default function Home({user,logout}){
             </div>
             <div>
                 <h1>Home</h1>
+                {tabSelected === "select_game" &&
+                <>
+                    <h1>Select a Game</h1>
+                </>
+                }
+                {tabSelected === "create_game" &&
+                <>
+                    <h1>Create a Game</h1>
+                </>
+                }
+                {tabSelected === "about" &&
+                <>
+                    <h1>About</h1>
+                </>
+                }
+                {tabSelected === "account" &&
+                <>
+                    <h1>Account</h1>
+                    <button onClick={logout}>Logout</button>
+                </>
+                }
             </div>
         </>
 
         :
         <>
-            <h1>Not logged in, login</h1>
+            <h1>Welcome</h1>
+            <p><Link to="login">Login</Link> to start creating</p>
         </>
     }
     </div>

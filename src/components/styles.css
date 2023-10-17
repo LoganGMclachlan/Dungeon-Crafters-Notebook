@@ -21,7 +21,6 @@ body{
 
 .tab-container{
     width:100%;
-    margin-bottom: 10px;
 }
 
 .tab{
@@ -37,7 +36,41 @@ body{
     text-decoration: underline;
 }
 
+.wide{width:50%}
+
 .selected{
     background-color: beige;
     color:black
+}
+
+.container{
+    margin:20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.form-input{
+    margin:5px;
+    padding:4px;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.form-btn{
+    margin-top:8px
+}
+
+.google-login{
+    background-color: white;
+    padding:10px 30px 10px 30px;
+    border:2px solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.icon{
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+    margin-bottom: -4px;
 }
