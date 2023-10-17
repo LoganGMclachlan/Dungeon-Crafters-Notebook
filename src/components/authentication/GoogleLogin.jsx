@@ -4,7 +4,7 @@ export default function GoogleLogin({setUser}){
     return(
         <span className='google-login'>
             <img src={icon} className='icon'/>
-            Login With Google
+            Sign up with Google
         </span>
     )
 }

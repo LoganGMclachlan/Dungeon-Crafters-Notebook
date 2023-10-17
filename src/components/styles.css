@@ -57,7 +57,15 @@ body{
 }
 
 .form-btn{
-    margin-top:8px
+    margin-top:8px;
+    background-color: white;
+    border:2px solid;
+    padding:8px;
+    width:30%;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
 }
 
 .google-login{
