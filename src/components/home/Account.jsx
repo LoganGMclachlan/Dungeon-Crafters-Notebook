@@ -1,8 +1,21 @@
-export default function Account({user,logout}){
+import { auth } from "../../config/firebase"
+import { signOut } from "firebase/auth"
+
+export default function Account({user,setUser}){
+    async function Logout(){
+        try{
+            await signOut(auth)
+            setUser(null)
+        }
+        catch(error){ console.error(error) }
+    }
+
     return(
         <>
-            <h1>Account</h1>
-            <button onClick={logout}>Logout</button>
+            {user.photoURL && <img src={user.photoURL} className="user-img"/>}
+            <h1>{user.email}</h1>
+            {user.displayName && <h2>{user.displayName}</h2>}
+            <button onClick={Logout} className="form-btn">Logout</button>
         </>
     )
 }
