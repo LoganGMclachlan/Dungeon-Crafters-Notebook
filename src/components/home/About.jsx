@@ -13,22 +13,6 @@ export default function About(){
                 <li>Use the mapping tool to place custom makers on a map.</li>
                 <li>Easily share your info with your players with a simple link.</li>
             </ul>
-            <h2>Technology Used</h2>
-            To create this application, many Technologies were used.
-            <table>
-                <tr>
-                    <th>Frontend Library</th>
-                    <th>Backend</th>
-                    <th>Styling</th>
-                    <th>Other</th>
-                </tr>
-                <tr>
-                    <td>React + Vite</td>
-                    <td>Firebase</td>
-                    <td>CSS<br/>Bootstrap</td>
-                    <td>JavaScipt</td>
-                </tr>
-            </table>
         </div>
     )
 }

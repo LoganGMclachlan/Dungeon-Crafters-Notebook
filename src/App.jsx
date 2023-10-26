@@ -21,12 +21,11 @@ export default function App() {
   }, [user])
 
   return (
-    
   <Suspense fallback="Loading Page...">
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout/>}>
-        <Route index element={<Home user={user} logout={() => setUser(null)}/>}/>
+        <Route index element={<Home user={user} setUser={setUser}/>}/>
           <Route path="login" element={<Authenticate user={user} setUser={setUser}/>}/>
           <Route path="dashboard" element={<Dashboard user={user}/>}/>
           <Route path="*" element={<NoPage/>}/>

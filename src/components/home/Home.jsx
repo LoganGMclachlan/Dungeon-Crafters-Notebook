@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
+import CreateGame from './CreateGame'
 const About = lazy(() => import('./About'))
 const Account = lazy(() => import('./Account'))
 
-export default function Home({user,logout}){
+export default function Home({user,setUser}){
     const [tabSelected, setTabSelected] = useState("select_game")
 
     return(
@@ -30,8 +31,7 @@ export default function Home({user,logout}){
                 :<button className='tab' onClick={() => setTabSelected("about")}>About</button>
                 }
             </div>
-            <div>
-                <h1>Home</h1>
+            <div className='container'>
                 <Suspense fallback="Loading Tab...">
                     {tabSelected === "select_game" &&
                     <>
@@ -39,24 +39,20 @@ export default function Home({user,logout}){
                     </>
                     }
 
-                    {tabSelected === "create_game" &&
-                    <>
-                        <h1>Create a Game</h1>
-                    </>
-                    }
+                    {tabSelected === "create_game" && <CreateGame/>}
 
                     {tabSelected === "about" && <About/>}
 
-                    {tabSelected === "account" && <Account user={user} logout={logout}/>}
+                    {tabSelected === "account" && <Account user={user} setUser={setUser}/>}
                 </Suspense>
             </div>
         </>
 
         :
-        <>
+        <div className='container'>
             <h1>Welcome</h1>
             <p><Link to="login">Login</Link> to start creating</p>
-        </>
+        </div>
     }
     </div>
     )
