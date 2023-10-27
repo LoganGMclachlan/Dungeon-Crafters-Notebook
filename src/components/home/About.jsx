@@ -2,7 +2,7 @@ export default function About(){
     return(
         <div>
             <h1>About</h1>
-            <ul>
+            <ul style={{"listStyle":"none","margin-left":"-40px"}}>
                 <li>Dungeon Crafters Notebook provides a campeign manegement tool
                     for game master of a TTRPG.</li>
                 <li>Here you can create games to store
