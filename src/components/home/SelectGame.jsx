@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { collection, getDocs } from "firebase/firestore"
 import GameSnippet from "./GameSnippet"
 import { db } from '../../config/firebase'
@@ -11,7 +11,7 @@ export default function SelectGame({userId}){
         getGames()
     }, [])
 
-    async function getGames(){
+    const getGames = useCallback(async () => {
         try{
             const rawData = await getDocs(collection(db,"Games"))
             const filteredData = rawData.docs.map(doc => ({
@@ -20,7 +20,7 @@ export default function SelectGame({userId}){
             setGames(filteredData.filter(game => game.userid === userId))
         }
         catch(err){console.error(err)}
-    }
+    })
 
     return (
         <>
