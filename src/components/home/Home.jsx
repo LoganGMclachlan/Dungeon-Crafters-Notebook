@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import CreateGame from './CreateGame'
+import SelectGame from './SelectGame'
 const About = lazy(() => import('./About'))
 const Account = lazy(() => import('./Account'))
 
@@ -33,12 +34,8 @@ export default function Home({user,setUser}){
             </div>
             <div className='container'>
                 <Suspense fallback="Loading Tab...">
-                    {tabSelected === "select_game" &&
-                    <>
-                        <h1>Select a Game</h1>
-                    </>
-                    }
-
+                    {tabSelected === "select_game" && <SelectGame userId={user.uid}/>}
+                    
                     {tabSelected === "create_game" && <CreateGame/>}
 
                     {tabSelected === "about" && <About/>}

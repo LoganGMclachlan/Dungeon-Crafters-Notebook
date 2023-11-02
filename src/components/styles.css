@@ -93,3 +93,13 @@ body{
     margin-right: 10px;
     margin-bottom: -4px;
 }
+
+.game-snippet{
+    padding:15px;
+}
+
+.snippet-container{
+    display: flex;
+    justify-content: center;
+    gap:20px
+}

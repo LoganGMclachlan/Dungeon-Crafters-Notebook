@@ -26,9 +26,9 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route index element={<Home user={user} setUser={setUser}/>}/>
-          <Route path="login" element={<Authenticate user={user} setUser={setUser}/>}/>
-          <Route path="dashboard" element={<Dashboard user={user}/>}/>
-          <Route path="*" element={<NoPage/>}/>
+        <Route path="login" element={<Authenticate user={user} setUser={setUser}/>}/>
+        <Route path="dashboard" element={<Dashboard user={user}/>}/>
+        <Route path="*" element={<NoPage/>}/>
       </Route>
     </Routes>
   </BrowserRouter>
