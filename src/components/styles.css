@@ -20,10 +20,6 @@ body{
     background-color: beige;
 }
 
-.tab-container{
-    width:100%;
-}
-
 .tab{
     width:25%;
     height: 50px;
@@ -102,4 +98,28 @@ body{
     display: flex;
     justify-content: center;
     gap:20px
+}
+
+.nav-bar{
+    width:100%;
+    margin-top:-20px;
+    margin-left:-10px;
+    padding:9px;
+    display:flex;
+    padding-bottom: 0px;
+    gap:20px;
+    flex-wrap: wrap;
+}
+
+.nav-item{
+    background:none;
+    font-size: 1.7em;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-title{
+    font-size: 2em;
+    border-right: 2px black solid;
+    padding-right: 20px;
 }

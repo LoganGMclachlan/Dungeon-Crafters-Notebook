@@ -14,7 +14,7 @@ export default function Home({user,setUser}){
     {user
         ?
         <>
-            <div className='tab-container'>
+            <div>
                 {tabSelected === "select_game"
                 ?<button className='tab selected'>Select Game</button>
                 :<button className='tab' onClick={() => setTabSelected("select_game")}>Select Game</button>
