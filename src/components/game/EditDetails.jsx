@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { db } from "../../config/firebase"
 import { updateDoc, doc } from "firebase/firestore"
+import { Link } from "react-router-dom"
 
 export default function EditDetails({game, setGame}){
     const [newTitle, setNewTitle] = useState(game.title)
@@ -44,6 +45,7 @@ export default function EditDetails({game, setGame}){
                     <button type='submit' className='form-btn'>Save Details</button>
                 </form>
                 
+                <Link to="/"><button className='form-btn'>Exit Game</button></Link><br/>
                 <button  className='form-btn' style={{"backgroundColor":"red"}}>Delete Game</button>
             </div>
         </div>
