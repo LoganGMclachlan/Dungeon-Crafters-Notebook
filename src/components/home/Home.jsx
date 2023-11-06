@@ -36,7 +36,7 @@ export default function Home({user,setUser}){
                 <Suspense fallback="Loading Tab...">
                     {tabSelected === "select_game" && <SelectGame userId={user.uid}/>}
                     
-                    {tabSelected === "create_game" && <CreateGame/>}
+                    {tabSelected === "create_game" && <CreateGame userId={user.uid} goto={setTabSelected}/>}
 
                     {tabSelected === "about" && <About/>}
 

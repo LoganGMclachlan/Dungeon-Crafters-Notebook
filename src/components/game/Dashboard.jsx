@@ -6,12 +6,14 @@ import { getDoc, doc } from "firebase/firestore"
 
 export default function Dashboard({user}){
     const location = useLocation()
-    const [game, setGame] = useState()
+    const [game, setGame] = useState({"title":"Loading...","colour":"red"})
     const [tabSelected, setTabSelected] = useState("details")
+    const [blocks, setBlocks] = useState([])
 
     useEffect(() => {
         // gets game info when component loads
         getGameInfo()
+        getBlocksInfo()
     }, [])
 
     const getGameInfo = useCallback(async () => {
@@ -23,13 +25,18 @@ export default function Dashboard({user}){
         catch(err){console.error(err)}
     })
 
+    const getBlocksInfo = useCallback(async () => {
+        try{
+
+        }
+        catch(err){console.error(err)}
+    })
+
 
     return(
     <>
     {user
     ?
-    <>
-    {game &&
     <>
     <div className='nav-bar' style={{"backgroundColor":""+game.colour}}>
         <h1 className='nav-title'>{game.title}</h1>
@@ -52,10 +59,8 @@ export default function Dashboard({user}){
     </div>
 
     <div>
-        {tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}
+        {game.title != "Loading..." && tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}   
     </div>
-    </>
-    }
     </>
 
     : <h1 className='menu'>You must first <Link to="/login">login</Link> to access this page</h1>

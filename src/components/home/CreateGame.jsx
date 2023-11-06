@@ -1,17 +1,29 @@
 import { useState } from "react"
+import { collection, addDoc } from "firebase/firestore"
+import { db } from "../../config/firebase"
 
-export default function CreateGame({userId}){
+export default function CreateGame({userId, goto}){
     const [title, setTitle] = useState("")
 
-    function NewGame(){
+    async function NewGame(){
         if(title === ""){
             alert("Enter a title for your game.")
             return
         }
+        if(title === "Loading..."){
+            alert("Invalid game title.")
+            return
+        }
 
-        // create new game property with title & default values
-        // upload to firebase
-        // go to game dashboard, pass game as state
+        try{
+            await addDoc(collection(db, "Games"), {
+                "title":title,
+                "userid": userId,
+                "colour":"red"
+            })
+            goto("select_game")
+        }
+        catch(err){console.error(err)}
     }
 
     return (
