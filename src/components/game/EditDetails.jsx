@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { db } from "../../config/firebase"
-import { updateDoc, doc } from "firebase/firestore"
-import { Link } from "react-router-dom"
+import { updateDoc, doc, deleteDoc } from "firebase/firestore"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function EditDetails({game, setGame}){
+    const navigate = useNavigate()
     const [newTitle, setNewTitle] = useState(game.title)
     const [newColour, setNewColour] = useState(game.colour)
 
@@ -21,6 +22,16 @@ export default function EditDetails({game, setGame}){
                 doc(db, "Games", game.id),
                 {title:newTitle,colour:newColour}
             )
+        }
+        catch(error){console.error(error)}
+    }
+
+    async function deleteGame(){
+        if(!window.confirm("Are you sure you want to delete this game?")){return}
+
+        try{
+            await deleteDoc(doc(db, "Games", game.id))
+            navigate("/")
         }
         catch(error){console.error(error)}
     }
@@ -46,7 +57,8 @@ export default function EditDetails({game, setGame}){
                 </form>
                 
                 <Link to="/"><button className='form-btn'>Exit Game</button></Link><br/>
-                <button  className='form-btn' style={{"backgroundColor":"red"}}>Delete Game</button>
+                <button  className='form-btn' style={{"backgroundColor":"red"}}
+                    onClick={() => deleteGame()}>Delete Game</button>
             </div>
         </div>
     )
