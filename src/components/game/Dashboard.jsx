@@ -1,37 +1,28 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import EditDetails from './EditDetails'
-import { db } from "../../config/firebase"
-import { getDoc, doc } from "firebase/firestore"
+import useFetchData from './useFetchData'
+import { GameContext, FolderContext, BlockContext } from "./GameContext"
 
 export default function Dashboard({user}){
     const location = useLocation()
-    const [game, setGame] = useState({"title":"Loading...","colour":"red"})
     const [tabSelected, setTabSelected] = useState("details")
-    const [blocks, setBlocks] = useState([])
+    const [game, setGame] = useContext(GameContext)
+    // const [, setFolders] = useContext(FolderContext)
+    // const [blocks, setBlocks] = useContext(BlockContext)
 
     useEffect(() => {
-        // gets game info when component loads
-        getGameInfo()
-        getBlocksInfo()
-    }, [])
+        configContext()
+    },[])
 
-    const getGameInfo = useCallback(async () => {
-        try{
-            const rawData = await getDoc(doc(db, "Games", location.state?.gameid))
-            const filteredData = {...rawData.data(), id: rawData.id}
-            setGame(filteredData)
+    function configContext(){
+        const data = useFetchData(location?.state.gameid)
+        if (data.status === "fetched"){
+            setGame(data.game)
+            // setFolders(data.folders)
+            // setBlocks(data.blocks)
         }
-        catch(err){console.error(err)}
-    })
-
-    const getBlocksInfo = useCallback(async () => {
-        try{
-
-        }
-        catch(err){console.error(err)}
-    })
-
+    }
 
     return(
     <>
@@ -59,7 +50,7 @@ export default function Dashboard({user}){
     </div>
 
     <div>
-        {game.title != "Loading..." && tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}   
+        {game.title != "Loading..." && tabSelected === "details" && <EditDetails/>}   
     </div>
     </>
 

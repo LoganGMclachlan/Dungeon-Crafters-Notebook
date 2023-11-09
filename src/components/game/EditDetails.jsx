@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { db } from "../../config/firebase"
 import { updateDoc, doc, deleteDoc } from "firebase/firestore"
 import { Link, useNavigate } from "react-router-dom"
+import { GameContext } from "./GameContext"
 
-export default function EditDetails({game, setGame}){
+export default function EditDetails(){
     const navigate = useNavigate()
     const [newTitle, setNewTitle] = useState(game.title)
     const [newColour, setNewColour] = useState(game.colour)
+    const [game, setGame] = useContext(GameContext)
 
     async function SaveDetails(e){
         e.preventDefault()
