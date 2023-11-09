@@ -13,7 +13,7 @@ export default function Account({user,setUser}){
     return(
         <>
             {user.photoURL && <img src={user.photoURL} className="user-img"/>}
-            <h1>{user.email}</h1>
+            <h2>{user.email}</h2>
             {user.displayName && <h2>{user.displayName}</h2>}
             <button onClick={Logout} className="form-btn">Logout</button>
         </>
