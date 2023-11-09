@@ -1,28 +1,26 @@
-import { useContext, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import EditDetails from './EditDetails'
-import useFetchData from './useFetchData'
-import { GameContext, FolderContext, BlockContext } from "./GameContext"
+import { db } from '../../config/firebase'
+import { getDoc, doc } from 'firebase/firestore'
 
 export default function Dashboard({user}){
     const location = useLocation()
     const [tabSelected, setTabSelected] = useState("details")
-    const [game, setGame] = useContext(GameContext)
-    // const [, setFolders] = useContext(FolderContext)
-    // const [blocks, setBlocks] = useContext(BlockContext)
+    const [game,setGame] = useState({"title":"Loading...","colour":"red"})
 
     useEffect(() => {
-        configContext()
-    },[])
+        getGameData()
+    }, [])
 
-    function configContext(){
-        const data = useFetchData(location?.state.gameid)
-        if (data.status === "fetched"){
-            setGame(data.game)
-            // setFolders(data.folders)
-            // setBlocks(data.blocks)
+    const getGameData = useCallback(async () => {
+        try{
+            const rawData = await getDoc(doc(db, "Games", location?.state.gameid))
+            const filteredData = {...rawData.data(), id: rawData.id}
+            setGame(filteredData)
         }
-    }
+        catch(err){console.error(err)}
+    })
 
     return(
     <>
@@ -50,7 +48,7 @@ export default function Dashboard({user}){
     </div>
 
     <div>
-        {game.title != "Loading..." && tabSelected === "details" && <EditDetails/>}   
+        {game.title !== "Loading..." && tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}
     </div>
     </>
 
