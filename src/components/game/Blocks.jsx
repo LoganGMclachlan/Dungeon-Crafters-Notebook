@@ -25,18 +25,19 @@ export default function Blocks({blocks,setBlocks,gameId}){
     })
 
     return(
-        <div>
-            <div>
+        <div style={{"display":"flex"}}>
+            <div className="folderList">
                 <h2>Your Blocks</h2>
                 {folders.length > 0 &&
                 <FolderList folders={folders} setFolders={setFolders}
                     blocks={blocks} setBlocks={setBlocks}
                     select={setSelected}/>
                 }
-                <input placeholder="Folder title..."/>
-                <button>New Folder</button>
+                <input placeholder="Folder title..." className="form-input"/>
+                <button className="form-btn" style={{"marginBottom":"10px","width":"85%","padding":"5px"}}>
+                    New Folder</button>
             </div>
-            <div>
+            <div className="block">
                 {selected && <Block block={selected}/>}
             </div>
         </div>

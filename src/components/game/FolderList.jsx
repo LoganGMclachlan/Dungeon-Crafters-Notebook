@@ -12,15 +12,17 @@ export default function FolderList({folders,setFolders,blocks,setBlocks,select})
     }
 
     return(
-        <Accordion style={{width:50+'%'}}>
+        <Accordion className="accordion-container">
         {folders.map(folder =>
-            <Accordion.Item key={folder.id} eventKey={folder.id}>
+            <Accordion.Item key={folder.id} eventKey={folder.id} style={{"border":"1px solid grey"}}>
                 <Accordion.Header>{folder.title}</Accordion.Header>
-                <Accordion.Body>
+                <Accordion.Body style={{"padding":"10px"}}>
                     <div>
                     <BlockList blocks={blocks.filter(block => block.folderid === folder.id)} select={select}/>
-                    <button>New Block</button>
-                    <button>Delete Folder</button>
+                    <span>
+                    <button style={{"width":"45%"}}>New Block</button>
+                    <button style={{"width":"55%","backgroundColor":"red"}}>Delete Folder</button>
+                    </span> 
                     </div>
                 </Accordion.Body>
             </Accordion.Item>

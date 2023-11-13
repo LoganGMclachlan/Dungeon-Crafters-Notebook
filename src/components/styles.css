@@ -120,3 +120,45 @@ body{
     border-right: 2px black solid;
     padding-right: 20px;
 }
+
+.folderList{
+    width:20%;
+    padding: 10px;
+    padding-bottom: 0px;
+    background-color: white;
+    border:black 2px solid;
+    border-radius: 10px;
+    margin:20px;
+    text-align: center;
+}
+
+.accordion-container{
+    height: 310px;
+    overflow-y: scroll;
+}
+
+.block{
+    margin-top:20px;
+    min-width: 35%;
+    max-width: 65%;
+    max-height: 470px;
+    border: 2px solid black;
+    padding:10px;
+    border-radius: 10px;
+    background-color: beige;
+}
+
+.block-snippets{
+    list-style: none;
+    padding-left: 0px;
+    text-align: left;
+}
+
+.block-snippets li{
+    margin-bottom:-10px;
+    cursor: pointer;
+}
+
+.block-snippets li:hover{
+    text-decoration: underline;
+}
