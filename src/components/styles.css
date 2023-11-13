@@ -124,11 +124,11 @@ body{
 .folderList{
     width:20%;
     padding: 10px;
-    padding-bottom: 0px;
     background-color: white;
     border:black 2px solid;
     border-radius: 10px;
     margin:20px;
+    margin-bottom: 0px;
     text-align: center;
 }
 

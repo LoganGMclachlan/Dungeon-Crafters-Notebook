@@ -34,12 +34,11 @@ export default function Blocks({blocks,setBlocks,gameId}){
                     select={setSelected}/>
                 }
                 <input placeholder="Folder title..." className="form-input"/>
-                <button className="form-btn" style={{"marginBottom":"10px","width":"85%","padding":"5px"}}>
+                <button className="form-btn" style={{"width":"85%","padding":"5px"}}>
                     New Folder</button>
             </div>
-            <div className="block">
-                {selected && <Block block={selected}/>}
-            </div>
+
+            {selected && <Block block={selected}/>}
         </div>
     )
 }
