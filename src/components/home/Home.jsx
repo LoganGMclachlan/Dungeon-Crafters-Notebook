@@ -16,7 +16,7 @@ export default function Home({user,setUser}){
         <>
             <div>
                 {tabSelected === "select_game"
-                ?<button className='tab selected'>Select Game</button>
+                ?<button className='tab selected' style={{"borderTopLeftRadius":"10px"}}>Select Game</button>
                 :<button className='tab' onClick={() => setTabSelected("select_game")}>Select Game</button>
                 }
                 {tabSelected === "create_game"
@@ -28,7 +28,7 @@ export default function Home({user,setUser}){
                 :<button className='tab' onClick={() => setTabSelected("account")}>Account</button>
                 }
                 {tabSelected === "about"
-                ?<button className='tab selected'>About</button>
+                ?<button className='tab selected' style={{"borderTopRightRadius":"10px"}}>About</button>
                 :<button className='tab' onClick={() => setTabSelected("about")}>About</button>
                 }
             </div>
