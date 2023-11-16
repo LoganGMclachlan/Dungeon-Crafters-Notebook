@@ -5,7 +5,7 @@ import FolderList from "./FolderList"
 import Block from "./Block"
 import NewFolder from "./NewFolder"
 
-export default function Blocks({blocks,setBlocks,gameId}){
+export default function Blocks({blocks,gameId,getBlockData}){
     const [folders, setFolders] = useState([])
     const [selected, setSelected] = useState(null)
 
@@ -31,9 +31,8 @@ export default function Blocks({blocks,setBlocks,gameId}){
             <div className="folderList">
                 <h2>Your Blocks</h2>
                 {folders.length > 0 &&
-                <FolderList folders={folders} setFolders={setFolders}
-                    blocks={blocks} setBlocks={setBlocks}
-                    select={setSelected}/>
+                <FolderList folders={folders} blocks={blocks}
+                    select={setSelected} getFolderData={getFolderData}/>
                 }
 
                 <NewFolder getFolderData={getFolderData} gameId={gameId}/>
