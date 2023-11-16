@@ -4,6 +4,7 @@ import { db } from '../../config/firebase'
 import { getDoc, doc, getDocs, collection } from 'firebase/firestore'
 import EditDetails from './EditDetails'
 import Blocks from './Blocks'
+import Navbar from './Navbar'
 
 export default function Dashboard({user}){
     const location = useLocation()
@@ -43,32 +44,14 @@ export default function Dashboard({user}){
     {user
     ?
     <>
-    <div className='nav-bar' style={{"backgroundColor":""+game.colour}}>
-        <h1 className='nav-title'>{game.title}</h1>
-        {tabSelected === "details"
-        ?<button className='nav-item' style={{"textDecoration":"underline"}}>Details</button>
-        :<button className='nav-item' onClick={() => setTabSelected("details")}>Details</button>
-        }
-        {tabSelected === "blocks"
-        ?<button className='nav-item' style={{"textDecoration":"underline"}}>Blocks</button>
-        :<button className='nav-item' onClick={() => setTabSelected("blocks")}>Blocks</button>
-        }
-        {tabSelected === "boards"
-        ?<button className='nav-item' style={{"textDecoration":"underline"}}>Boards</button>
-        :<button className='nav-item' onClick={() => setTabSelected("boards")}>Boards</button>
-        }
-        {tabSelected === "maps"
-        ?<button className='nav-item' style={{"textDecoration":"underline"}}>Maps</button>
-        :<button className='nav-item' onClick={() => setTabSelected("maps")}>Maps</button>
-        }
-    </div>
+    <Navbar selected={tabSelected} setSelected={setTabSelected} game={game}/>
 
     <div>
         {game.title !== "Loading..." &&
         <>
         {tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}
         
-        {tabSelected === "blocks" && <Blocks blocks={blocks} setBlocks={setBlocks} gameId={game.id}/>}
+        {tabSelected === "blocks" && <Blocks blocks={blocks} getBlockData={getBlockData} gameId={game.id}/>}
         </>
         }
     </div>
