@@ -11,7 +11,7 @@ export default function Blocks({blocks,gameId,getBlockData}){
 
     useEffect(() => {
         getFolderData()
-    }, [])
+    }, [folders])
 
     const getFolderData = useCallback(async () => {
         try{
@@ -50,7 +50,7 @@ export default function Blocks({blocks,gameId,getBlockData}){
                 <NewFolder getFolderData={getFolderData} gameId={gameId}/>
             </div>
 
-            {selected && <Block block={selected}/>}
+            {selected && <Block block={selected} getBlockData={getBlockData} close={() => setSelected(null)}/>}
         </div>
     )
 }

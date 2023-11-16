@@ -142,8 +142,7 @@ body{
 
 .block{
     margin-top:20px;
-    min-width: 35%;
-    max-width: 65%;
+    width: 75%;
     max-height: 470px;
     border: 2px solid black;
     padding:10px;
@@ -164,4 +163,28 @@ body{
 
 .block-snippets li:hover{
     text-decoration: underline;
+}
+
+.x-btn{
+    float:right;
+    width:25px;
+    height: 25px;
+    background-color: white;
+    border-width: 1px;
+    padding-top: 0px;
+}
+
+.block-title{
+    font-size: 1.5em;
+    width:80%;
+    text-align: center;
+}
+
+.block-content{
+    width:100%;
+    padding: 5px;
+    margin-top: 10px;
+    height: 75%;
+    resize: none;
+    overflow-y: scroll;
 }

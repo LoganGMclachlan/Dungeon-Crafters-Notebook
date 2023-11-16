@@ -15,7 +15,7 @@ export default function Dashboard({user}){
     useEffect(() => {
         getGameData()
         getBlockData()
-    }, [])
+    }, [game, blocks])
 
     // gets game info from id
     const getGameData = useCallback(async () => {
