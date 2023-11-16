@@ -3,6 +3,7 @@ import { db } from '../../config/firebase'
 import { getDocs, collection } from 'firebase/firestore'
 import FolderList from "./FolderList"
 import Block from "./Block"
+import NewFolder from "./NewFolder"
 
 export default function Blocks({blocks,setBlocks,gameId}){
     const [folders, setFolders] = useState([])
@@ -14,12 +15,13 @@ export default function Blocks({blocks,setBlocks,gameId}){
 
     const getFolderData = useCallback(async () => {
         try{
+            console.log(gameId)
             const rawData = await getDocs(collection(db, "Folders"))
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
             console.log(filteredData)
-            setFolders(filteredData.filter(folder => folder.gameid !== gameId))
+            setFolders(filteredData.filter(folder => folder.gameid === gameId))
         }
         catch(err){console.error(err)}
     })
@@ -33,9 +35,8 @@ export default function Blocks({blocks,setBlocks,gameId}){
                     blocks={blocks} setBlocks={setBlocks}
                     select={setSelected}/>
                 }
-                <input placeholder="Folder title..." className="form-input"/>
-                <button className="form-btn" style={{"width":"85%","padding":"5px"}}>
-                    New Folder</button>
+
+                <NewFolder getFolderData={getFolderData} gameId={gameId}/>
             </div>
 
             {selected && <Block block={selected}/>}

@@ -68,7 +68,7 @@ export default function Dashboard({user}){
         <>
         {tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}
         
-        {tabSelected === "blocks" && <Blocks blocks={blocks} setBlocks={setBlocks} gameid={game.id}/>}
+        {tabSelected === "blocks" && <Blocks blocks={blocks} setBlocks={setBlocks} gameId={game.id}/>}
         </>
         }
     </div>
