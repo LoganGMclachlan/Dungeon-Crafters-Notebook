@@ -1,13 +1,9 @@
-import { deleteDoc, doc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import BlockList from "./BlockList"
 import Accordion from "react-bootstrap/Accordion";
 import { db } from "../../config/firebase";
 
-export default function FolderList({folders,blocks,select,getFolderData}){
-
-    function newBlock(){
-        // TODO
-    }
+export default function FolderList({folders,blocks,select,getFolderData,newBlock}){
 
     async function deleteFolder(folder){
         // makes user confirm their decision to delete 
@@ -22,6 +18,8 @@ export default function FolderList({folders,blocks,select,getFolderData}){
             })
             // deletes folder
             await deleteDoc(doc(db, "Folders", folder.id))
+            // re-loads folders
+            getFolderData()
             // notifies user
             alert("Folders deleted succesfuly")
         }
@@ -41,8 +39,9 @@ export default function FolderList({folders,blocks,select,getFolderData}){
                 <Accordion.Body style={{"padding":"10px"}}>
                     <BlockList blocks={blocks.filter(block => block.folderid === folder.id)} select={select}/>
                     
-                    <span>
-                        <button style={{"width":"45%"}}>New Block</button>
+                    <span style={{"fontSize":"0.9em"}}>
+                        <button style={{"width":"45%"}}
+                            onClick={() => newBlock(folder.id)}>New Block</button>
 
                         <button style={{"width":"55%","backgroundColor":"red"}}
                             onClick={() => deleteFolder(folder)}>Delete Folder</button>

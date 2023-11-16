@@ -26,13 +26,25 @@ export default function Blocks({blocks,gameId,getBlockData}){
         catch(err){console.error(err)}
     })
 
+    
+    async function newBlock(folderId){
+        // create new block object and sets it as selected
+        setSelected({
+            "title":"New Block",
+            "content":"",
+            "gameid":gameId,
+            "folderid":folderId,
+            "new":true// determines to update old or add new when saved
+        })
+    }
+
     return(
         <div style={{"display":"flex"}}>
             <div className="folderList">
                 <h2>Your Blocks</h2>
                 {folders.length > 0 &&
-                <FolderList folders={folders} blocks={blocks}
-                    select={setSelected} getFolderData={getFolderData}/>
+                <FolderList folders={folders} blocks={blocks} select={setSelected}
+                    getFolderData={getFolderData} newBlock={newBlock}/>
                 }
 
                 <NewFolder getFolderData={getFolderData} gameId={gameId}/>

@@ -34,7 +34,7 @@ export default function Dashboard({user}){
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            setBlocks(filteredData.filter(block => block.gameid !== game.id))
+            setBlocks(filteredData.filter(block => block.gameid === game.id))
         }
         catch(err){console.error(err)}
     })
