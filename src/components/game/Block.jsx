@@ -1,35 +1,59 @@
 import { useState } from "react"
 import { db } from "../../config/firebase"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore"
+import { useEffect } from "react"
 
-export default function FolderList({block, getBlockData, close}){
+export default function FolderList({block, setBlocks, close, blocks}){
     const [processFinnished,setProcessFinnished] = useState(true)
+    const [title, setTitle] = useState()
+    const [content, setContent] = useState()
 
-    function Save(e){
+    // resets local state data when new block is selceted
+    useEffect(() => {
+        setTitle(block.title)
+        setContent(block.content)
+    }, [block])
+
+    async function Save(e){
         e.preventDefault()
         setProcessFinnished(false)
+        
+        // copy of block with new data
+        let newBlock = block
+        newBlock.title = title
+        newBlock.content = content
+
         try{
             // checks wether to save new block or to update existing one
-            if (block.new){ AddNewBlock(block) }
-            UpdateBlock(block)
+            if (block.new){ 
+                delete newBlock.new// removes new property
+
+                // saves new block to firebase
+                await addDoc(collection(db, "Blocks"), newBlock)// adds new block to firebase
+
+                // adds new block to block list
+                setBlocks([...blocks,newBlock])
+            }else{
+                await updateDoc(
+                    doc(db,"Blocks",block.id),
+                    {title:title,content:content}
+                )
+
+                setBlocks(blocks.map(b => {
+                    if(b.id === newBlock.id){
+                        return newBlock
+                    }
+                    return b
+                }))
+            }
         }
         catch(error){
             console.error(error)
             alert("Failed to save this block, try again later.")
         }
         finally{
-            getBlockData()// refreshes block data
             setProcessFinnished(true)
         }
-    }
-
-    async function AddNewBlock(block){
-        delete block.new// removes new property
-        await addDoc(collection(db, "Blocks"), block)// adds new block to firebase
-        
-    }
-    async function UpdateBlock(block){
-        
     }
 
     async function Delete(){
@@ -44,11 +68,13 @@ export default function FolderList({block, getBlockData, close}){
                 <button className="x-btn" onClick={close}>X</button>
 
                 <input
-                    value={block.title}
-                    className="block-title"/><br/>
+                    value={title}
+                    className="block-title"
+                    onChange={e => setTitle(e.target.value)}/><br/>
                 <textarea
-                    value={block.content}
-                    className="block-content"/><br/>
+                    value={content}
+                    className="block-content"
+                    onChange={e => setContent(e.target.value)}/><br/>
             </div>
 
             <div>

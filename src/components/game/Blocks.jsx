@@ -5,22 +5,20 @@ import FolderList from "./FolderList"
 import Block from "./Block"
 import NewFolder from "./NewFolder"
 
-export default function Blocks({blocks,gameId,getBlockData}){
+export default function Blocks({blocks,gameId,setBlocks}){
     const [folders, setFolders] = useState([])
     const [selected, setSelected] = useState(null)
 
     useEffect(() => {
         getFolderData()
-    }, [folders])
+    }, [])
 
     const getFolderData = useCallback(async () => {
         try{
-            console.log(gameId)
             const rawData = await getDocs(collection(db, "Folders"))
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            console.log(filteredData)
             setFolders(filteredData.filter(folder => folder.gameid === gameId))
         }
         catch(err){console.error(err)}
@@ -50,7 +48,7 @@ export default function Blocks({blocks,gameId,getBlockData}){
                 <NewFolder getFolderData={getFolderData} gameId={gameId}/>
             </div>
 
-            {selected && <Block block={selected} getBlockData={getBlockData} close={() => setSelected(null)}/>}
+            {selected && <Block block={selected} blocks={blocks} setBlocks={setBlocks} close={() => setSelected(null)}/>}
         </div>
     )
 }
