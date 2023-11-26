@@ -1,31 +1,12 @@
-import { useEffect, useState, useCallback } from "react"
-import { db } from '../../config/firebase'
-import { getDocs, collection } from 'firebase/firestore'
+import { useState } from "react"
 import FolderList from "./FolderList"
 import Block from "./Block"
 import NewFolder from "./NewFolder"
 
-export default function Blocks({blocks,gameId,setBlocks}){
-    const [folders, setFolders] = useState([])
+export default function Blocks({blocks,gameId,setBlocks,folders,setFolders}){
     const [selected, setSelected] = useState(null)
-
-    useEffect(() => {
-        getFolderData()
-    }, [])
-
-    const getFolderData = useCallback(async () => {
-        try{
-            const rawData = await getDocs(collection(db, "Folders"))
-            const filteredData = rawData.docs.map(doc => ({
-                ...doc.data(), id: doc.id
-            }))
-            setFolders(filteredData.filter(folder => folder.gameid === gameId))
-        }
-        catch(err){console.error(err)}
-    })
-
     
-    async function newBlock(folderId){
+    function newBlock(folderId){
         // create new block object and sets it as selected
         setSelected({
             "title":"New Block",
@@ -42,10 +23,10 @@ export default function Blocks({blocks,gameId,setBlocks}){
                 <h2>Your Blocks</h2>
                 {folders.length > 0 &&
                 <FolderList folders={folders} blocks={blocks} select={setSelected}
-                    getFolderData={getFolderData} newBlock={newBlock}/>
+                    newBlock={newBlock} setFolders={setFolders}/>
                 }
 
-                <NewFolder getFolderData={getFolderData} gameId={gameId}/>
+                <NewFolder setFolders={setFolders} folders={folders} gameId={gameId}/>
             </div>
 
             {selected && <Block block={selected} blocks={blocks} setBlocks={setBlocks} close={() => setSelected(null)}/>}

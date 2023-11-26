@@ -11,10 +11,12 @@ export default function Dashboard({user}){
     const [tabSelected, setTabSelected] = useState("details")
     const [game,setGame] = useState({"title":"Loading...","colour":"red"})
     const [blocks, setBlocks] = useState([])
+    const [folders, setFolders] = useState([])
 
     useEffect(() => {
         getGameData()
         getBlockData()
+        getFolderData()
     }, [])
 
     // gets game info from id
@@ -39,6 +41,17 @@ export default function Dashboard({user}){
         catch(err){console.error(err)}
     })
 
+    const getFolderData = useCallback(async () => {
+        try{
+            const rawData = await getDocs(collection(db, "Folders"))
+            const filteredData = rawData.docs.map(doc => ({
+                ...doc.data(), id: doc.id
+            }))
+            setFolders(filteredData.filter(folder => folder.gameid !== game.id))
+        }
+        catch(err){console.error(err)}
+    })
+
     return(
     <>
     {user
@@ -51,7 +64,9 @@ export default function Dashboard({user}){
         <>
         {tabSelected === "details" && <EditDetails game={game} setGame={setGame}/>}
         
-        {tabSelected === "blocks" && <Blocks blocks={blocks} setBlocks={setBlocks} gameId={game.id}/>}
+        {tabSelected === "blocks" && 
+            <Blocks blocks={blocks} setBlocks={setBlocks}
+                gameId={game.id} folders={folders} setFolders={setFolders}/>}
         </>
         }
     </div>

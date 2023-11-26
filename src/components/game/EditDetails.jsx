@@ -38,7 +38,7 @@ export default function EditDetails({game,setGame}){
 
     return(
         <div className="menu">
-            <div className="container">
+            <div className="container details">
                 <h1>Details</h1>
                 <form onSubmit={e => SaveDetails(e)}>
                     <label>Title:</label>
@@ -53,10 +53,10 @@ export default function EditDetails({game,setGame}){
                         onChange={e => setNewColour(e.target.value)}
                         className='form-input'
                     /><br/>
-                    <button type='submit' className='form-btn'>Save Details</button>
+                    <button type='submit' className='form-btn'>Save Details</button><hr/>
                 </form>
                 
-                <Link to="/"><button className='form-btn'>Exit Game</button></Link><br/>
+                <Link to="/"><button className='form-btn' style={{"marginRight":"10px"}}>Exit Game</button></Link>
                 <button  className='form-btn' style={{"backgroundColor":"red"}}
                     onClick={() => deleteGame()}>Delete Game</button>
             </div>

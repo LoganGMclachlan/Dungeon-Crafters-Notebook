@@ -3,7 +3,7 @@ import BlockList from "./BlockList"
 import Accordion from "react-bootstrap/Accordion";
 import { db } from "../../config/firebase";
 
-export default function FolderList({folders,blocks,select,getFolderData,newBlock}){
+export default function FolderList({folders,blocks,select,newBlock,setFolders}){
 
     async function deleteFolder(folder){
         // makes user confirm their decision to delete 
@@ -18,8 +18,8 @@ export default function FolderList({folders,blocks,select,getFolderData,newBlock
             })
             // deletes folder
             await deleteDoc(doc(db, "Folders", folder.id))
-            // re-loads folders
-            getFolderData()
+            // filters folders
+            setFolders(folders.filter(f => f.id === folder.id))
             // notifies user
             alert("Folders deleted succesfuly")
         }

@@ -3,7 +3,7 @@ import { useState } from "react"
 import { db } from "../../config/firebase"
 
 
-export default function NewFolder({getFolderData, gameId}){
+export default function NewFolder({setFolders, folders, gameId}){
     const [title, setTitle] = useState("")
 
     async function addNewFolder(e){
@@ -24,8 +24,8 @@ export default function NewFolder({getFolderData, gameId}){
                 "title":title,
                 "gameid":gameId
             })
-            // re-loads folder data
-            getFolderData()
+            
+            setFolders([...folders,{"title":title,"gameid":gameId}])
             // notifies user on success
             alert("New folder created succesfuly!")
         }

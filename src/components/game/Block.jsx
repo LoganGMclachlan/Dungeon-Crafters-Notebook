@@ -79,10 +79,10 @@ export default function FolderList({block, setBlocks, close, blocks}){
 
             <div>
                 {processFinnished
-                ?<button className="form-btn" style={{"marginRight":"10px"}}
-                onClick={e => Save(e)}>Save</button>
-                :<button className="form-btn" style={{"marginRight":"10px"}}
-                    >Saving...</button>
+                    ?<button className="form-btn" style={{"marginRight":"10px"}}
+                    onClick={e => Save(e)}>Save</button>
+                    :<button className="form-btn" style={{"marginRight":"10px"}}
+                        >Saving...</button>
                 }
                 
                 <button className="form-btn">Link</button>
