@@ -13,11 +13,11 @@ export default function Authenticate({user,setUser}){
         <div>
             <div className='tab-container'>
                 {tabSelected === "login"
-                ?<button className='tab wide selected'>Login</button>
+                ?<button className='tab wide selected' style={{"borderTopLeftRadius":"10px"}}>Login</button>
                 :<button className='tab wide' onClick={() => setTabSelected("login")}>Login</button>
                 }
                 {tabSelected === "register"
-                ?<button className='tab wide selected'>Register</button>
+                ?<button className='tab wide selected' style={{"borderTopRightRadius":"10px"}}>Register</button>
                 :<button className='tab wide' onClick={() => setTabSelected("register")}>Register</button>
                 }
             </div>

@@ -27,7 +27,6 @@ export default function Login({setUser}){
     return(
     <>
         <GoogleLogin setUser={setUser}/>
-        <p style={{"marginBottom":"0px"}}>or</p>
         <form onSubmit={e => Login(e)}>
             <input
                 placeholder='email...'

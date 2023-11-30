@@ -37,7 +37,6 @@ export default function Register({setUser}){
     return(
     <>
         <GoogleLogin setUser={setUser}/>
-        <p style={{"marginBottom":"0px"}}>or</p>
         <form onSubmit={e => Register(e)}>
             <input
                 placeholder='email...'
