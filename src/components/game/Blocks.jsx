@@ -2,6 +2,7 @@ import { useState } from "react"
 import FolderList from "./FolderList"
 import Block from "./Block"
 import NewFolder from "./NewFolder"
+import SearchBlocks from "./SearchBlocks"
 
 export default function Blocks({blocks,gameId,setBlocks,folders,setFolders}){
     const [selected, setSelected] = useState(null)
@@ -20,7 +21,8 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders}){
     return(
         <div style={{"display":"flex"}}>
             <div className="folderList">
-                <h2>Your Blocks</h2>
+                <SearchBlocks select={setSelected} blocks={blocks}/>
+                
                 {folders.length > 0 &&
                 <FolderList folders={folders} blocks={blocks} select={setSelected}
                     newBlock={newBlock} setFolders={setFolders}/>
