@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { db } from "../../config/firebase"
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useEffect } from "react"
 
 export default function FolderList({block, setBlocks, close, blocks}){
@@ -8,7 +8,7 @@ export default function FolderList({block, setBlocks, close, blocks}){
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
 
-    // resets local state data when new block is selceted
+    // updates local state data when new block is selceted
     useEffect(() => {
         setTitle(block.title)
         setContent(block.content)
@@ -18,7 +18,6 @@ export default function FolderList({block, setBlocks, close, blocks}){
         e.preventDefault()
         setProcessFinnished(false)
         
-        // copy of block with new data
         let newBlock = block
         newBlock.title = title
         newBlock.content = content
@@ -26,10 +25,9 @@ export default function FolderList({block, setBlocks, close, blocks}){
         try{
             // checks wether to save new block or to update existing one
             if (block.new){ 
-                delete newBlock.new// removes new property
+                delete newBlock.new
 
-                // saves new block to firebase
-                await addDoc(collection(db, "Blocks"), newBlock)// adds new block to firebase
+                await addDoc(collection(db, "Blocks"), newBlock)
 
                 // adds new block to block list
                 setBlocks([...blocks,newBlock])
@@ -39,6 +37,7 @@ export default function FolderList({block, setBlocks, close, blocks}){
                     {title:title,content:content}
                 )
 
+                // updates local block with given id
                 setBlocks(blocks.map(b => {
                     if(b.id === newBlock.id){
                         return newBlock
@@ -57,7 +56,17 @@ export default function FolderList({block, setBlocks, close, blocks}){
     }
 
     async function Delete(){
+        if(!window.confirm("Are you sure you want to delete this block?")){ return }
 
+        try{
+            await deleteDoc(doc(db, "Blocks", block.id))
+            setBlocks(blocks.filter(b => b.id != block.id))
+            close()
+        }
+        catch(error){
+            console.error(error)
+            alert("Something went wrong, try again later.")
+        }
     }
 
 
@@ -87,7 +96,7 @@ export default function FolderList({block, setBlocks, close, blocks}){
                 
                 <button className="form-btn">Link</button>
 
-                {!block.new && <button className="form-btn" 
+                {!block.new && <button className="form-btn" onClick={Delete}
                     style={{"float":"right","backgroundColor":"red"}}>Delete</button>}
             </div>
         </div>
