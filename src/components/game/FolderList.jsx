@@ -36,10 +36,10 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders}){
             <Accordion.Item key={folder.id} eventKey={folder.id} style={{"border":"1px solid grey"}}>
                 <Accordion.Header>{folder.title}</Accordion.Header>
                 
-                <Accordion.Body style={{"paddingTop":"20px","paddingLeft":"8px"}}>
+                <Accordion.Body className="folder" style={{"paddingTop":"20px","paddingLeft":"8px","paddingRight":"8px"}}>
                     <BlockList blocks={blocks.filter(block => block.folderid === folder.id)} select={select}/>
                     
-                    <span style={{"fontSize":"0.9em"}}>
+                    <span className="folder-btn">
                         <button style={{"width":"45%"}}
                             onClick={() => newBlock(folder.id)}>New Block</button>
 
