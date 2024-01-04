@@ -4,7 +4,7 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestor
 import { useEffect } from "react"
 
 export default function FolderList({block, setBlocks, close, blocks}){
-    const [processFinnished,setProcessFinnished] = useState(true)
+    const [expandOptions,setExpandOptions] = useState(false)
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
 
@@ -16,8 +16,7 @@ export default function FolderList({block, setBlocks, close, blocks}){
 
     async function Save(e){
         e.preventDefault()
-        setProcessFinnished(false)
-        
+        setExpandOptions(false)
         let newBlock = block
         newBlock.title = title
         newBlock.content = content
@@ -26,9 +25,7 @@ export default function FolderList({block, setBlocks, close, blocks}){
             // checks wether to save new block or to update existing one
             if (block.new){ 
                 delete newBlock.new
-
                 await addDoc(collection(db, "Blocks"), newBlock)
-
                 // adds new block to block list
                 setBlocks([...blocks,newBlock])
             }else{
@@ -36,7 +33,6 @@ export default function FolderList({block, setBlocks, close, blocks}){
                     doc(db,"Blocks",block.id),
                     {title:title,content:content}
                 )
-
                 // updates local block with given id
                 setBlocks(blocks.map(b => {
                     if(b.id === newBlock.id){
@@ -45,19 +41,16 @@ export default function FolderList({block, setBlocks, close, blocks}){
                     return b
                 }))
             }
+            alert("Block saved successfuly!")
         }
         catch(error){
             console.error(error)
             alert("Failed to save this block, try again later.")
         }
-        finally{
-            setProcessFinnished(true)
-        }
     }
 
     async function Delete(){
         if(!window.confirm("Are you sure you want to delete this block?")){ return }
-
         try{
             await deleteDoc(doc(db, "Blocks", block.id))
             setBlocks(blocks.filter(b => b.id != block.id))
@@ -70,12 +63,23 @@ export default function FolderList({block, setBlocks, close, blocks}){
     }
 
 
-
     return(
         <div className="block">
             <div>
+                <div style={{"display":"inline"}} onMouseLeave={() => setExpandOptions(false)}>
+                    <button className="options-btn" onMouseEnter={() => setExpandOptions(true)}>Options</button>
+                    {expandOptions &&
+                    <ul className="options-collapse">
+                        <li onClick={e => Save(e)}>Save</li>
+                        {!block.new && <>
+                            <li>Link</li>
+                            <li>Add to Board</li>
+                            <li onClick={Delete} style={{"color":"red"}}>Delete</li>
+                        </>}
+                    </ul>
+                    }
+                </div>
                 <button className="x-btn" onClick={close}>X</button>
-
                 <input
                     value={title}
                     className="block-title"
@@ -84,20 +88,7 @@ export default function FolderList({block, setBlocks, close, blocks}){
                     value={content}
                     className="block-content"
                     onChange={e => setContent(e.target.value)}/><br/>
-            </div>
-
-            <div>
-                {processFinnished
-                    ?<button className="form-btn" style={{"marginRight":"10px"}}
-                    onClick={e => Save(e)}>Save</button>
-                    :<button className="form-btn" style={{"marginRight":"10px"}}
-                        >Saving...</button>
-                }
-                
-                <button className="form-btn">Link</button>
-
-                {!block.new && <button className="form-btn" onClick={Delete}
-                    style={{"float":"right","backgroundColor":"red"}}>Delete</button>}
+                <p><b>Related:</b></p>
             </div>
         </div>
     )
