@@ -48,11 +48,14 @@ export default function EditDetails({game,setGame}){
                         className='form-input'
                     /><br/>
                     <label>Colour:</label>
-                    <input
-                        value={newColour}
-                        onChange={e => setNewColour(e.target.value)}
-                        className='form-input'
-                    /><br/>
+                    <select onChange={e => setNewColour(e.target.value)}
+                        className='form-input' value={newColour}>
+                        <option value="red">Red</option>
+                        <option value="yellow">Yellow</option>
+                        <option value="greenyellow">Green</option>
+                        <option value="lightskyblue">Blue</option>
+                        <option value="grey">Grey</option>
+                    </select><br/>
                     <button type='submit' className='form-btn'>Save Details</button><hr/>
                 </form>
                 

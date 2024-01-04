@@ -4,7 +4,7 @@ import Block from "./Block"
 import NewFolder from "./NewFolder"
 import SearchBlocks from "./SearchBlocks"
 
-export default function Blocks({blocks,gameId,setBlocks,folders,setFolders}){
+export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colour}){
     const [selected, setSelected] = useState(null)
     
     function newBlock(folderId){
@@ -31,7 +31,8 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders}){
                 <NewFolder setFolders={setFolders} folders={folders} gameId={gameId}/>
             </div>
 
-            {selected && <Block block={selected} blocks={blocks} setBlocks={setBlocks} close={() => setSelected(null)}/>}
+            {selected && <Block block={selected} blocks={blocks} colour={colour}
+                setBlocks={setBlocks} close={() => setSelected(null)}/>}
         </div>
     )
 }
