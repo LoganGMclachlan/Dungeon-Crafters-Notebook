@@ -96,7 +96,12 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                     <ul className="options-collapse">
                         <li onClick={e => Save(e)}>Save</li>
                         {!block.new && <>
-                            <li>Link</li>
+                            <li>
+                                <label>Link to: </label> 
+                                <select className="option-select">
+                                    {blocks.map(b => <option value={b.id}>{b.title}</option>)}
+                                </select>
+                            </li>
                             <li>Add to Board</li>
                             <li onClick={Delete} style={{"color":"red"}}>Delete</li>
                         </>}
@@ -112,7 +117,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                     value={content}
                     className="block-content"
                     onChange={e => setContent(e.target.value)}/><br/>
-                <p><b>Related: </b>
+                <p className="related-blocks"><b>Related: </b>
                     {blockLinks.map(link => <u onClick={() => alert(`selected block ${link.title}`)}>{link.title}, </u>)}
                 </p>
             </div>
