@@ -77,6 +77,14 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         }
     }
 
+    function handleClose(){
+        if(content !== block.content){
+            if(!window.confirm("Unsaved changes detected, are you sure you want to continue?")){
+                return
+            }
+        }
+        close()
+    }
 
     return(
         <div className="block">
@@ -95,7 +103,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                     </ul>
                     }
                 </div>
-                <button className="x-btn" onClick={close}>X</button>
+                <button className="x-btn" onClick={handleClose}>X</button>
                 <input
                     value={title}
                     className="block-title"
