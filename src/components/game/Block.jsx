@@ -3,16 +3,31 @@ import { db } from "../../config/firebase"
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useEffect } from "react"
 
-export default function FolderList({block, setBlocks, close, blocks, colour}){
+export default function FolderList({block,setBlocks,close,blocks,colour,gameId,links}){
     const [expandOptions,setExpandOptions] = useState(false)
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
+    const [blockLinks, setBlockLinks] = useState([])
 
     // updates local state data when new block is selceted
     useEffect(() => {
         setTitle(block.title)
         setContent(block.content)
+        filterLinks()
     }, [block])
+
+    function filterLinks(){
+        let filtered = []
+        links.map(link => {
+            if(link.block1 === block.id){
+                filtered.push(blocks.filter(b => b.id === link.block2)[0])
+            } else 
+            if(link.block2 === block.id){
+                filtered.push(blocks.filter(b => b.id === link.block1)[0])
+            }
+        })
+        setBlockLinks(filtered)
+    }
 
     async function Save(e){
         e.preventDefault()
@@ -89,7 +104,9 @@ export default function FolderList({block, setBlocks, close, blocks, colour}){
                     value={content}
                     className="block-content"
                     onChange={e => setContent(e.target.value)}/><br/>
-                <p><b>Related:</b></p>
+                <p><b>Related: </b>
+                    {blockLinks.map(link => <u onClick={() => alert(`selected block ${link.title}`)}>{link.title}, </u>)}
+                </p>
             </div>
         </div>
     )
