@@ -8,9 +8,8 @@ export default function GameSnippet({game}){
     }
 
     return(
-        <div className="game-snippet" style={{"backgroundColor":""+game.colour}}>
-            <h3>{game.title}</h3>
-            <button onClick={() => SelectGame()} className="form-btn">Select</button>
+        <div className="game-snippet" style={{"backgroundColor":`${game.colour}`}}>
+            <h3 onClick={() => SelectGame()}>{game.title}</h3>
         </div>
     )
 }

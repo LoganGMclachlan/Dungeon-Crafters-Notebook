@@ -61,7 +61,7 @@ body{
 .form-btn{
     margin-top:8px;
     background-color: white;
-    border:2px solid;
+    border:1.5px solid;
     padding:8px;
     border-radius: 5px;
     font-weight: bold;
@@ -97,11 +97,15 @@ body{
 .game-snippet{
     padding:10px;
     border: 2px black solid;
-    border-radius: 25px;
+    border-radius: 10px;
 }
 
 .game-snippet h3{
     margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 1.7em;
+}
+.game-snippet h3:hover{
     text-decoration: underline;
 }
 

@@ -76,7 +76,7 @@ export default function EditDetails({game,setGame,details}){
                         <option value="greenyellow">Green</option>
                         <option value="lightskyblue">Blue</option>
                         <option value="grey">Grey</option>
-                        <option value="purple">Purple</option>
+                        <option value="rgb(155, 3, 155)">Purple</option>
                     </select><br/>
                     <button type='submit' className='form-btn'>Save Details</button><hr/>
                 </form>
