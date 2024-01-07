@@ -3,7 +3,7 @@ import { db } from "../../config/firebase"
 import { updateDoc, doc, deleteDoc } from "firebase/firestore"
 import { Link, useNavigate } from "react-router-dom"
 
-export default function EditDetails({game,setGame}){
+export default function EditDetails({game,setGame,details}){
     const navigate = useNavigate()
     const [newTitle, setNewTitle] = useState(game.title)
     const [newColour, setNewColour] = useState(game.colour)
@@ -30,10 +30,31 @@ export default function EditDetails({game,setGame}){
         if(!window.confirm("Are you sure you want to delete this game?")){return}
 
         try{
+            // deletes all game blocks, folders, links, & boards
+            details.map((info, i) => {
+                console.log(info)
+                switch (i) {    
+                    case 0:
+                        info.map(async block => await deleteDoc(doc(db,"Blocks",block.id)))
+                        break;
+                    case 1:
+                        info.map(async folder => await deleteDoc(doc(db,"Folders",folder.id)))
+                        break;
+                    case 2:
+                        info.map(async link => await deleteDoc(doc(db,"Links",link.id)))
+                        break;
+                    case 3:
+                        info.map(async board => await deleteDoc(doc(db,"Boards",board.id)))
+                        break;
+                }
+            })
+
             await deleteDoc(doc(db, "Games", game.id))
             navigate("/")
         }
-        catch(error){console.error(error)}
+        catch(error){
+            alert("there was a problem deleting this game try again later.")
+            console.error(error)}
     }
 
     return(
@@ -55,6 +76,7 @@ export default function EditDetails({game,setGame}){
                         <option value="greenyellow">Green</option>
                         <option value="lightskyblue">Blue</option>
                         <option value="grey">Grey</option>
+                        <option value="purple">Purple</option>
                     </select><br/>
                     <button type='submit' className='form-btn'>Save Details</button><hr/>
                 </form>

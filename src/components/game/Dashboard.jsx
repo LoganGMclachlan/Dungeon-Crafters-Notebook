@@ -76,8 +76,8 @@ export default function Dashboard({user}){
     <div>
         {game.title !== "Loading..." &&
         <>
-        {tabSelected === "details" && 
-            <EditDetails game={game} setGame={setGame}/>}
+        {tabSelected === "details" &&  
+            <EditDetails game={game} setGame={setGame} details={[blocks,folders,links,boards]}/>}
         
         {tabSelected === "blocks" && 
             <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour}

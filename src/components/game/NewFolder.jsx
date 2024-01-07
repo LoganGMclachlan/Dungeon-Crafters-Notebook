@@ -26,8 +26,7 @@ export default function NewFolder({setFolders, folders, gameId}){
             })
             
             setFolders([...folders,{"title":title,"gameid":gameId}])
-            // notifies user on success
-            alert("New folder created succesfuly!")
+            setTitle("")
         }
         // logs any errors and alerts user of failure
         catch(error){
@@ -43,6 +42,7 @@ export default function NewFolder({setFolders, folders, gameId}){
                 placeholder="Folder title..."
                 className="form-input"
                 style={{"marginBottom":"-5px"}}
+                value={title}
                 onChange={e => setTitle(e.target.value)}
             />
             <button className="form-btn" style={{"width":"85%","padding":"5px"}}
