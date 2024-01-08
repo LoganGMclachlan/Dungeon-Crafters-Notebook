@@ -3,7 +3,7 @@ import { db } from "../../config/firebase"
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useEffect } from "react"
 
-export default function FolderList({block,setBlocks,close,blocks,colour,gameId,links}){
+export default function FolderList({block,setBlocks,close,blocks,colour,gameId,links,setLinks,select}){
     const [expandOptions,setExpandOptions] = useState(false)
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
@@ -121,7 +121,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                     className="block-content"
                     onChange={e => setContent(e.target.value)}/><br/>
                 <p className="related-blocks"><b>Related: </b>
-                    {blockLinks.map(link => <u onClick={() => alert(`selected block ${link.title}`)}>{link.title}, </u>)}
+                    {blockLinks.map(link => <u onClick={() => select(link)}>{link.title}, </u>)}
                 </p>
             </div>
         </div>
