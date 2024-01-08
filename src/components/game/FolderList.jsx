@@ -19,9 +19,7 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders}){
             // deletes folder
             await deleteDoc(doc(db, "Folders", folder.id))
             // filters folders
-            setFolders(folders.filter(f => f.id === folder.id))
-            // notifies user
-            alert("Folders deleted succesfuly")
+            setFolders(folders.filter(f => f.id !== folder.id))
         }
         // logs errors and alerts user of failure
         catch(error){

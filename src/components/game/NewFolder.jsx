@@ -24,8 +24,10 @@ export default function NewFolder({setFolders, folders, gameId}){
                 "title":title,
                 "gameid":gameId
             })
+            .then(docRef => {
+                setFolders([...folders,{"id":docRef.id,"title":title,"gameid":gameId}])
+            })
             
-            setFolders([...folders,{"title":title,"gameid":gameId}])
             setTitle("")
         }
         // logs any errors and alerts user of failure

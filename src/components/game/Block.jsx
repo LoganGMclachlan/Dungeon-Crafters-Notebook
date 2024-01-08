@@ -41,8 +41,11 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
             if (block.new){ 
                 delete newBlock.new
                 await addDoc(collection(db, "Blocks"), newBlock)
-                // adds new block to block list
-                setBlocks([...blocks,newBlock])
+                .then(docRef => {
+                    // updates local copy of blocks
+                    newBlock.id = docRef.id
+                    setBlocks([...blocks,newBlock])
+                })
             }else{
                 await updateDoc(
                     doc(db,"Blocks",block.id),
