@@ -8,7 +8,7 @@ import Navbar from './Navbar'
 
 export default function Dashboard({user}){
     const location = useLocation()
-    const [tabSelected, setTabSelected] = useState("details")
+    const [tabSelected, setTabSelected] = useState("blocks")
     const [game,setGame] = useState({"title":"Loading...","colour":"red"})
     const [blocks, setBlocks] = useState([])
     const [links, setLinks] = useState([])
