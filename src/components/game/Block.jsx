@@ -13,8 +13,12 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
     useEffect(() => {
         setTitle(block.title)
         setContent(block.content)
-        filterLinks()
+        setBlockLinks(filterLinks())
     }, [block])
+
+    useEffect(() => {
+        setBlockLinks(filterLinks())
+    }, [links])
 
     function filterLinks(){
         let filtered = []
@@ -26,7 +30,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                 filtered.push(blocks.filter(b => b.id === link.block1)[0])
             }
         })
-        setBlockLinks(filtered)
+        return filtered
     }
 
     async function Save(e){
@@ -89,6 +93,26 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         close()
     }
 
+    async function createLink(linkTo){
+        if(linkTo === block.id){alert("Cannot link a block to itself");return}
+        let linkExists = false
+        blockLinks.map(link => {if(link.id === linkTo){linkExists = true}})
+        if(linkExists){alert("Selected block is already linked to this one");return}
+
+        try{
+            let link = {"block1":block.id,"block2":linkTo,"gameid":gameId}
+            await addDoc(collection(db,"Links"), link)
+            .then(docRef => {
+                link.id = docRef.id
+                setLinks([...links,link])
+            })
+        }
+        catch(error){
+            console.error(error)
+            alert("Something went wrong, try again later.")
+        }
+    }
+
     return(
         <div className="block">
             <div>
@@ -101,7 +125,8 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                         {!block.new && <>
                             <li>
                                 <label>Link to: </label> 
-                                <select className="option-select">
+                                <select className="option-select" onChange={e => {createLink(e.target.value);setExpandOptions(false)}}>
+                                    <option value="" disabled selected>Select Block</option>
                                     {blocks.map(b => <option value={b.id}>{b.title}</option>)}
                                 </select>
                             </li>
