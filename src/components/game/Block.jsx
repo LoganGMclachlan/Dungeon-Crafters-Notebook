@@ -24,11 +24,14 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         let filtered = []
         links.map(link => {
             if(link.block1 === block.id){
-                filtered.push(blocks.filter(b => b.id === link.block2)[0])
+                let linked = blocks.filter(b => b.id === link.block2)[0]
+                linked.linkId = link.id
+                filtered.push(linked)
             } else 
             if(link.block2 === block.id){
-                filtered.push(blocks.filter(b => b.id === link.block1)[0])
-            }
+                let linked = blocks.filter(b => b.id === link.block1)[0]
+                linked.linkId = link.id
+                filtered.push(linked)            }
         })
         return filtered
     }
@@ -76,6 +79,14 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         try{
             await deleteDoc(doc(db, "Blocks", block.id))
             setBlocks(blocks.filter(b => b.id != block.id))
+
+            let filteredLinks = [...links]
+            blockLinks.map(async link => {
+                await deleteDoc(doc(db,"Links",link.linkId)).then(
+                    filteredLinks = filteredLinks.filter(l => l.id !== link.linkId) 
+                )
+            })
+            setLinks(filteredLinks)
             close()
         }
         catch(error){
