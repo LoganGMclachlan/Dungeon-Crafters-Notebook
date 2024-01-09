@@ -62,9 +62,8 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
     return(
         <div className="block">
             <div>
-                <BlockOptions colour={colour} setBlocks={setBlocks} gameId={gameId} title={title}
-                    content={content} blocks={blocks} links={links} setLinks={setLinks} close={close}
-                    blockLinks={blockLinks} block={block}/>
+                <BlockOptions colour={colour} gameId={gameId} data={[title,content]} blocks={[blocks,setBlocks]}
+                    links={[links,setLinks]} close={close} blockLinks={blockLinks} block={block}/>
 
                 <button className="x-btn" onClick={handleClose}>X</button>
                 <input

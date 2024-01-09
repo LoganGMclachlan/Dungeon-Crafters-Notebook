@@ -2,16 +2,15 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestor
 import { useState } from "react"
 import { db } from "../../config/firebase"
 
-export default function BlockOptions({colour,setBlocks,gameId,title,content,
-    blocks,links,setLinks,close,blockLinks,block}){
+export default function BlockOptions({colour,gameId,data,blocks,links,close,blockLinks,block}){
     const [expandOptions,setExpandOptions] = useState(false)
 
     async function Save(e){
         e.preventDefault()
         setExpandOptions(false)
         let newBlock = block
-        newBlock.title = title
-        newBlock.content = content
+        newBlock.title = data[0]
+        newBlock.content = data[1]
 
         try{
             // checks wether to save new block or to update existing one
@@ -21,15 +20,15 @@ export default function BlockOptions({colour,setBlocks,gameId,title,content,
                 .then(docRef => {
                     // updates local copy of blocks
                     newBlock.id = docRef.id
-                    setBlocks([...blocks,newBlock])
+                    blocks[1]([...blocks[0],newBlock])
                 })
             }else{
                 await updateDoc(
                     doc(db,"Blocks",block.id),
-                    {title:title,content:content}
+                    {title:data[0],content:data[1]}
                 )
                 // updates local block with given id
-                setBlocks(blocks.map(b => {
+                blocks[1](blocks[0].map(b => {
                     if(b.id === newBlock.id){
                         return newBlock
                     }
@@ -48,15 +47,15 @@ export default function BlockOptions({colour,setBlocks,gameId,title,content,
         if(!window.confirm("Are you sure you want to delete this block?")){ return }
         try{
             await deleteDoc(doc(db, "Blocks", block.id))
-            setBlocks(blocks.filter(b => b.id != block.id))
+            blocks[1](blocks[0].filter(b => b.id != block.id))
 
-            let filteredLinks = [...links]
+            let filteredLinks = [...links[0]]
             blockLinks.map(async link => {
                 await deleteDoc(doc(db,"Links",link.linkId)).then(
                     filteredLinks = filteredLinks.filter(l => l.id !== link.linkId) 
                 )
             })
-            setLinks(filteredLinks)
+            links[1](filteredLinks)
             close()
         }
         catch(error){
@@ -76,7 +75,7 @@ export default function BlockOptions({colour,setBlocks,gameId,title,content,
             await addDoc(collection(db,"Links"), link)
             .then(docRef => {
                 link.id = docRef.id
-                setLinks([...links,link])
+                links[1]([...links[0],link])
             })
         }
         catch(error){
@@ -98,7 +97,7 @@ export default function BlockOptions({colour,setBlocks,gameId,title,content,
                         <select className="option-select" defaultValue="defualt"
                             onChange={e => {createLink(e.target.value);setExpandOptions(false)}}>
                             <option value="defualt" disabled>Select Block</option>
-                            {blocks.map(b => <option value={b.id}>{b.title}</option>)}
+                            {blocks[0].map(b => <option value={b.id}>{b.title}</option>)}
                         </select>
                     </li>
                     <li>Add to Board</li>
