@@ -43,7 +43,7 @@ export default function NewFolder({setFolders, folders, gameId}){
             <input
                 placeholder="Folder title..."
                 className="form-input"
-                style={{"marginBottom":"-5px"}}
+                style={{"width":"85%","marginBottom":"-5px"}}
                 value={title}
                 onChange={e => setTitle(e.target.value)}
             />

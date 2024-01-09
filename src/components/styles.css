@@ -12,6 +12,7 @@ body{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+
 .menu{
     margin-top: 5%;
     margin-left: auto;
@@ -56,6 +57,7 @@ body{
     padding:4px;
     font-size: 1em;
     border-radius: 5px;
+    max-width: 80%;
 }
 
 .form-btn{
@@ -164,7 +166,8 @@ body{
 
 .block{
     margin-top:10px;
-    width: 77%;
+    margin-right: 10px;
+    width: 95%;
     height: 480px;
     border: 2px solid black;
     padding:10px;
@@ -311,4 +314,17 @@ body{
 }
 .related-blocks span label:hover{
     font-weight: bold;
+}
+
+@media (max-width: 850px) {
+    .folderList{
+        width:95%;
+        margin:10px
+    }
+    .blocks-container{
+        flex-direction: column;
+    }
+    .block{ 
+        margin: 10px;
+    }
 }

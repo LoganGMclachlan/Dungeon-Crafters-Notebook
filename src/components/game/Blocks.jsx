@@ -19,7 +19,7 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colou
     }
 
     return(
-        <div style={{"display":"flex"}}>
+        <div style={{"display":"flex"}} className="blocks-container">
             <div className="folderList">
                 <SearchBlocks select={setSelected} blocks={blocks}/>
                 
