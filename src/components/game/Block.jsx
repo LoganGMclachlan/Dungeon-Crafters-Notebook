@@ -104,6 +104,20 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         close()
     }
 
+    async function deleteLink(linkId,linkTo){
+        if(!window.confirm(`Are you sure you want to delete the link to "${linkTo}"?`)){return}
+
+        try{
+            await deleteDoc(doc(db,"Links",linkId))
+                let filtered = [...links]
+                setLinks(filtered.filter(link => link.id !== linkId))
+        }
+        catch(error){
+            console.error(error)
+            alert("Something went wrong, try again later.")
+        }
+    }
+
     async function createLink(linkTo){
         if(linkTo === block.id){alert("Cannot link a block to itself");return}
         let linkExists = false
@@ -136,8 +150,9 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                         {!block.new && <>
                             <li>
                                 <label>Link to: </label> 
-                                <select className="option-select" onChange={e => {createLink(e.target.value);setExpandOptions(false)}}>
-                                    <option value="" disabled selected>Select Block</option>
+                                <select className="option-select" selected="defualt"
+                                    onChange={e => {createLink(e.target.value);setExpandOptions(false)}}>
+                                    <option value="defualt" disabled>Select Block</option>
                                     {blocks.map(b => <option value={b.id}>{b.title}</option>)}
                                 </select>
                             </li>
@@ -147,6 +162,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                     </ul>
                     }
                 </div>
+
                 <button className="x-btn" onClick={handleClose}>X</button>
                 <input
                     value={title}
@@ -156,9 +172,13 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
                     value={content}
                     className="block-content"
                     onChange={e => setContent(e.target.value)}/><br/>
-                <p className="related-blocks"><b>Related: </b>
-                    {blockLinks.map(link => <u onClick={() => select(link)}>{link.title}, </u>)}
-                </p>
+
+                <p className="related-blocks"><b>Related: </b>{blockLinks.map(link => 
+                <span>
+                    <span onClick={() => select(link)}>{link.title}</span>
+                    <label onClick={() => deleteLink(link.linkId,link.title)}>X</label>
+                </span>
+                )}</p>
             </div>
         </div>
     )

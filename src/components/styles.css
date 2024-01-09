@@ -296,6 +296,19 @@ body{
     padding-right: 5px;
 }
 
-.related-blocks u{
+.related-blocks span{
     cursor: pointer;
+}
+.related-blocks span:hover{
+    text-decoration: underline;
+}
+
+
+.related-blocks span label{
+    margin-left:5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.related-blocks span label:hover{
+    font-weight: bold;
 }
