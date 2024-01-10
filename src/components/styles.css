@@ -242,7 +242,7 @@ body{
     padding: 5px;
     border: none;
     margin-top: 10px;
-    height: 380px;
+    height: 370px;
     resize: none;
     overflow-y: scroll;
 }
@@ -297,6 +297,8 @@ body{
     background-color: white;
     padding-left: 5px;
     padding-right: 5px;
+    overflow-x: scroll;
+    max-height: 35px;
 }
 
 .related-blocks span{
@@ -305,7 +307,6 @@ body{
 .related-blocks span:hover{
     text-decoration: underline;
 }
-
 
 .related-blocks span label{
     margin-left:5px;
@@ -316,7 +317,34 @@ body{
     font-weight: bold;
 }
 
-@media (max-width: 850px) {
+.boards-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+    padding: 10px;
+}
+
+.board-control{
+    width: 100%;
+    background-image: url('/src/assets/napkin.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    padding:10px;
+    border-radius: 10px;
+    border:solid 2px;
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.board-control div{
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
     .folderList{
         width:95%;
         margin:10px
@@ -327,4 +355,9 @@ body{
     .block{ 
         margin: 10px;
     }
+    .nav-bar{gap:0px}
+    .nav-title{display: none;}
+    .menu{width:70%}
+    .nav-item{font-size: 1.5em;}
+    .tab{font-size: 0.65em;padding: 0px;}
 }

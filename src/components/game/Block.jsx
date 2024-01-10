@@ -9,18 +9,17 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
     const [content, setContent] = useState()
     const [blockLinks, setBlockLinks] = useState([])
 
-    // updates local state data when new block is selceted
     useEffect(() => {
         setTitle(block.title)
         setContent(block.content)
         setBlockLinks(filterLinks())
-    }, [block])
+    }, [block])    // updates local state data when new block is selceted
 
     useEffect(() => {
         setBlockLinks(filterLinks())
-    }, [links])
+    }, [links])    // updates selected blocks link data when link array is updated
 
-    function filterLinks(){
+    const filterLinks = () => {
         let filtered = []
         links.map(link => {
             if(link.block1 === block.id){
@@ -36,22 +35,20 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         return filtered
     }
 
-    function handleClose(){
+    const handleClose = () => {     // warns user of unsaved changes before closing block
         if(content !== block.content){
-            if(!window.confirm("Unsaved changes detected, are you sure you want to continue?")){
-                return
-            }
+            if(!window.confirm("Unsaved changes detected, are you sure you want to continue?")){return}
         }
         close()
     }
 
-    async function deleteLink(linkId,linkTo){
+    const deleteLink = async (linkId,linkTo) => {
         if(!window.confirm(`Are you sure you want to delete the link to "${linkTo}"?`)){return}
 
         try{
             await deleteDoc(doc(db,"Links",linkId))
-                let filtered = [...links]
-                setLinks(filtered.filter(link => link.id !== linkId))
+            let filtered = [...links]
+            setLinks(filtered.filter(link => link.id !== linkId))
         }
         catch(error){
             console.error(error)
@@ -60,28 +57,26 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
     }
 
     return(
-        <div className="block">
-            <div>
-                <BlockOptions colour={colour} gameId={gameId} data={[title,content]} blocks={[blocks,setBlocks]}
-                    links={[links,setLinks]} close={close} blockLinks={blockLinks} block={block}/>
+    <div className="block">
+        <BlockOptions colour={colour} gameId={gameId} data={[title,content]} blocks={[blocks,setBlocks]}
+            links={[links,setLinks]} close={close} blockLinks={blockLinks} block={block}/>
 
-                <button className="x-btn" onClick={handleClose}>X</button>
-                <input
-                    value={title}
-                    className="block-title"
-                    onChange={e => setTitle(e.target.value)}/><br/>
-                <textarea
-                    value={content}
-                    className="block-content"
-                    onChange={e => setContent(e.target.value)}/><br/>
+        <button className="x-btn" onClick={handleClose}>X</button>
+        <input
+            value={title}
+            className="block-title"
+            onChange={e => setTitle(e.target.value)}/><br/>
+        <textarea
+            value={content}
+            className="block-content"
+            onChange={e => setContent(e.target.value)}/><br/>
 
-                <p className="related-blocks"><b>Related: </b>{blockLinks.map(link => 
-                <span>
-                    <span onClick={() => select(link)}>{link.title}</span>
-                    <label onClick={() => deleteLink(link.linkId,link.title)}>X</label>
-                </span>
-                )}</p>
-            </div>
-        </div>
+        <p className="related-blocks"><b>Related: </b>{blockLinks.map(link => 
+        <span>
+            <span onClick={() => select(link)}>{link.title}</span>
+            <label onClick={() => deleteLink(link.linkId,link.title)}>X</label>
+        </span>
+        )}</p>
+    </div>
     )
 }

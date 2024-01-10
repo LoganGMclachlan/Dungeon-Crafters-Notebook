@@ -5,6 +5,7 @@ import { getDoc, doc, getDocs, collection } from 'firebase/firestore'
 import EditDetails from './EditDetails'
 import Blocks from './Blocks'
 import Navbar from './Navbar'
+import Boards from './Boards'
 
 export default function Dashboard({user}){
     const location = useLocation()
@@ -82,6 +83,9 @@ export default function Dashboard({user}){
         {tabSelected === "blocks" && 
             <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour} setLinks={setLinks}
                 gameId={game.id} folders={folders} setFolders={setFolders} links={links}/>}
+        
+        {tabSelected === "boards" &&
+            <Boards/>}
         </>
         }
     </div>

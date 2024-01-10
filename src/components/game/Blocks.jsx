@@ -7,34 +7,33 @@ import SearchBlocks from "./SearchBlocks"
 export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colour,links,setLinks}){
     const [selected, setSelected] = useState(null)
     
-    function newBlock(folderId){
-        // create new block object and sets it as selected
-        setSelected({
+    const newBlock = folderId => {
+        setSelected({   // create new block object and sets it as selected
             "title":"New Block",
             "content":"",
             "gameid":gameId,
             "folderid":folderId,
-            "new":true// determines to update old or add new when saved
+            "new":true  // temporary prop, deleted when saved
         })
     }
 
     return(
-        <div style={{"display":"flex"}} className="blocks-container">
-            <div className="folderList">
-                <SearchBlocks select={setSelected} blocks={blocks}/>
-                
-                {folders.length > 0 &&
+    <div style={{"display":"flex"}} className="blocks-container">
+        <div className="folderList">
+            <SearchBlocks select={setSelected} blocks={blocks}/>
+            
+            {folders.length > 0 &&
                 <FolderList folders={folders} blocks={blocks} select={setSelected}
                     newBlock={newBlock} setFolders={setFolders}/>
-                }
-
-                <NewFolder setFolders={setFolders} folders={folders} gameId={gameId}/>
-            </div>
-
-            {selected && 
-                <Block block={selected} blocks={blocks} colour={colour} gameId={gameId} setLinks={setLinks}
-                setBlocks={setBlocks} close={() => setSelected(null)} links={links} select={setSelected}/>
             }
+
+            <NewFolder setFolders={setFolders} folders={folders} gameId={gameId}/>
         </div>
+
+        {selected && 
+            <Block block={selected} blocks={blocks} colour={colour} gameId={gameId} setLinks={setLinks}
+            setBlocks={setBlocks} close={() => setSelected(null)} links={links} select={setSelected}/>
+        }
+    </div>
     )
 }
