@@ -22,7 +22,7 @@ export default function Dashboard({user}){
         getData("Blocks").then(blocks => setBlocks(blocks))
         getData("Folders").then(folders => setFolders(folders))
         getData("Links").then(links => setLinks(links))
-        getData("Boards").then(boards => setBoards(boards))
+        getData("Board").then(boards => setBoards(boards))
     }, [])
 
     const getGameData = useCallback(async () => {
@@ -64,7 +64,7 @@ export default function Dashboard({user}){
                 gameId={game.id} folders={folders} setFolders={setFolders} links={links}/>}
         
         {tabSelected === "boards" &&
-            <Boards/>}
+            <Boards boards={boards}/>}
         </>
         }
     </div>
