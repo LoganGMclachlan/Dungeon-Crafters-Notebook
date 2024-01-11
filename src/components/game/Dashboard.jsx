@@ -14,16 +14,17 @@ export default function Dashboard({user}){
     const [blocks, setBlocks] = useState([])
     const [links, setLinks] = useState([])
     const [boards, setBoards] = useState([])
+    const [placements, setPlacements] = useState([])
     const [folders, setFolders] = useState([])
 
     useEffect(() => {
         getGameData()
-        getBlockData()
-        getFolderData()
-        getLinkData()
+        getData("Blocks").then(blocks => setBlocks(blocks))
+        getData("Folders").then(folders => setFolders(folders))
+        getData("Links").then(links => setLinks(links))
+        getData("Boards").then(boards => setBoards(boards))
     }, [])
 
-    // gets game info from id
     const getGameData = useCallback(async () => {
         try{
             const rawData = await getDoc(doc(db, "Games", location?.state.gameid))
@@ -33,36 +34,14 @@ export default function Dashboard({user}){
         catch(err){console.error(err)}
     })
 
-    // gets list of blocks belonging to game
-    const getBlockData = useCallback(async () => {
+    const getData = useCallback(async collectionName => {
         try{
-            const rawData = await getDocs(collection(db, "Blocks"))
+            const rawData = await getDocs(collection(db,collectionName))
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            setBlocks(filteredData.filter(block => block.gameid === location?.state.gameid))
-        }
-        catch(err){console.error(err)}
-    })
-
-    const getFolderData = useCallback(async () => {
-        try{
-            const rawData = await getDocs(collection(db, "Folders"))
-            const filteredData = rawData.docs.map(doc => ({
-                ...doc.data(), id: doc.id
-            }))
-            setFolders(filteredData.filter(folder => folder.gameid === location?.state.gameid))
-        }
-        catch(err){console.error(err)}
-    })
-
-    const getLinkData = useCallback(async () => {
-        try{
-            const rawData = await getDocs(collection(db,"Links"))
-            const filteredData = rawData.docs.map(doc => ({
-                ...doc.data(), id: doc.id
-            }))
-            setLinks(filteredData.filter(link => link.gameid === location?.state.gameid))
+            // console.log(filteredData)
+            return filteredData.filter(data => data.gameid === location?.state.gameid)
         }
         catch(err){console.error(err)}
     })
