@@ -5,8 +5,8 @@ import { useEffect } from "react"
 import BlockOptions from "./BlockOptions"
 
 export default function FolderList({block,setBlocks,close,blocks,colour,gameId,links,setLinks,select}){
-    const [title, setTitle] = useState()
-    const [content, setContent] = useState()
+    const [title, setTitle] = useState("")
+    const [content, setContent] = useState("")
     const [blockLinks, setBlockLinks] = useState([])
 
     useEffect(() => {
@@ -72,7 +72,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
             onChange={e => setContent(e.target.value)}/><br/>
 
         <p className="related-blocks"><b>Related: </b>{blockLinks.map(link => 
-        <span>
+        <span key={link.id}>
             <span onClick={() => select(link)}>{link.title}</span>
             <label onClick={() => deleteLink(link.linkId,link.title)}>X</label>
         </span>

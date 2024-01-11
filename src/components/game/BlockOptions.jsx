@@ -97,7 +97,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
                         <select className="option-select" defaultValue="defualt"
                             onChange={e => {createLink(e.target.value);setExpandOptions(false)}}>
                             <option value="defualt" disabled>Select Block</option>
-                            {blocks[0].map(b => <option value={b.id}>{b.title}</option>)}
+                            {blocks[0].map(b => <option value={b.id} key={b.id}>{b.title}</option>)}
                         </select>
                     </li>
                     <li>Add to Board</li>
