@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { db } from "../../config/firebase"
 import { updateDoc, doc, deleteDoc } from "firebase/firestore"
 import { Link, useNavigate } from "react-router-dom"
@@ -7,6 +7,36 @@ export default function EditDetails({game,setGame,details}){
     const navigate = useNavigate()
     const [newTitle, setNewTitle] = useState(game.title)
     const [newColour, setNewColour] = useState(game.colour)
+    const [downloaded, setDownloaded] = useState(false)
+
+    useEffect(() => {checkDownloaded()}, [])
+
+    const checkDownloaded = () => {
+        const localValue = localStorage.getItem("SAVED_GAMES")
+        if(localValue === null) return
+        const savedGames = JSON.parse(localValue)
+        savedGames.map(saved => {if(saved.game.id === game.id){setDownloaded(true)}})
+    }
+
+    const downloadGame = () => {
+        let savedGames = []
+        const localValue = localStorage.getItem("SAVED_GAMES")
+        if(localValue !== null) savedGames = JSON.parse(localValue)
+        savedGames.push({"game":game,"blocks":details[0],"folders":details[1],
+                            "links":details[2],"boards":details[3]})
+        localStorage.setItem("SAVED_GAMES", JSON.stringify(savedGames))
+        setDownloaded(true)
+        alert(`Downloaded ${game.title}`)
+    }
+
+    const removeDownload = () => {
+        if(!window.confirm("Remove this game from downloads?")){return}
+        const localValue = localStorage.getItem("SAVED_GAMES")
+        let savedGames = JSON.parse(localValue)
+        savedGames = savedGames.filter(saved => saved.game.id !== game.id)
+        localStorage.setItem("SAVED_GAMES", JSON.stringify(savedGames))
+        setDownloaded(false)
+    }
 
     async function SaveDetails(e){
         e.preventDefault()
@@ -78,7 +108,11 @@ export default function EditDetails({game,setGame,details}){
                         <option value="grey">Grey</option>
                         <option value="rgb(155, 3, 155)">Purple</option>
                     </select><br/>
-                    <button type='submit' className='form-btn'>Save Details</button><hr/>
+                    {downloaded 
+                    ?<button className='form-btn' onClick={() => removeDownload()}>Downloaded</button>
+                    :<button className='form-btn' onClick={() => downloadGame()}>Download Game</button>
+                    }
+                    <button type='submit' style={{"marginLeft":"10px"}} className='form-btn'>Save Details</button>
                 </form>
                 
                 <Link to="/"><button className='form-btn' style={{"marginRight":"10px"}}>Exit Game</button></Link>

@@ -12,12 +12,27 @@ export default function SelectGame({userId}){
     const getGames = useCallback(async () => {
         try{
             let failed = false
-            const rawData = await getDocs(collection(db,"Games"))
-            .catch(error => console.log(error), failed = true)
-            const filteredData = rawData.docs.map(doc => ({
-                ...doc.data(), id: doc.id
-            }))
-            setGames(filteredData.filter(game => game.userid === userId))
+            if(navigator.onLine){
+                // fetches data from firebase
+                const rawData = await getDocs(collection(db,"Games"))
+                .catch(error => console.log(error), failed = true)
+                const filteredData = rawData.docs.map(doc => ({
+                    ...doc.data(), id: doc.id
+                }))
+                setGames(filteredData.filter(game => game.userid === userId))
+            } else {
+                // gets saved data from local storage if user is offline
+                const localValue = localStorage.getItem("SAVED_GAMES")
+                if (localValue !== null){
+                    let savedGames = []
+                    JSON.parse(localValue).map(saved => {
+                        if (saved.game.userid === userId){
+                            savedGames.push(saved.game)
+                        }
+                    })
+                    setGames(savedGames)
+                }
+            }
             if (failed){setStatus("failed")} else {setStatus("complete")}
         }
         catch(err){console.error(err); setStatus("failed")}

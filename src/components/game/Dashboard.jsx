@@ -18,11 +18,26 @@ export default function Dashboard({user}){
     const [folders, setFolders] = useState([])
 
     useEffect(() => {
-        getGameData()
-        getData("Blocks").then(blocks => setBlocks(blocks))
-        getData("Folders").then(folders => setFolders(folders))
-        getData("Links").then(links => setLinks(links))
-        getData("Board").then(boards => setBoards(boards))
+        if (navigator.onLine){
+            getGameData()
+            getData("Blocks").then(blocks => setBlocks(blocks))
+            getData("Folders").then(folders => setFolders(folders))
+            getData("Links").then(links => setLinks(links))
+            getData("Board").then(boards => setBoards(boards))
+        } else {
+            const localValue = localStorage.getItem("SAVED_GAMES")
+            if (localValue !== null){
+                JSON.parse(localValue).map(saved => {
+                    if (saved.game.id === location?.state.gameid){
+                        setGame(saved.game)
+                        setBlocks(saved.blocks)
+                        setFolders(saved.folders)
+                        setLinks(saved.links)
+                        setBoards(saved.boards)
+                    }
+                })
+            } 
+        }
     }, [])
 
     const getGameData = useCallback(async () => {
