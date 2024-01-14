@@ -34,14 +34,14 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders}){
             <Accordion.Item key={folder.id} eventKey={folder.id} style={{"border":"1px solid grey"}}>
                 <Accordion.Header>{folder.title}</Accordion.Header>
                 
-                <Accordion.Body className="folder" style={{"paddingTop":"20px","paddingLeft":"8px","paddingRight":"8px"}}>
+                <Accordion.Body style={{"paddingTop":"20px","paddingLeft":"8px","paddingRight":"8px"}}>
                     <BlockList blocks={blocks.filter(block => block.folderid === folder.id)} select={select}/>
                     
                     <span className="folder-btn">
-                        <button style={{"width":"45%"}}
+                        <button
                             onClick={() => newBlock(folder.id)}>New Block</button>
 
-                        <button style={{"width":"55%","backgroundColor":"red"}}
+                        <button style={{"backgroundColor":"red"}}
                             onClick={() => deleteFolder(folder)}>Delete Folder</button>
                     </span>
                 </Accordion.Body>

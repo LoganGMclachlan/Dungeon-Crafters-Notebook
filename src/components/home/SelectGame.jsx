@@ -5,21 +5,22 @@ import { db } from '../../config/firebase'
 
 export default function SelectGame({userId}){
     const [games, setGames] = useState([])
+    const [status, setStatus] = useState("ongoing")
 
-    useEffect(() => {
-        // gets games info when component loads
-        getGames()
-    }, [])
+    useEffect(() => {getGames()}, [])
 
     const getGames = useCallback(async () => {
         try{
+            let failed = false
             const rawData = await getDocs(collection(db,"Games"))
+            .catch(error => console.log(error), failed = true)
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
             setGames(filteredData.filter(game => game.userid === userId))
+            if (failed){setStatus("failed")} else {setStatus("complete")}
         }
-        catch(err){console.error(err)}
+        catch(err){console.error(err); setStatus("failed")}
     })
 
     return (
@@ -31,7 +32,11 @@ export default function SelectGame({userId}){
                     <GameSnippet game={game} key={game.id}/>
                 )}
             </div>
-            :<p>You don't have any games yet.</p>}
+            :<p>
+                {status === "ongoing" && <>Loading your games...</>}
+                {status === "complete" && <>You don't have any games</>}
+                {status === "failed" && <>There was an issue loading your games try again later</>}
+            </p>}
         </>
     )
 }
