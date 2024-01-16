@@ -24,6 +24,7 @@ export default function Dashboard({user}){
             getData("Folders").then(folders => setFolders(folders))
             getData("Links").then(links => setLinks(links))
             getData("Board").then(boards => setBoards(boards))
+            getData("Placements").then(placement => setPlacements(placement))
         } else {
             const localValue = localStorage.getItem("SAVED_GAMES")
             if (localValue !== null){
@@ -79,7 +80,7 @@ export default function Dashboard({user}){
                 gameId={game.id} folders={folders} setFolders={setFolders} links={links}/>}
         
         {tabSelected === "boards" &&
-            <Boards boards={boards}/>}
+            <Boards boards={boards} placements={placements} blocks={blocks}/>}
         </>
         }
     </div>

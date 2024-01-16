@@ -319,32 +319,7 @@ body{
     font-weight: bold;
 }
 
-.boards-container{
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    align-items: center;
-    padding: 10px;
-}
 
-.board-control{
-    width: 100%;
-    background-image: url('/src/assets/napkin.jpg');
-    background-size:cover;
-    background-repeat: no-repeat;
-    padding:10px;
-    border-radius: 10px;
-    border:solid 2px;
-    display: flex;
-    flex-direction: row;
-    gap:30px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.board-control div{
-    text-align: center;
-}
 
 @media (max-width: 1000px) {
     .folderList{

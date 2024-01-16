@@ -1,0 +1,45 @@
+.boards-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+    padding: 10px;
+}
+
+.board-control{
+    width: 100%;
+    background-image: url('/src/assets/napkin.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    padding:10px;
+    border-radius: 10px;
+    border:solid 2px;
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.board-control div{
+    text-align: center;
+}
+
+.board-blocks{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.board-blocks div{
+    max-width:49%;
+    width: fit-content;
+    max-height: 400px;
+    background-image: url('/src/assets/napkin.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    padding:5px;
+    box-sizing: border-box;
+    border: 2px solid;
+    border-radius: 5px;
+}
