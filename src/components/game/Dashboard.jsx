@@ -36,6 +36,7 @@ export default function Dashboard({user}){
                         setFolders(saved.folders)
                         setLinks(saved.links)
                         setBoards(saved.boards)
+                        setPlacements(saved.placements)
                     }
                 })
             } 
@@ -74,7 +75,8 @@ export default function Dashboard({user}){
         {game.title !== "Loading..." &&
         <>
         {tabSelected === "details" &&  
-            <EditDetails game={game} setGame={setGame} details={[blocks,folders,links,boards]}/>}
+            <EditDetails game={game} setGame={setGame} 
+                details={[blocks,folders,links,boards,placements]}/>}
         
         {tabSelected === "blocks" && 
             <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour} setLinks={setLinks}

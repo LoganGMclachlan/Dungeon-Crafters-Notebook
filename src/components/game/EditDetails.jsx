@@ -23,7 +23,7 @@ export default function EditDetails({game,setGame,details}){
         const localValue = localStorage.getItem("SAVED_GAMES")
         if(localValue !== null) savedGames = JSON.parse(localValue)
         savedGames.push({"game":game,"blocks":details[0],"folders":details[1],
-                            "links":details[2],"boards":details[3]})
+                            "links":details[2],"boards":details[3],"placements":details[4]})
         localStorage.setItem("SAVED_GAMES", JSON.stringify(savedGames))
         setDownloaded(true)
         alert(`Downloaded ${game.title}`)
