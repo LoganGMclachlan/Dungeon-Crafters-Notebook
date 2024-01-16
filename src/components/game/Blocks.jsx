@@ -3,6 +3,7 @@ import FolderList from "./FolderList"
 import Block from "./Block"
 import NewFolder from "./NewFolder"
 import SearchBlocks from "./SearchBlocks"
+import "./blocks.css"
 
 export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colour,links,setLinks}){
     const [selected, setSelected] = useState(null)

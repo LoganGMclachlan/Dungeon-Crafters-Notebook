@@ -1,0 +1,27 @@
+
+.nav-bar{
+    width:100%;
+    padding:9px;
+    display:flex;
+    gap:20px;
+    flex-wrap: wrap;
+    opacity: 0.9;
+    border-bottom: 2px solid black;
+}
+
+.nav-item{
+    background:none;
+    font-size: 1.7em;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-item:hover{
+    text-decoration: underline;
+}
+
+.nav-title{
+    font-size: 2em;
+    border-right: 2px black solid;
+    padding-right: 20px;
+}

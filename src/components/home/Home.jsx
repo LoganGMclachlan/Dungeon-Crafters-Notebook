@@ -5,6 +5,7 @@ import CreateGame from './CreateGame'
 import SelectGame from './SelectGame'
 const About = lazy(() => import('./About'))
 const Account = lazy(() => import('./Account'))
+import "./home.css"
 
 export default function Home({user,setUser}){
     const [tabSelected, setTabSelected] = useState("select_game")

@@ -6,6 +6,7 @@ import EditDetails from './EditDetails'
 import Blocks from './Blocks'
 import Navbar from './Navbar'
 import Boards from './Boards'
+import "./game.css"
 
 export default function Dashboard({user}){
     const location = useLocation()
