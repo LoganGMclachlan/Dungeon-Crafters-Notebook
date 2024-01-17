@@ -8,11 +8,12 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
     async function Save(e){
         e.preventDefault()
         setExpandOptions(false)
-        let newBlock = block
-        newBlock.title = data[0]
-        newBlock.content = data[1]
+        if(!navigator.onLine){ alert("Cannot save blocks while offline"); return}
 
         try{
+            let newBlock = block
+            newBlock.title = data[0]
+            newBlock.content = data[1]
             // checks wether to save new block or to update existing one
             if (block.new){ 
                 delete newBlock.new
@@ -37,13 +38,11 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
             }
             alert("Block saved successfuly!")
         }
-        catch(error){
-            console.error(error)
-            alert("Failed to save this block, try again later.")
-        }
+        catch(error){ console.error(error); alert("Failed to save this block, try again later.")}
     }
 
     async function Delete(){
+        if(!navigator.onLine){ alert("Cannot delete blocks while offline"); return}
         if(!window.confirm("Are you sure you want to delete this block?")){ return }
         try{
             await deleteDoc(doc(db, "Blocks", block.id))
@@ -65,6 +64,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
     }
 
     async function createLink(linkTo){
+        if(!navigator.onLine){ alert("Cannot link blocks while offline"); return}
         if(linkTo === block.id){alert("Cannot link a block to itself");return}
         let linkExists = false
         blockLinks.map(link => {if(link.id === linkTo){linkExists = true}})

@@ -6,7 +6,7 @@ import { db } from "../../config/firebase";
 export default function FolderList({folders,blocks,select,newBlock,setFolders}){
 
     async function deleteFolder(folder){
-        // makes user confirm their decision to delete 
+        if(!navigator.onLine){ alert("Cannot delete folders while offline"); return}
         if(!window.confirm("Are you sure want to delete this folder & its blocks?")){ return }
 
         // gets all blocks with folder id

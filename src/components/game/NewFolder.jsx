@@ -8,15 +8,10 @@ export default function NewFolder({setFolders, folders, gameId}){
 
     async function addNewFolder(e){
         e.preventDefault()
+        if(!navigator.onLine){ alert("Cannot create folders while offline"); return}
         // prevents invalid folder titles from being added
-        if(title === ""){
-            alert("Enter a title for your new folder first.")
-            return
-        }
-        if(title.length > 25){
-            alert("Folder titles cannot be longer than 25 digits long.")
-            return
-        }
+        if(title === ""){alert("Enter a title for your new folder first."); return}
+        if(title.length > 25){alert("Folder titles cannot be longer than 25 digits long."); return}
 
         try{
             // adds new folder to firebase collection

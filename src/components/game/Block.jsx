@@ -43,6 +43,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
     }
 
     const deleteLink = async (linkId,linkTo) => {
+        if(!navigator.onLine){ alert("Cannot delete links while offline"); return}
         if(!window.confirm(`Are you sure you want to delete the link to "${linkTo}"?`)){return}
 
         try{

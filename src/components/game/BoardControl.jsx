@@ -7,9 +7,10 @@ export default function BoardControl({boards, select, gameId, setBoards}){
     const [newBoard, setNewBoard] = useState("")
 
     const createNewBoard = async () => {
+        if(!navigator.onLine){ alert("Cannot create board while offline"); return}
         try{
             let board = {"title":newBoard,"gameid":gameId}
-            await addDoc(collection(db,"Boards",board))
+            await addDoc(collection(db,"Boards"),board)
             .then(docRef => board.id = docRef.id)
             setBoards([...boards, board])
         }
