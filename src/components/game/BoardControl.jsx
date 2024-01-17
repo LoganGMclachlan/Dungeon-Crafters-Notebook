@@ -1,9 +1,9 @@
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
 
 
-export default function BoardControl({boards, select, gameId, setBoards}){
+export default function BoardControl({boards,select,gameId,setBoards,placements,setPlacements,selected}){
     const [newBoard, setNewBoard] = useState("")
 
     const createNewBoard = async () => {
@@ -13,6 +13,21 @@ export default function BoardControl({boards, select, gameId, setBoards}){
             await addDoc(collection(db,"Boards"),board)
             .then(docRef => board.id = docRef.id)
             setBoards([...boards, board])
+        }
+        catch(error){console.log(error); alert("Something went wrong, try again later.")}
+    }
+
+    const deleteBoard = async () => {
+        if(!navigator.onLine){ alert("Cannot delete boards while offline"); return}
+        if(!window.confirm("Are you sure you want to delete this board?")){ return }
+
+        try{
+            placements.map(async p => {
+                if(p.boardid === selected.id){await deleteDoc(doc(db,"Placements",p.id))}
+            })
+            setPlacements([...placements.filter(p => p.boardid !== selected.id)])
+
+            await deleteDoc(doc(db,"Boards",board.id))
         }
         catch(error){console.log(error); alert("Something went wrong, try again later.")}
     }
@@ -27,7 +42,8 @@ export default function BoardControl({boards, select, gameId, setBoards}){
                     <option key={board.id} value={board.id}>{board.title}</option>
                 )}
             </select><br/>
-            <button className="form-btn" style={{"backgroundColor":"red"}}>Delete Board</button>
+            <button className="form-btn" style={{"backgroundColor":"red"}}
+                onClick={() => deleteBoard()}>Delete Board</button>
         </div>
         <div>
             <input placeholder="Board Title..."
