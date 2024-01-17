@@ -3,7 +3,7 @@ import BoardBlocks from "./BoardBlocks";
 import BoardControl from "./BoardControl";
 import "./boards.css"
 
-export default function Boards({boards, placements, blocks}){
+export default function Boards({boards, placements, blocks, gameId, setBoards}){
     const [selectedBoard, setSelectedBoard] = useState(null)
     const [selectedBlocks, setSelectedBlocks] = useState([])
 
@@ -18,7 +18,7 @@ export default function Boards({boards, placements, blocks}){
     return(
     <div className="boards-container">
         <BoardBlocks blocks={selectedBlocks}/>
-        <BoardControl boards={boards} select={setSelectedBoard}/>
+        <BoardControl boards={boards} select={setSelectedBoard} gameId={gameId} setBoards={setBoards}/>
         <p className="board-control">
             Boards allow you to create custom collections of 
             information from your blocks. Use this tool to gather 

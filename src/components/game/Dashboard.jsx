@@ -83,7 +83,7 @@ export default function Dashboard({user}){
                 gameId={game.id} folders={folders} setFolders={setFolders} links={links}/>}
         
         {tabSelected === "boards" &&
-            <Boards boards={boards} placements={placements} blocks={blocks}/>}
+            <Boards boards={boards} setBoards={setBoards} placements={placements} blocks={blocks} gameId={game.id}/>}
         </>
         }
     </div>
