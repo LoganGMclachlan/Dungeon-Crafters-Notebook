@@ -9,6 +9,7 @@
     margin:10px;
     margin-bottom: 0px;
     text-align: center;
+    height: min-content;
 }
 
 .accordion-container{
@@ -20,7 +21,7 @@
     margin-top:10px;
     margin-right: 10px;
     width: 95%;
-    min-width: 50%;
+    min-width: 45%;
     min-height: 480px;
     border: 2px solid black;
     padding:10px;
@@ -101,7 +102,7 @@
     padding: 5px;
     border: none;
     margin-top: 10px;
-    height: 370px;
+    height: 360px;
     resize: none;
     overflow-y: scroll;
 }

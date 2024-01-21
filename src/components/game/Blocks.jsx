@@ -19,8 +19,13 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colou
     }
 
     // functions to add and remove blocks from selected list
-    const addSelected = block => {setSelected([...selected,block])}
-    const removeSelected = blockId => {setSelected([...selected].filter(b => b.id !== blockId))}
+    const addSelected = block => {
+        if(!selected.includes(block)){
+            setSelected([...selected,block])
+        }
+    }
+    
+    const removeSelected = blockId => setSelected([...selected].filter(b => b.id !== blockId))
 
     return(
     <div style={{"display":"flex"}} className="blocks-container">
