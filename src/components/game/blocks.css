@@ -20,13 +20,20 @@
     margin-top:10px;
     margin-right: 10px;
     width: 95%;
-    height: 480px;
+    min-width: 50%;
+    min-height: 480px;
     border: 2px solid black;
     padding:10px;
     border-radius: 10px;
     background-image: url('/src/assets/napkin.jpg');
     background-size:cover;
     background-repeat: no-repeat;
+}
+
+.block-list{
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
 }
 
 .block-snippets{
@@ -151,8 +158,9 @@
     background-color: white;
     padding-left: 5px;
     padding-right: 5px;
-    overflow-x: scroll;
-    max-height: 35px;
+}
+.related-blocks span{
+    width: fit-content;
 }
 
 .related-blocks span{

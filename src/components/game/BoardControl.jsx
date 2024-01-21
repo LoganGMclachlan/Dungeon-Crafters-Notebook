@@ -13,6 +13,8 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
             await addDoc(collection(db,"Boards"),board)
             .then(docRef => board.id = docRef.id)
             setBoards([...boards, board])
+            setNewBoard("")
+            alert("New Board Created!")
         }
         catch(error){console.log(error); alert("Something went wrong, try again later.")}
     }
@@ -48,6 +50,7 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
         <div>
             <input placeholder="Board Title..."
                 className="form-input"
+                value={newBoard}
                 onChange={e => setNewBoard(e.target.value)}/><br/>
             <button className="form-btn" onClick={() => createNewBoard()}>Create Board</button>
         </div>
