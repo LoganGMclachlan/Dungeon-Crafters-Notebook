@@ -9,7 +9,7 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colou
     const [selected, setSelected] = useState([])
     
     const newBlock = folderId => {
-        setSelected({   // create new block object and sets it as selected
+        addSelected({   // create new block object and adds it to selected
             "title":"New Block",
             "content":"",
             "gameid":gameId,
@@ -42,7 +42,7 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colou
 
         <div className="block-list">
         {selected.map(block => 
-            <Block block={block} blocks={blocks} colour={colour} gameId={gameId} setLinks={setLinks}
+            <Block key={block.id} block={block} blocks={blocks} colour={colour} gameId={gameId} setLinks={setLinks}
             setBlocks={setBlocks} close={() => removeSelected(block.id)} links={links} select={addSelected}/>
 
         )}

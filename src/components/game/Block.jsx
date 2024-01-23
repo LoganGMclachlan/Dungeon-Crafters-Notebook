@@ -48,8 +48,9 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
 
         try{
             await deleteDoc(doc(db,"Links",linkId))
-            let filtered = [...links]
-            setLinks(filtered.filter(link => link.id !== linkId))
+            let filtered = [...links].filter(link => link.id !== linkId)
+            setLinks(filtered)
+            deleteLinkFromDownload(filtered)
         }
         catch(error){
             console.error(error)
@@ -57,6 +58,16 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
         }
     }
 
+    const deleteLinkFromDownload = filtered => {
+        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
+        if(localValue === null) return
+        localValue.map(game => {
+            if(game.game.id === gameId){game.links = filtered}
+            return game
+        })
+        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
+    }
+    
     return(
     <div className="block">
         <BlockOptions colour={colour} gameId={gameId} data={[title,content]} blocks={[blocks,setBlocks]}
