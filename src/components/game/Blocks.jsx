@@ -34,7 +34,7 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colou
             
             {folders.length > 0 &&
                 <FolderList folders={folders} blocks={blocks} select={addSelected}
-                    newBlock={newBlock} setFolders={setFolders}/>
+                    newBlock={newBlock} setFolders={setFolders} gameId={gameId}/>
             }
 
             <NewFolder setFolders={setFolders} folders={folders} gameId={gameId}/>
