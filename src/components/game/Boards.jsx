@@ -4,8 +4,14 @@ import BoardControl from "./BoardControl";
 import "./boards.css"
 
 export default function Boards({boards, placements, blocks, gameId, setBoards, setPlacements}){
-    const [selectedBoard, setSelectedBoard] = useState(null)
+    const [selectedBoard, setSelectedBoard] = useState(() => {
+        const localValue = localStorage.getItem("SELECTED_BOARD")
+        if (localValue === null) return null
+        return JSON.parse(localValue)
+    })
     const [selectedBlocks, setSelectedBlocks] = useState([])
+
+    useEffect(() => {localStorage.setItem("SELECTED_BOARD", JSON.stringify(selectedBoard))}, [selectedBoard])
 
     useEffect(() => {
         let filtered = []

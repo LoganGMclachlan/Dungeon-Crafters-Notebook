@@ -16,9 +16,7 @@ export default function App() {
   })
 
   // saves user to local storage when it changes
-  useEffect(() => {
-    localStorage.setItem("CURRENT_USER", JSON.stringify(user))
-  }, [user])
+  useEffect(() => {localStorage.setItem("CURRENT_USER", JSON.stringify(user))}, [user])
 
   return (
   <Suspense fallback="Loading Page...">

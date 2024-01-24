@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import FolderList from "./FolderList"
 import Block from "./Block"
 import NewFolder from "./NewFolder"
@@ -7,7 +7,13 @@ import "./blocks.css"
 
 export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,
     colour,links,setLinks,setPlacements,boards,placements}){
-    const [selected, setSelected] = useState([])
+    const [selected, setSelected] = useState(() => {
+        const localValue = localStorage.getItem("SELECTED_BLOCKS")
+        if (localValue === null) return []
+        return JSON.parse(localValue)
+    })
+
+    useEffect(() => {localStorage.setItem("SELECTED_BLOCKS", JSON.stringify(selected))}, [selected])
     
     const newBlock = folderId => {
         addSelected({   // create new block object and adds it to selected

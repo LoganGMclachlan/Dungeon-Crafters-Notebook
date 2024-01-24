@@ -95,11 +95,10 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
         try{
             let placement = {"blockid":block.id,"boardid":placeIn,"gameid":gameId}
             await addDoc(collection(db,"Placements"), placement)
-            .then(docRef => {
-                placement.id = docRef.id
-                placements[1]([...placements[0],placement])
-                downloadPlacement(placement)
-            })
+            .then(docRef => {placement.id = docRef.id})
+            placements[1]([...placements[0],placement])
+            downloadPlacement(placement)
+            alert("Block added to selected board.")
         }
         catch(error){console.error(error);alert("Something went wrong, try again later.")}
     }
