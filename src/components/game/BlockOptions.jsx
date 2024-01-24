@@ -2,10 +2,10 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestor
 import { useState } from "react"
 import { db } from "../../config/firebase"
 
-export default function BlockOptions({colour,gameId,data,blocks,links,close,blockLinks,block}){
+export default function BlockOptions({colour,gameId,data,blocks,links,close,blockLinks,block,placements,boards}){
     const [expandOptions,setExpandOptions] = useState(false)
 
-    async function Save(e){
+    const save = async e => {
         e.preventDefault()
         setExpandOptions(false)
         if(!navigator.onLine){ alert("Cannot save blocks while offline"); return}
@@ -43,7 +43,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
         catch(error){ console.error(error); alert("Failed to save this block, try again later.")}
     }
 
-    async function Delete(){
+    const Delete = async () => {
         if(!navigator.onLine){ alert("Cannot delete blocks while offline"); return}
         if(!window.confirm("Are you sure you want to delete this block?")){ return }
         try{
@@ -67,7 +67,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
         }
     }
 
-    async function createLink(linkTo){
+    const createLink = async linkTo => {
         if(!navigator.onLine){ alert("Cannot link blocks while offline"); return}
         if(linkTo === block.id){alert("Cannot link a block to itself");return}
         let linkExists = false
@@ -87,6 +87,32 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
             console.error(error)
             alert("Something went wrong, try again later.")
         }
+    }
+
+    const createPlacement = async placeIn => {
+        if(!navigator.onLine){ alert("Cannot add to boards while offline"); return}
+
+        try{
+            let placement = {"blockid":block.id,"boardid":placeIn,"gameid":gameId}
+            await addDoc(collection(db,"Placements"), placement)
+            .then(docRef => {
+                placement.id = docRef.id
+                placements[1]([...placements[0],placement])
+                downloadPlacement(placement)
+            })
+        }
+        catch(error){console.error(error);alert("Something went wrong, try again later.")}
+    }
+
+    const downloadPlacement = placement => {
+        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
+        if(localValue === null) return
+        localValue.map(game => {
+            if(game.game.id === gameId){game.placements.push(placement)}
+            return game
+        })
+        console.log(localValue.placements)
+        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
     }
 
     const downloadBlock = newBlock => {
@@ -147,7 +173,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
                 style={{"backgroundColor":`${colour}`}}>Options</button>
             {expandOptions &&
             <ul className="options-collapse">
-                <li onClick={e => Save(e)}>Save</li>
+                <li onClick={e => save(e)}>Save</li>
                 {!block.new && <>
                     <li>
                         <label>Link to: </label> 
@@ -157,7 +183,14 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
                             {blocks[0].map(b => <option value={b.id} key={b.id}>{b.title}</option>)}
                         </select>
                     </li>
-                    <li>Add to Board</li>
+                    <li>
+                        <label>Add to Board: </label> 
+                        <select className="option-select" defaultValue="defualt"
+                            onChange={e => {createPlacement(e.target.value);setExpandOptions(false)}}>
+                            <option value="defualt" disabled>Select Board</option>
+                            {boards.map(b => <option value={b.id} key={b.id}>{b.title}</option>)}
+                        </select>
+                    </li>
                     <li onClick={Delete} style={{"color":"red"}}>Delete</li>
                 </>}
             </ul>

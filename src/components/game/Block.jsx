@@ -4,7 +4,8 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useEffect } from "react"
 import BlockOptions from "./BlockOptions"
 
-export default function FolderList({block,setBlocks,close,blocks,colour,gameId,links,setLinks,select}){
+export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
+    links,setLinks,select,setPlacements,boards,placements}){
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [blockLinks, setBlockLinks] = useState([])
@@ -70,8 +71,9 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,l
     
     return(
     <div className="block">
-        <BlockOptions colour={colour} gameId={gameId} data={[title,content]} blocks={[blocks,setBlocks]}
-            links={[links,setLinks]} close={close} blockLinks={blockLinks} block={block}/>
+        <BlockOptions colour={colour} gameId={gameId} data={[title,content]} 
+            blocks={[blocks,setBlocks]} boards={boards} links={[links,setLinks]}
+            close={close} blockLinks={blockLinks} block={block} placements={[placements,setPlacements]}/>
 
         <button className="x-btn" onClick={handleClose}>X</button>
         <input

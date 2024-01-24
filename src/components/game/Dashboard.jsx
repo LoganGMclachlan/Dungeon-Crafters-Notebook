@@ -79,8 +79,10 @@ export default function Dashboard({user}){
                 details={[blocks,folders,links,boards,placements]}/>}
         
         {tabSelected === "blocks" && 
-            <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour} setLinks={setLinks}
-                gameId={game.id} folders={folders} setFolders={setFolders} links={links}/>}
+            <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour} 
+                setLinks={setLinks} boards={boards} gameId={game.id} folders={folders}
+                setFolders={setFolders} links={links} setPlacements={setPlacements}
+                placements={placements}/>}
         
         {tabSelected === "boards" &&
             <Boards boards={boards} setBoards={setBoards} placements={placements} blocks={blocks} gameId={game.id}

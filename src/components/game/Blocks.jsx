@@ -5,7 +5,8 @@ import NewFolder from "./NewFolder"
 import SearchBlocks from "./SearchBlocks"
 import "./blocks.css"
 
-export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colour,links,setLinks}){
+export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,
+    colour,links,setLinks,setPlacements,boards,placements}){
     const [selected, setSelected] = useState([])
     
     const newBlock = folderId => {
@@ -43,7 +44,8 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,colou
         <div className="block-list">
         {selected.map(block => 
             <Block key={block.id} block={block} blocks={blocks} colour={colour} gameId={gameId} setLinks={setLinks}
-            setBlocks={setBlocks} close={() => removeSelected(block.id)} links={links} select={addSelected}/>
+                setBlocks={setBlocks} close={() => removeSelected(block.id)} links={links} select={addSelected}
+                setPlacements={setPlacements} boards={boards} placements={placements}/>
 
         )}
         </div>
