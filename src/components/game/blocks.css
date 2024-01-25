@@ -179,3 +179,21 @@
 .related-blocks span label:hover{
     font-weight: bold;
 }
+
+@media (max-width: 1000px) {
+    .folderList{
+        width:95%;
+        margin:10px
+    }
+    .blocks-container{
+        flex-direction: column;
+    }
+    .block{ 
+        margin: 10px;
+        min-width: 95%;
+    }
+    .block-list{
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+}

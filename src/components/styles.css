@@ -11,21 +11,3 @@ body{
     background-color: aliceblue;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
-@media (max-width: 1000px) {
-    .folderList{
-        width:95%;
-        margin:10px
-    }
-    .blocks-container{
-        flex-direction: column;
-    }
-    .block{ 
-        margin: 10px;
-    }
-    .nav-bar{gap:0px}
-    .nav-title{display: none;}
-    .menu{width:70%}
-    .nav-item{font-size: 1.5em;}
-    .tab{font-size: 0.65em;padding: 0px;}
-}

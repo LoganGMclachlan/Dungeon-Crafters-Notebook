@@ -103,3 +103,8 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+@media (max-width: 1000px) {
+    .menu{width:70%}
+    .tab{font-size: 0.65em;padding: 0px;}
+}
