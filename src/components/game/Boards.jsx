@@ -16,14 +16,16 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
     useEffect(() => {
         let filtered = []
         placements.filter(p => p.boardid === selectedBoard).map(p => {
-            filtered.push(blocks.find(b => b.id === p.blockid))
+            let block = blocks.find(b => b.id === p.blockid)
+            block.placement = p.id
+            filtered.push(block)
         })
         setSelectedBlocks(filtered)
-    }, [selectedBoard])
+    }, [selectedBoard,placements])
 
     return(
     <div className="boards-container">
-        <BoardBlocks blocks={selectedBlocks}/>
+        <BoardBlocks blocks={selectedBlocks} setPlacements={setPlacements} placements={placements}/>
         <BoardControl boards={boards} select={setSelectedBoard} gameId={gameId} setBoards={setBoards}
             placements={placements} setPlacements={setPlacements} selected={selectedBoard}/>
         <p className="board-control">
