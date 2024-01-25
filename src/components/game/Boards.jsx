@@ -25,7 +25,7 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
 
     return(
     <div className="boards-container">
-        <BoardBlocks blocks={selectedBlocks} setPlacements={setPlacements} placements={placements}/>
+        <BoardBlocks blocks={selectedBlocks} setPlacements={setPlacements} placements={placements} gameId={gameId}/>
         <BoardControl boards={boards} select={setSelectedBoard} gameId={gameId} setBoards={setBoards}
             placements={placements} setPlacements={setPlacements} selected={selectedBoard}/>
         <p className="board-control">

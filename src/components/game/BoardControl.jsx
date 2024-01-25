@@ -12,7 +12,18 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
             let board = {"title":newBoard,"gameid":gameId}
             await addDoc(collection(db,"Boards"),board)
             .then(docRef => board.id = docRef.id)
+            
+            let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
+            if(localValue !== null) {
+                localValue.map(game => {
+                    if(game.game.id === gameId){game.boards.push(board)}
+                    return game
+                })
+                localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
+            }
+            
             setBoards([...boards, board])
+            select(board.id)
             setNewBoard("")
             alert("New Board Created!")
         }
@@ -20,16 +31,30 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
     }
 
     const deleteBoard = async () => {
+        if(!selected){ alert("Select a board to delete."); return}
         if(!navigator.onLine){ alert("Cannot delete boards while offline"); return}
         if(!window.confirm("Are you sure you want to delete this board?")){ return }
 
         try{
             placements.map(async p => {
-                if(p.boardid === selected.id){await deleteDoc(doc(db,"Placements",p.id))}
+                if(p.boardid === selected){await deleteDoc(doc(db,"Placements",p.id))}
             })
-            setPlacements([...placements.filter(p => p.boardid !== selected.id)])
+            setPlacements([...placements].filter(p => p.boardid !== selected))
+            await deleteDoc(doc(db,"Boards",selected))
 
-            await deleteDoc(doc(db,"Boards",board.id))
+            let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
+            if(localValue !== null) {
+                localValue.map(game => {
+                    if(game.game.id === gameId){
+                        game.placements = [...game.placements.filter(p => p.boardid !== selected)]
+                        game.boards = [...game.boards.filter(b => b.id !== selected)]
+                    }
+                    return game
+                })
+                localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
+            }
+
+            select(null)
         }
         catch(error){console.log(error); alert("Something went wrong, try again later.")}
     }
@@ -37,9 +62,8 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
     return(
     <div className="board-control">
         <div>
-            <select defaultValue="default" className="form-input" style={{"width":"200px"}}
+            <select defaultValue={{if(selected){return selected}}} className="form-input" style={{"width":"200px"}}
                 onChange={e => select(e.target.value)}>
-                <option value="default" disabled>Select a Board</option>
                 {boards.map(board => 
                     <option key={board.id} value={board.id}>{board.title}</option>
                 )}

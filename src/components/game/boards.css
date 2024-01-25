@@ -29,13 +29,12 @@
     display:flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    width: 100%;
     gap:5px;
 }
 
 .board-blocks div{
-    max-width:49.5%;
-    min-width: 25%;
-    width: fit-content;
+    width:49.5%;
     flex-grow: 1;
     max-height: 400px;
     background-image: url('/src/assets/napkin.jpg');
@@ -44,7 +43,7 @@
     overflow-y: scroll;
     padding:5px;
     box-sizing: border-box;
-    border: 2px solid;
+    border: 2px solid;  
     border-radius: 5px;
 }
 

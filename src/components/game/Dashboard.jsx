@@ -24,8 +24,8 @@ export default function Dashboard({user}){
             getData("Blocks").then(blocks => setBlocks(blocks))
             getData("Folders").then(folders => setFolders(folders))
             getData("Links").then(links => setLinks(links))
-            getData("Board").then(boards => setBoards(boards))
-            getData("Placements").then(placement => setPlacements(placement))
+            getData("Boards").then(boards => setBoards(boards))
+            getData("Placements").then(placements => setPlacements(placements))
         } else {
             const localValue = localStorage.getItem("SAVED_GAMES")
             if (localValue !== null){
