@@ -87,6 +87,12 @@ export default function EditDetails({game,setGame,details}){
             console.error(error)}
     }
 
+    const exitGame = () => {
+        localStorage.setItem("SELECTED_BLOCKS",JSON.stringify(null))
+        localStorage.setItem("SELECTED_BOARD",JSON.stringify(null))
+        navigate("/")
+    }
+
     return(
         <div className="menu">
             <div className="container details">
@@ -115,7 +121,7 @@ export default function EditDetails({game,setGame,details}){
                     <button type='submit' style={{"marginLeft":"10px"}} className='form-btn'>Save Details</button>
                 </form>
                 
-                <Link to="/"><button className='form-btn' style={{"marginRight":"10px"}}>Exit Game</button></Link>
+                <button className='form-btn' style={{"marginRight":"10px"}} onClick={() => exitGame()}>Exit Game</button>
                 <button  className='form-btn' style={{"backgroundColor":"red"}}
                     onClick={() => deleteGame()}>Delete Game</button>
             </div>

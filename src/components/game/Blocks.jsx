@@ -9,7 +9,7 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,
     colour,links,setLinks,setPlacements,boards,placements}){
     const [selected, setSelected] = useState(() => {
         const localValue = localStorage.getItem("SELECTED_BLOCKS")
-        if (localValue === null) return []
+        if (JSON.parse(localValue) === null) return []
         return JSON.parse(localValue)
     })
 
