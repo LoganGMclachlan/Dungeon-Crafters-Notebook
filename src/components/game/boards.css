@@ -36,15 +36,27 @@
 .board-blocks div{
     width:49.5%;
     flex-grow: 1;
-    max-height: 400px;
     background-image: url('/src/assets/napkin.jpg');
     background-size:cover;
     background-repeat: no-repeat;
-    overflow-y: scroll;
-    padding:5px;
     box-sizing: border-box;
     border: 2px solid;  
     border-radius: 5px;
+}
+
+.board-blocks div h2{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+
+.board-blocks div textarea{
+    width: 100%;
+    min-height: 150px;
+    resize: none;
+    margin-bottom:-5px;
+    cursor: pointer;
+    transition-duration: 0.3s;
 }
 
 @media (max-width: 550px) {

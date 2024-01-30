@@ -1,5 +1,6 @@
 import { deleteDoc, doc } from "firebase/firestore"
 import { db } from "../../config/firebase"
+import { useRef } from "react"
 
 
 export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
@@ -25,12 +26,24 @@ export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
         catch(error){console.log(error);alert("something went wrong, try again later")}
     }
 
+    const toggleExpand = e => {
+        if(e.target.style.height === "150px"){
+            e.target.style.height = `${Math.min(e.target.scrollHeight, 400)}px`
+        } else {
+            e.target.style.height = '150px'
+        }
+    }
+
     return(
     <div className="board-blocks">
         {blocks.map(block => <div key={block.id}>
             <button className="x-btn" onClick={() => deletePlacement(block)}>X</button>
             <h2>{block.title}</h2>
-            <p>{block.content}</p>
+            <textarea className="board-content" 
+                value={block.content}
+                onClick={toggleExpand}
+                readOnly={true}
+            />
         </div>)}
     </div>
     )
