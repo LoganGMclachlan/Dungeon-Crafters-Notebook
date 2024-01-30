@@ -1,9 +1,13 @@
 import { deleteDoc, doc } from "firebase/firestore"
 import { db } from "../../config/firebase"
-import { useRef } from "react"
-
+import { useEffect, useState } from "react"
 
 export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
+    const [orderedBlocks,setOrderedBlocks] = useState([])
+
+    useEffect(() => {
+        setOrderedBlocks(blocks.sort((a, b) => b.content.length - a.content.length))
+    }, [blocks])
 
     const deletePlacement = async block => {
         if(!window.confirm(`Are you sure you want to delete "${block.title}" from this board?`)){return}
@@ -36,12 +40,12 @@ export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
 
     return(
     <div className="board-blocks">
-        {blocks.map(block => <div key={block.id}>
+        {orderedBlocks.map(block => <div key={block.id}>
             <button className="x-btn" onClick={() => deletePlacement(block)}>X</button>
             <h2>{block.title}</h2>
             <textarea className="board-content" 
                 value={block.content}
-                onClick={toggleExpand}
+                onMouseDown={toggleExpand}
                 readOnly={true}
             />
         </div>)}
