@@ -10,6 +10,7 @@ export default function BlockEditor({content,setContent}){
         init={{
             height: 360,
             menubar: false,
+            browser_spellcheck: true,
             toolbar:
                 "undo redo | blocks | " +
                 "bold italic forecolor | alignleft aligncenter " +

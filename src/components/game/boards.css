@@ -50,12 +50,15 @@
 }
 
 
-.board-blocks div textarea{
+.board-blocks div div{
     width: 100%;
-    min-height: 150px;
-    resize: none;
-    margin-bottom:-5px;
+    min-height: 180px;
     cursor: pointer;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 0px;
+    overflow-y: scroll;
+    background: white;
     transition-duration: 0.3s;
 }
 
