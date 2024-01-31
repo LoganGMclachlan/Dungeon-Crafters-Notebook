@@ -3,6 +3,7 @@ import { db } from "../../config/firebase"
 import { deleteDoc, doc } from "firebase/firestore"
 import { useEffect } from "react"
 import BlockOptions from "./BlockOptions"
+import BlockEditor from "./BlockEditor"
 
 export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     links,setLinks,select,setPlacements,boards,placements}){
@@ -80,10 +81,8 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
             value={title}
             className="block-title"
             onChange={e => setTitle(e.target.value)}/><br/>
-        <textarea
-            value={content}
-            className="block-content"
-            onChange={e => setContent(e.target.value)}/><br/>
+
+            <BlockEditor content={content} setContent={setContent}/>
 
         <p className="related-blocks"><b>Related: </b>{blockLinks.map(link => 
         <span key={link.id}>

@@ -167,11 +167,12 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
     }
 
     return(
-        <div style={{"display":"inline"}} onMouseLeave={() => setExpandOptions(false)}>
-            <button className="options-btn" onMouseEnter={() => setExpandOptions(true)}
+        <div style={{"display":"inline"}}>
+            <button className="options-btn" onClick={() => setExpandOptions(!expandOptions)}
                 style={{"backgroundColor":`${colour}`}}>Options</button>
             {expandOptions &&
             <ul className="options-collapse">
+                <li onClick={() => setExpandOptions(false)}>Close Options</li>
                 <li onClick={e => save(e)}>Save</li>
                 {!block.new && <>
                     <li>
