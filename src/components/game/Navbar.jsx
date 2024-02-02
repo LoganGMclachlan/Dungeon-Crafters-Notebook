@@ -1,7 +1,11 @@
+import loading from "../../assets/YLWC.gif"
+
 export default function Navbar({selected,setSelected,game}){
     return(
     <div className='nav-bar' style={{"backgroundColor":""+game.colour}}>
         <h1 className='nav-title'>{game.title}</h1>
+
+        {game.title === "Loading" && <img src={loading} className="loading-icon"/>}
         
         {selected === "blocks"
         ?<button className='nav-item' style={{"textDecoration":"underline"}}>Blocks</button>
