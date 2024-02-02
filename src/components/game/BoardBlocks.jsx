@@ -2,6 +2,7 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { db } from "../../config/firebase"
 import { useEffect, useState } from "react"
 import { Editor } from "@tinymce/tinymce-react"
+import { htmlToText } from "html-to-text"
 
 export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
     const [orderedBlocks,setOrderedBlocks] = useState([])
@@ -45,17 +46,22 @@ export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
             <button className="x-btn" onClick={() => deletePlacement(block)}>X</button>
             <h2>{block.title}</h2>
             <span onClick={toggleExpand}>
-            <Editor 
-                apiKey="c70a4j85ev1e4q1dopyxbpw772r0lz047pef9umlig63xfdh"
-                value={block.content}
-                disabled={true}
-                inline={true}
-                init={{
-                    menubar:false,
-                    toolbar:false,
-                    resize:false
-                }}
-            />
+            {navigator.onLine
+            ? <Editor 
+                    apiKey="c70a4j85ev1e4q1dopyxbpw772r0lz047pef9umlig63xfdh"
+                    value={block.content}
+                    disabled={true}
+                    inline={true}
+                    init={{
+                        menubar:false,
+                        toolbar:false,
+                        resize:false
+                    }}
+                />
+            : <textarea 
+                value={htmlToText(block.content,{wordwrap: 80})}/>
+            }
+            
             </span>
         </div>)}
     </div>

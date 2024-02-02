@@ -63,6 +63,19 @@
     transition-duration: 0.3s;
 }
 
+.board-blocks div textarea{
+    width: 100%;
+    min-height: 180px;
+    max-height: 350px;
+    cursor: pointer;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 0px;
+    overflow-y: scroll;
+    background: white;
+    transition-duration: 0.3s;
+}
+
 @media (max-width: 550px) {
     .board-blocks div{
         min-width: 100%;
