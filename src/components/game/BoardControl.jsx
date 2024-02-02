@@ -62,8 +62,9 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
     return(
     <div className="board-control">
         <div>
-            <select defaultValue={{if(selected){return selected}}} className="form-input" style={{"width":"200px"}}
+            <select defaultValue="default" className="form-input" style={{"width":"200px"}}
                 onChange={e => select(e.target.value)}>
+                <option value="default" disabled>Select a Board</option>
                 {boards.map(board => 
                     <option key={board.id} value={board.id}>{board.title}</option>
                 )}

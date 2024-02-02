@@ -33,7 +33,7 @@ export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
 
     const toggleExpand = e => {
         if(e.target.style.height === "150px"){
-            e.target.style.height = `${Math.min(e.target.scrollHeight, 400)}px`
+            e.target.style.height = `${e.target.scrollHeight}px`
         } else {
             e.target.style.height = '150px'
         }
@@ -53,9 +53,7 @@ export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
                 init={{
                     menubar:false,
                     toolbar:false,
-                    resize:false,
-                    width: "100%",
-                    height: "100%",
+                    resize:false
                 }}
             />
             </span>

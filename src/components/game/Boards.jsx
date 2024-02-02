@@ -31,6 +31,9 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
             Boards allow you to create custom collections of 
             information from your blocks. Use this tool to gather 
             all the info you would need for a session.
+            Select a board to view the blocks within. You can click 
+            on a block to expand or minimise it. Click the X button 
+            to remove it from that board.
         </p>
     </div>
     )

@@ -53,6 +53,7 @@
 .board-blocks div div{
     width: 100%;
     min-height: 180px;
+    max-height: 350px;
     cursor: pointer;
     border: 1px solid;
     padding: 5px;
@@ -65,5 +66,8 @@
 @media (max-width: 550px) {
     .board-blocks div{
         min-width: 100%;
+    }
+    .board-blocks div div{
+        max-height: 450px;
     }
 }
