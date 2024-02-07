@@ -4,7 +4,7 @@ import { db } from "../../config/firebase"
 import { headings, numberedList, dottedList } from "./Templates"
 
 export default function BlockOptions({colour,gameId,data,blocks,links,close,
-    blockLinks,block,placements,boards,setContent}){
+    blockLinks,block,placements,boards,content}){
     const [expandOptions,setExpandOptions] = useState(false)
 
     const save = async e => {
@@ -179,7 +179,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
                 <li>
                     <label>Use Template: </label>
                     <select className="option-select" defaultValue="defualt"
-                        onChange={e => {setContent(e.target.value);setExpandOptions(false)}}>
+                        onChange={e => {content[1](content[0] + e.target.value);setExpandOptions(false)}}>
                         <option value="defualt" disabled>None</option>
                         <option value={headings}>Headings</option>
                         <option value={numberedList}>Numbered List</option>
