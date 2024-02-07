@@ -11,7 +11,6 @@ export default function BlockEditor({content,setContent}){
             height: 360,
             menubar: false,
             browser_spellcheck: true,
-            newline_behavior: "linebreak",
             resize:false,
             toolbar:
                 "undo redo | blocks | " +

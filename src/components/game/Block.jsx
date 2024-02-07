@@ -73,7 +73,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     
     return(
     <div className="block">
-        <BlockOptions colour={colour} gameId={gameId} data={[title,content]} 
+        <BlockOptions colour={colour} gameId={gameId} data={[title,content]} setContent={setContent}
             blocks={[blocks,setBlocks]} boards={boards} links={[links,setLinks]}
             close={close} blockLinks={blockLinks} block={block} placements={[placements,setPlacements]}/>
 

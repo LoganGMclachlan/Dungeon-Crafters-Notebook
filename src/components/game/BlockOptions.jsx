@@ -1,8 +1,10 @@
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
+import { headings, numberedList, dottedList } from "./Templates"
 
-export default function BlockOptions({colour,gameId,data,blocks,links,close,blockLinks,block,placements,boards}){
+export default function BlockOptions({colour,gameId,data,blocks,links,close,
+    blockLinks,block,placements,boards,setContent}){
     const [expandOptions,setExpandOptions] = useState(false)
 
     const save = async e => {
@@ -174,6 +176,16 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,bloc
             <ul className="options-collapse">
                 <li onClick={() => setExpandOptions(false)}>Close Options</li>
                 <li onClick={e => save(e)}>Save</li>
+                <li>
+                    <label>Use Template: </label>
+                    <select className="option-select" defaultValue="defualt"
+                        onChange={e => {setContent(e.target.value);setExpandOptions(false)}}>
+                        <option value="defualt" disabled>None</option>
+                        <option value={headings}>Headings</option>
+                        <option value={numberedList}>Numbered List</option>
+                        <option value={dottedList}>Dotted List</option>
+                    </select>
+                </li>
                 {!block.new && <>
                     <li>
                         <label>Link to: </label> 
