@@ -15,10 +15,6 @@ export default function Navbar({selected,setSelected,game}){
         ?<button className='nav-item' style={{"textDecoration":"underline"}}>Boards</button>
         :<button className='nav-item' onClick={() => setSelected("boards")}>Boards</button>
         }
-        {selected === "maps"
-        ?<button className='nav-item' style={{"textDecoration":"underline"}}>Maps</button>
-        :<button className='nav-item' onClick={() => setSelected("maps")}>Maps</button>
-        }
         {selected === "details"
         ?<button className='nav-item' style={{"textDecoration":"underline"}}>Details</button>
         :<button className='nav-item' onClick={() => setSelected("details")}>Details</button>

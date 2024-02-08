@@ -3,7 +3,7 @@ import { useState } from "react"
 import { db } from "../../config/firebase"
 import { headings, numberedList, dottedList } from "./Templates"
 
-export default function BlockOptions({colour,gameId,data,blocks,links,close,
+export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
     blockLinks,block,placements,boards,content}){
     const [expandOptions,setExpandOptions] = useState(false)
 
@@ -24,7 +24,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
                     // updates local copy of blocks
                     newBlock.id = docRef.id
                     blocks[1]([...blocks[0],newBlock])
-                    downloadBlock(newBlock)
                 })
             }else{
                 await updateDoc(
@@ -38,7 +37,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
                     }
                     return b
                 }))
-                updateDownloadedBlock(newBlock)
             }
             alert("Block saved successfuly!")
         }
@@ -51,17 +49,15 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
         try{
             await deleteDoc(doc(db, "Blocks", block.id))
             blocks[1](blocks[0].filter(b => b.id != block.id))
-            deleteBlockFromDownload(block.id)
 
             let filteredLinks = [...links[0]]
             blockLinks.map(async link => {
                 await deleteDoc(doc(db,"Links",link.linkId)).then(
                     filteredLinks = filteredLinks.filter(l => l.id !== link.linkId),
-                    deleteLinkFromDownload(filteredLinks)
                 )
             })
             links[1](filteredLinks)
-            close()
+            closeBlock()
         }
         catch(error){
             console.error(error)
@@ -82,7 +78,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
             .then(docRef => {
                 link.id = docRef.id
                 links[1]([...links[0],link])
-                downloadLink(link)
             })
         }
         catch(error){
@@ -99,74 +94,12 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
             await addDoc(collection(db,"Placements"), placement)
             .then(docRef => {placement.id = docRef.id})
             placements[1]([...placements[0],placement])
-            downloadPlacement(placement)
             alert("Block added to selected board.")
         }
         catch(error){console.error(error);alert("Something went wrong, try again later.")}
     }
 
-    const downloadPlacement = placement => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.placements.push(placement)}
-            return game
-        })
-        console.log(localValue.placements)
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
-
-    const downloadBlock = newBlock => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.blocks.push(newBlock)}
-            return game
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
-
-    const updateDownloadedBlock = newBlock => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.blocks = [...game.blocks.map(b => {
-                if(b.id === newBlock.id){ return newBlock } else return b
-            })]}
-            return game
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
-
-    const deleteBlockFromDownload = id => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.blocks = [...game.blocks.filter(b => b.id !== id)]}
-            return game
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
-
-    const downloadLink = link => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.links.push(link)}
-            return game
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
-
-    const deleteLinkFromDownload = filtered => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.links = filtered}
-            return game
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
+    const close = () => setExpandOptions(false)
 
     return(
         <div style={{"display":"inline"}}>
@@ -174,12 +107,12 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
                 style={{"backgroundColor":`${colour}`}}>Options</button>
             {expandOptions &&
             <ul className="options-collapse">
-                <li onClick={() => setExpandOptions(false)}>Close Options</li>
+                <li onClick={close}>Close Options</li>
                 <li onClick={e => save(e)}>Save</li>
                 <li>
                     <label>Use Template: </label>
                     <select className="option-select" defaultValue="defualt"
-                        onChange={e => {content[1](content[0] + e.target.value);setExpandOptions(false)}}>
+                        onChange={e => {content[1](content[0] + e.target.value);close()}}>
                         <option value="defualt" disabled>None</option>
                         <option value={headings}>Headings</option>
                         <option value={numberedList}>Numbered List</option>
@@ -190,7 +123,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
                     <li>
                         <label>Link to: </label> 
                         <select className="option-select" defaultValue="defualt"
-                            onChange={e => {createLink(e.target.value);setExpandOptions(false)}}>
+                            onChange={e => {createLink(e.target.value);close()}}>
                             <option value="defualt" disabled>Select Block</option>
                             {blocks[0].map(b => <option value={b.id} key={b.id}>{b.title}</option>)}
                         </select>
@@ -198,7 +131,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,close,
                     <li>
                         <label>Add to Board: </label> 
                         <select className="option-select" defaultValue="defualt"
-                            onChange={e => {createPlacement(e.target.value);setExpandOptions(false)}}>
+                            onChange={e => {createPlacement(e.target.value);close()}}>
                             <option value="defualt" disabled>Select Board</option>
                             {boards.map(b => <option value={b.id} key={b.id}>{b.title}</option>)}
                         </select>

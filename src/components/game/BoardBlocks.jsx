@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Editor } from "@tinymce/tinymce-react"
 import { htmlToText } from "html-to-text"
 
-export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
+export default function BoardBlocks({blocks,setPlacements,placements}){
     const [orderedBlocks,setOrderedBlocks] = useState([])
 
     useEffect(() => {
@@ -17,17 +17,6 @@ export default function BoardBlocks({blocks,setPlacements,placements,gameId}){
         try{
             await deleteDoc(doc(db,"Placements",block.placement))
             setPlacements([...placements].filter(p => p.id !== block.placement))
-
-            let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-            if(localValue !== null) {
-                localValue.map(game => {
-                    if(game.game.id === gameId){
-                        game.placements = [...game.placements.filter(p => p.id !== block.placement)]
-                    }
-                    return game
-                })
-                localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-            }
         }
         catch(error){console.log(error);alert("something went wrong, try again later")}
     }

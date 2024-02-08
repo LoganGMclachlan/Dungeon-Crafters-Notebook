@@ -38,7 +38,7 @@ export default function EditDetails({game,setGame,details}){
         setDownloaded(false)
     }
 
-    async function SaveDetails(e){
+    const SaveDetails = async e => {
         e.preventDefault()
         if (newTitle === ""){
             alert("Please enter a title")
@@ -56,7 +56,7 @@ export default function EditDetails({game,setGame,details}){
         catch(error){console.error(error)}
     }
 
-    async function deleteGame(){
+    const deleteGame = async () => {
         if(!window.confirm("Are you sure you want to delete this game?")){return}
 
         try{
@@ -75,6 +75,9 @@ export default function EditDetails({game,setGame,details}){
                         break;
                     case 3:
                         info.map(async board => await deleteDoc(doc(db,"Boards",board.id)))
+                        break;
+                    case 4:
+                        info.map(async placement => await deleteDoc(doc(db,"Placements",placement.id)))
                         break;
                 }
             })
@@ -96,7 +99,7 @@ export default function EditDetails({game,setGame,details}){
     return(
         <div className="menu">
             <div className="container details">
-                <h1>Details</h1>
+                <h1>Game Details</h1>
                 <form onSubmit={e => SaveDetails(e)}>
                     <label>Title:</label>
                     <input
@@ -104,6 +107,7 @@ export default function EditDetails({game,setGame,details}){
                         onChange={e => setNewTitle(e.target.value)}
                         className='form-input'
                     /><br/>
+
                     <label>Colour:</label>
                     <select onChange={e => setNewColour(e.target.value)}
                         className='form-input' value={newColour}>
@@ -114,10 +118,12 @@ export default function EditDetails({game,setGame,details}){
                         <option value="grey">Grey</option>
                         <option value="rgb(155, 3, 155)">Purple</option>
                     </select><br/>
+
                     {downloaded 
                     ?<button className='form-btn' onClick={() => removeDownload()}>Downloaded</button>
                     :<button className='form-btn' onClick={() => downloadGame()}>Download Game</button>
                     }
+
                     <button type='submit' style={{"marginLeft":"10px"}} className='form-btn'>Save Details</button>
                 </form>
                 

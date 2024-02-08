@@ -20,22 +20,12 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders,ga
             await deleteDoc(doc(db, "Folders", folder.id))
             // filters folders
             setFolders(folders.filter(f => f.id !== folder.id))
-            updateDownload(folder)
         }
         // logs errors and alerts user of failure
         catch(error){
             console.error(error)
             alert("Failed to delete this folder, try again later.")
         }
-    }
-
-    const updateDownload = folder => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.folders = [...game.folders.filter(f => f.id !== folder.id)]}
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
     }
 
     return(

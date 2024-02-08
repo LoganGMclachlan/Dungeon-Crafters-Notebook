@@ -11,17 +11,7 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
         try{
             let board = {"title":newBoard,"gameid":gameId}
             await addDoc(collection(db,"Boards"),board)
-            .then(docRef => board.id = docRef.id)
-            
-            let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-            if(localValue !== null) {
-                localValue.map(game => {
-                    if(game.game.id === gameId){game.boards.push(board)}
-                    return game
-                })
-                localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-            }
-            
+                .then(docRef => board.id = docRef.id)
             setBoards([...boards, board])
             select(board.id)
             setNewBoard("")
@@ -41,19 +31,6 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
             })
             setPlacements([...placements].filter(p => p.boardid !== selected))
             await deleteDoc(doc(db,"Boards",selected))
-
-            let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-            if(localValue !== null) {
-                localValue.map(game => {
-                    if(game.game.id === gameId){
-                        game.placements = [...game.placements.filter(p => p.boardid !== selected)]
-                        game.boards = [...game.boards.filter(b => b.id !== selected)]
-                    }
-                    return game
-                })
-                localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-            }
-
             select(null)
         }
         catch(error){console.log(error); alert("Something went wrong, try again later.")}

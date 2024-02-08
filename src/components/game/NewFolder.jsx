@@ -20,8 +20,7 @@ export default function NewFolder({setFolders, folders, gameId}){
                 "gameid":gameId
             })
             .then(docRef => {
-                setFolders([...folders,{"id":docRef.id,"title":title,"gameid":gameId}]),
-                updateDownload(docRef.id)
+                setFolders([...folders,{"id":docRef.id,"title":title,"gameid":gameId}])
             })
             
             setTitle("")
@@ -32,17 +31,6 @@ export default function NewFolder({setFolders, folders, gameId}){
             alert("Something went wrong and we coudlnt create your folder, please try again later")
         }
     } 
-
-    const updateDownload = id => {
-        let localValue = JSON.parse(localStorage.getItem("SAVED_GAMES"))
-        if(localValue === null) return
-        localValue.map(game => {
-            if(game.game.id === gameId){game.folders.push({"id":id,"title":title,"gameid":gameId})}
-            return game
-        })
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(localValue))
-    }
-
 
     return(
         <form onSubmit={e => addNewFolder(e)}>
