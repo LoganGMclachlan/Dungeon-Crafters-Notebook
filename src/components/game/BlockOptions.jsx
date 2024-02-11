@@ -47,9 +47,11 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         if(!navigator.onLine){ alert("Cannot delete blocks while offline"); return}
         if(!window.confirm("Are you sure you want to delete this block?")){ return }
         try{
+            // removes block data
             await deleteDoc(doc(db, "Blocks", block.id))
             blocks[1](blocks[0].filter(b => b.id != block.id))
 
+            // removes links with block id
             let filteredLinks = [...links[0]]
             blockLinks.map(async link => {
                 await deleteDoc(doc(db,"Links",link.linkId)).then(
@@ -57,12 +59,24 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                 )
             })
             links[1](filteredLinks)
+
+            // removes placements with block id
+            placements.map(async placement => {
+                if(placement.blockid === block.id){
+                    await deleteDoc(doc(db,"Placements",placement.id))
+                }
+            })
+            placements[1]([...placements[0].filter(p => p.blockid !== block.id)])
             closeBlock()
         }
         catch(error){
             console.error(error)
             alert("Something went wrong, try again later.")
         }
+    }
+
+    const deletePlacements = () => {
+
     }
 
     const createLink = async linkTo => {

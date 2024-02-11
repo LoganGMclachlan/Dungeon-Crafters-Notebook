@@ -2,8 +2,8 @@ import { addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
 
-
-export default function BoardControl({boards,select,gameId,setBoards,placements,setPlacements,selected}){
+export default function BoardControl({boards,select,gameId,setBoards,placements,
+    setPlacements,selected}){
     const [newBoard, setNewBoard] = useState("")
 
     const createNewBoard = async () => {
