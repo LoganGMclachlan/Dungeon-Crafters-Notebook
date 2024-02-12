@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { db } from "../../config/firebase"
 import { updateDoc, doc, deleteDoc } from "firebase/firestore"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function EditDetails({game,setGame,details}){
     const navigate = useNavigate()

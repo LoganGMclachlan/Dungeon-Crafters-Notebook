@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from "react"
 import { collection, getDocs } from "firebase/firestore"
 import GameSnippet from "./GameSnippet"
 import { db } from '../../config/firebase'
+import Hint from "../Hint"
+import { selectGame } from "../HintMessages"
 
 export default function SelectGame({userId}){
     const [games, setGames] = useState([])
@@ -46,11 +48,13 @@ export default function SelectGame({userId}){
                 {games.map(game => 
                     <GameSnippet game={game} key={game.id}/>
                 )}
+                <Hint message={selectGame}/>
             </div>
             :<p>
                 {status === "ongoing" && <>Loading your games...</>}
                 {status === "complete" && <>You don't have any games</>}
                 {status === "failed" && <>There was an issue loading your games try again later</>}
+                <Hint message={selectGame}/>
             </p>}
         </>
     )

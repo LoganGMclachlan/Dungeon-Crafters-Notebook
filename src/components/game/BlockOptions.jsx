@@ -2,6 +2,8 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestor
 import { useState } from "react"
 import { db } from "../../config/firebase"
 import { headings, numberedList, dottedList } from "./Templates"
+import Hint from "../Hint"
+import { blockOptions } from "../HintMessages"
 
 export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
     blockLinks,block,placements,boards,content}){
@@ -119,10 +121,13 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         <div style={{"display":"inline"}}>
             <button className="options-btn" onClick={() => setExpandOptions(!expandOptions)}
                 style={{"backgroundColor":`${colour}`}}>Options</button>
+            <Hint message={blockOptions}/>
+
             {expandOptions &&
             <ul className="options-collapse">
                 <li onClick={close}>Close Options</li>
                 <li onClick={e => save(e)}>Save</li>
+
                 <li>
                     <label>Use Template: </label>
                     <select className="option-select" defaultValue="defualt"
@@ -133,6 +138,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                         <option value={dottedList}>Dotted List</option>
                     </select>
                 </li>
+
                 {!block.new && <>
                     <li>
                         <label>Link to: </label> 

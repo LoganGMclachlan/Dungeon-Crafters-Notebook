@@ -1,7 +1,8 @@
 import { addDoc, collection } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
-
+import Hint from "../Hint"
+import { folder } from "../HintMessages"
 
 export default function NewFolder({setFolders, folders, gameId}){
     const [title, setTitle] = useState("")
@@ -40,7 +41,9 @@ export default function NewFolder({setFolders, folders, gameId}){
                 style={{"width":"85%","marginBottom":"-5px"}}
                 value={title}
                 onChange={e => setTitle(e.target.value)}
+                style={{"width":"70%","marginBottom":"0px"}}
             />
+            <Hint message={folder}/>
             <button className="form-btn" style={{"width":"85%","padding":"5px"}}
                 type="submit">New Folder</button>
         </form>
