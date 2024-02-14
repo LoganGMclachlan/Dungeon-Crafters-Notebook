@@ -36,7 +36,7 @@ export default function Register({setUser}){
         return true
     }
 
-    async function Register(e){
+    const Register = async e => {
         e.preventDefault()
         if(!checkPassword()){ return }
 

@@ -24,6 +24,7 @@ export const numberedList = `
     <li>List Item</li>
     <li>List Item</li>
 </ol>
+<p></p>
 `
 
 export const dottedList = `
@@ -36,4 +37,31 @@ export const dottedList = `
     <li>List Item</li>
     <li>List Item</li>
 </ul>
+<p></p>
+`
+
+export const table = `
+<table>
+    <tr>
+        <th>heading</th>
+        <th>heading</th>
+        <th>heading</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<p></p>
 `

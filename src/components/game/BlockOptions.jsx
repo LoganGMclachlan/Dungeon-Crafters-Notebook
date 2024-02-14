@@ -1,8 +1,8 @@
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
-import { headings, numberedList, dottedList } from "./Templates"
 import Hint from "../Hint"
+import SelectTemplate from "./SelectTemplate"
 import { blockOptions } from "../HintMessages"
 
 export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
@@ -128,16 +128,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                 <li onClick={close}>Close Options</li>
                 <li onClick={e => save(e)}>Save</li>
 
-                <li>
-                    <label>Use Template: </label>
-                    <select className="option-select" defaultValue="defualt"
-                        onChange={e => {content[1](content[0] + e.target.value);close()}}>
-                        <option value="defualt" disabled>None</option>
-                        <option value={headings}>Headings</option>
-                        <option value={numberedList}>Numbered List</option>
-                        <option value={dottedList}>Dotted List</option>
-                    </select>
-                </li>
+                <SelectTemplate content={content} close={close}/>
 
                 {!block.new && <>
                     <li>
