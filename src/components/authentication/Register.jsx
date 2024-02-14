@@ -12,20 +12,33 @@ export default function Register({setUser}){
     const [confirmPassword, setConfirmPassword] = useState("")
     const navigate = useNavigate()
 
-    async function Register(e){
-        e.preventDefault()
+    const checkPassword = () => {
         if(email === "" || password === ""){
             alert("Email or password is empty.")
-            return
+            return false
         }
-        if(password.length < 6){
-            alert("Password must be at least 6 characters long.")
-            return
+        if(password.length < 8){
+            alert("Password must be at least 8 characters long.")
+            return false
+        }
+        if(!/[A-Z]/.test(password)){
+            alert("Password must contain at least one uppercase letter.")
+            return false
+        }
+        if(!/[^A-Za-z0-9]/.test(password)){
+            alert("Password must contain at least one special character.")
+            return false
         }
         if(password !== confirmPassword){
             alert("Passwords do not match.")
-            return
+            return false
         }
+        return true
+    }
+
+    async function Register(e){
+        e.preventDefault()
+        if(!checkPassword()){ return }
 
         try{
             await createUserWithEmailAndPassword(auth, email, password)
