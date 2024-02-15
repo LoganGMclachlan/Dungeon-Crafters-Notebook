@@ -41,3 +41,31 @@ body{
     padding: 3px;
     transform: translate(0%, 5px);
 }
+
+.block-share{
+    width:100%;
+    margin-top:50px;
+    padding:5px;
+    background-image: url('/src/assets/napkin.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    border: 2px solid;  
+    border-radius: 5px;
+}
+
+.block-share div{
+    background: white;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 0px;
+    height: fit-content;
+}
+
+.block-share textarea{
+    background: white;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 0px;
+    height: fit-content;
+}

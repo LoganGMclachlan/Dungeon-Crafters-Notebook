@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { lazy, Suspense } from 'react'
 import Layout from './components/Layout'
 import Home from './components/home/Home'
+import Share from './components/Share'
 const NoPage = lazy(() => import('./components/NoPage'))
 const Authenticate = lazy(() => import('./components/authentication/Authenticate'))
 const Dashboard = lazy(() => import('./components/game/Dashboard'))
@@ -26,6 +27,7 @@ export default function App() {
         <Route index element={<Home user={user} setUser={setUser}/>}/>
         <Route path="login" element={<Authenticate user={user} setUser={setUser}/>}/>
         <Route path="dashboard" element={<Dashboard user={user}/>}/>
+        <Route path="share/:id" element={<Share/>}/>
         <Route path="*" element={<NoPage/>}/>
       </Route>
     </Routes>
