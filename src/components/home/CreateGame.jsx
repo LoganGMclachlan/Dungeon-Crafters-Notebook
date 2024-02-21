@@ -1,8 +1,6 @@
 import { useState } from "react"
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "../../config/firebase"
-import Hint from "../Hint"
-import { createGame } from "../HintMessages"
 
 export default function CreateGame({userId, goto}){
     const [title, setTitle] = useState("")
@@ -30,13 +28,12 @@ export default function CreateGame({userId, goto}){
 
     return (
         <>
-            <h1>Create a Game</h1>
+            <h1>Create a New Game</h1>
             <input
                 placeholder="Title..."
                 onChange={e => setTitle(e.target.value)}
                 className='form-input'
             />
-            <Hint message={createGame}/><br/>
             <button onClick={() => NewGame()} className='form-btn'>Create</button>
         </>
     )

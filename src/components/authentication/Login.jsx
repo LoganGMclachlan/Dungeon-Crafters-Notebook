@@ -42,7 +42,6 @@ export default function Login({setUser}){
                 type='password'
             /><br/>
             <button type='submit' className='form-btn'>Login</button>
-            <Hint message={login}/>
         </form>
     </>
     )

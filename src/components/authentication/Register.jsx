@@ -3,8 +3,6 @@ import GoogleLogin from './GoogleLogin'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase'
 import { useNavigate } from 'react-router-dom'
-import { pass, register } from "../HintMessages"
-import Hint from '../Hint'
 
 export default function Register({setUser}){
     const [email, setEmail] = useState("")
@@ -63,8 +61,7 @@ export default function Register({setUser}){
                 className='form-input'
                 type='password'
                 style={{"transform":"translate(25px, 0px)","marginRight":"22px"}}
-            />
-            <Hint message={pass}/><br/>
+            /><br/>
             <input
                 placeholder='confirm password...'
                 onChange={e => setConfirmPassword(e.target.value)}
@@ -72,7 +69,6 @@ export default function Register({setUser}){
                 type='password'
             /><br/>
             <button type='submit' className='form-btn'>Register</button>
-            <Hint message={register}/>
         </form>
     </>
     )

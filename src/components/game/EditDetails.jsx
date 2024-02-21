@@ -57,7 +57,7 @@ export default function EditDetails({game,setGame,details}){
     }
 
     const deleteGame = async () => {
-        if(!window.confirm("Are you sure you want to delete this game?")){return}
+        if(!window.confirm("Are you sure you want to delete this game?")) return
 
         try{
             // deletes all game blocks, folders, links, & boards

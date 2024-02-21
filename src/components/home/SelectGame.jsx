@@ -42,19 +42,17 @@ export default function SelectGame({userId}){
 
     return (
         <>
-            <h1>Select a Game</h1>
+            <h1 style={{"display":"inline"}}>Select a Game</h1><Hint message={selectGame}/>
             {games.length > 0
             ?<div className="snippet-container">
                 {games.map(game => 
                     <GameSnippet game={game} key={game.id}/>
                 )}
-                <Hint message={selectGame}/>
             </div>
             :<p>
                 {status === "ongoing" && <>Loading your games...</>}
                 {status === "complete" && <>You don't have any games</>}
                 {status === "failed" && <>There was an issue loading your games try again later</>}
-                <Hint message={selectGame}/>
             </p>}
         </>
     )
