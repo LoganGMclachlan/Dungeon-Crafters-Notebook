@@ -12,8 +12,8 @@
     background-size:cover;
     background-repeat: no-repeat;
     padding:10px;
-    border-radius: 10px;
-    border:solid 2px;
+    border-radius: 5px;
+    border:solid 1.5px;
     display: flex;
     flex-direction: row;
     gap:30px;
@@ -40,7 +40,7 @@
     background-size:cover;
     background-repeat: no-repeat;
     box-sizing: border-box;
-    border: 2px solid;  
+    border: 1.5px solid;  
     border-radius: 5px;
 }
 
@@ -52,28 +52,22 @@
 
 .board-blocks div div{
     width: 100%;
-    min-height: 180px;
-    max-height: 350px;
-    cursor: pointer;
+    height: 400px;
     border: 1px solid;
     padding: 5px;
     border-radius: 0px;
     overflow-y: scroll;
     background: white;
-    transition-duration: 0.3s;
 }
 
 .board-blocks div textarea{
     width: 100%;
-    min-height: 180px;
-    max-height: 350px;
-    cursor: pointer;
+    height: 400px;
     border: 1px solid;
     padding: 5px;
     border-radius: 0px;
     overflow-y: scroll;
     background: white;
-    transition-duration: 0.3s;
 }
 
 @media (max-width: 550px) {

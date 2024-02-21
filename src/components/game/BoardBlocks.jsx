@@ -21,20 +21,12 @@ export default function BoardBlocks({blocks,setPlacements,placements}){
         catch(error){console.log(error);alert("something went wrong, try again later")}
     }
 
-    const toggleExpand = e => {
-        if(e.target.style.height === "150px"){
-            e.target.style.height = `${e.target.scrollHeight}px`
-        } else {
-            e.target.style.height = '150px'
-        }
-    }
-
     return(
     <div className="board-blocks">
         {orderedBlocks.map(block => <div key={block.id}>
             <button className="x-btn" onClick={() => deletePlacement(block)}>X</button>
             <h2>{block.title}</h2>
-            <span onClick={toggleExpand}>
+            <span >
             {navigator.onLine
             ? <Editor 
                     apiKey="c70a4j85ev1e4q1dopyxbpw772r0lz047pef9umlig63xfdh"
