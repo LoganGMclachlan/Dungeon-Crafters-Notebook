@@ -4,6 +4,7 @@ import { db } from "../../config/firebase"
 import Hint from "../Hint"
 import SelectTemplate from "./SelectTemplate"
 import { blockOptions } from "../HintMessages"
+import { Link } from "react-router-dom"
 
 export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
     blockLinks,block,placements,boards,content}){
@@ -77,10 +78,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         }
     }
 
-    const deletePlacements = () => {
-
-    }
-
     const createLink = async linkTo => {
         if(!navigator.onLine){ alert("Cannot link blocks while offline"); return}
         if(linkTo === block.id){alert("Cannot link a block to itself");return}
@@ -147,6 +144,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                             {boards.map(b => <option value={b.id} key={b.id}>{b.title}</option>)}
                         </select>
                     </li>
+                    <li><Link to={"../share/" + block.id} target="_blank">Share</Link></li>
                     <li onClick={Delete} style={{"color":"red"}}>Delete</li>
                 </>}
             </ul>
