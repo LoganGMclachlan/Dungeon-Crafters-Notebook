@@ -65,24 +65,25 @@ export default function EditDetails({game,setGame,details}){
                 console.log(info)
                 switch (i) {    
                     case 0:
-                        info.map(async block => await deleteDoc(doc(db,"Blocks",block.id)))
+                        info.map(async block => {await deleteDoc(doc(db,"Blocks",block.id)); console.log("Deleted block: " + block.title)})
                         break;
                     case 1:
-                        info.map(async folder => await deleteDoc(doc(db,"Folders",folder.id)))
+                        info.map(async folder => {await deleteDoc(doc(db,"Folders",folder.id)); console.log("Deleted folder: " + folder.title)})
                         break;
                     case 2:
-                        info.map(async link => await deleteDoc(doc(db,"Links",link.id)))
+                        info.map(async link => {await deleteDoc(doc(db,"Links",link.id)); console.log("Deleted link: " + link.id)})
                         break;
                     case 3:
-                        info.map(async board => await deleteDoc(doc(db,"Boards",board.id)))
+                        info.map(async board => {await deleteDoc(doc(db,"Boards",board.id)); console.log("Deleted board: " + board.title)})
                         break;
                     case 4:
-                        info.map(async placement => await deleteDoc(doc(db,"Placements",placement.id)))
+                        info.map(async placement => {await deleteDoc(doc(db,"Placements",placement.id)); console.log("Deleted placement: " + placement.id)})
                         break;
                 }
             })
 
             await deleteDoc(doc(db, "Games", game.id))
+            console.log("Delete game: " + game.title)
             navigate("/")
         }
         catch(error){

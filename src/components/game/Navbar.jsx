@@ -1,4 +1,5 @@
 import loading from "../../assets/YLWC.gif"
+import DiceRoller from "./DiceRoller"
 
 export default function Navbar({selected,setSelected,game}){
     return(
@@ -19,6 +20,8 @@ export default function Navbar({selected,setSelected,game}){
         ?<button className='nav-item' style={{"textDecoration":"underline"}}>Details</button>
         :<button className='nav-item' onClick={() => setSelected("details")}>Details</button>
         }
+
+        <DiceRoller/>
     </div>
     )
 }

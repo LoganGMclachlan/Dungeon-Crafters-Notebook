@@ -3,8 +3,6 @@ import GoogleLogin from './GoogleLogin'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase'
 import { useNavigate } from 'react-router-dom'
-import Hint from "../Hint"
-import { login } from "../HintMessages"
 
 export default function Login({setUser}){
     const [email, setEmail] = useState("")

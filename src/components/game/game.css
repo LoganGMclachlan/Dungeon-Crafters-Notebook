@@ -30,6 +30,18 @@
     height: 50px;
 }
 
+.roll-result{
+    width:40px;
+    float: right;
+    margin-left: 5px;
+}
+
+.roll-result div{
+    background: white;
+    text-align: center;
+    height: 30px;
+    font-size: 1.3em;
+}
 
 @media (max-width: 1000px) {
     .nav-bar{gap:0px}
