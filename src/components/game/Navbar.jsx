@@ -3,7 +3,7 @@ import DiceRoller from "./DiceRoller"
 
 export default function Navbar({selected,setSelected,game}){
     return(
-    <div className='nav-bar' style={{"backgroundColor":""+game.colour}}>
+    <div className='nav-bar' style={{"backgroundColor":`${game.colour}`}}>
         <h1 className='nav-title'>{game.title}</h1>
 
         {game.title === "Loading" && <img src={loading} className="loading-icon"/>}

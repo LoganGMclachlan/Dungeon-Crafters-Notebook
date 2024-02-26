@@ -6,15 +6,22 @@
 
 body{
     background-image: url('/src/assets/background-light.avif');
-    background-image: radial-gradient(circle, 
-        rgb(0,0,0,0),rgb(0,0,0,0.05),
-        rgb(0,0,0,0.1), rgb(0,0,0,0.15)), 
+    background-image: radial-gradient(circle,rgb(0,0,0,0),rgb(0,0,0,.05),rgb(0,0,0,.1)), 
         url('/src/assets/background-light.avif');
     background-attachment: fixed;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-h1{letter-spacing: -1.2px;}
+@font-face{
+    font-family: "raleway";
+    src: local("title"), url("../assets/Fonts/Raleway-Regular.ttf") format("truetype");
+}
+@font-face{
+    font-family: "raleway";
+    src: local("title"), url("../assets/Fonts/Raleway-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+h1{letter-spacing: -1.2px;font-family:'raleway';}
 
 .hint-container{
     width: fit-content;
