@@ -17,11 +17,11 @@ export default function GoogleLogin({setUser}){
 
     return(
         <>
-        <span className='google-login' onClick={() => LoginWithGoogle()}>
+        <p style={{"marginBottom":"0px","marginTop":"10px"}}>or</p>     
+        <div className='google-login' onClick={() => LoginWithGoogle()}>
             <img src={icon} className='icon'/>
             Sign up with Google
-        </span>
-        <p style={{"marginBottom":"0px","marginTop":"10px"}}>or</p>
+        </div>
         </>
     )
 }

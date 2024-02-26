@@ -102,16 +102,15 @@ export default function EditDetails({game,setGame,details}){
             <div className="container details">
                 <h1>Game Details</h1>
                 <form onSubmit={e => SaveDetails(e)}>
-                    <label>Title:</label>
                     <input
                         value={newTitle}
                         onChange={e => setNewTitle(e.target.value)}
                         className='form-input'
+                        placeholder="Enter a title..."
                     /><br/>
-
-                    <label>Colour:</label>
                     <select onChange={e => setNewColour(e.target.value)}
                         className='form-input' value={newColour}>
+                        <option disabled>Select a Colour</option>
                         <option value="red">Red</option>
                         <option value="yellow">Yellow</option>
                         <option value="greenyellow">Green</option>
@@ -120,17 +119,17 @@ export default function EditDetails({game,setGame,details}){
                         <option value="rgb(155, 3, 155)">Purple</option>
                     </select><br/>
 
-                    {downloaded 
-                    ?<button className='form-btn' onClick={() => removeDownload()}>Downloaded</button>
-                    :<button className='form-btn' onClick={() => downloadGame()}>Download Game</button>
-                    }
-
-                    <button type='submit' style={{"marginLeft":"10px"}} className='form-btn'>Save Details</button>
+                    <div style={{"display":"flex","gap":"10px","flexWrap":"wrap","justifyContent":"center"}}>
+                        {downloaded 
+                            ?<button className='form-btn' onClick={() => removeDownload()}>Downloaded</button>
+                            :<button className='form-btn' onClick={() => downloadGame()}>Download Game</button>
+                        }
+                        <button type='submit' className='form-btn'>Save Details</button>
+                        <button className='form-btn' onClick={() => exitGame()}>Exit Game</button>
+                        <button className='form-btn red' onClick={() => deleteGame()}>Delete Game</button>
+                    </div>
                 </form>
                 
-                <button className='form-btn' style={{"marginRight":"10px"}} onClick={() => exitGame()}>Exit Game</button>
-                <button  className='form-btn' style={{"backgroundColor":"red"}}
-                    onClick={() => deleteGame()}>Delete Game</button>
             </div>
         </div>
     )

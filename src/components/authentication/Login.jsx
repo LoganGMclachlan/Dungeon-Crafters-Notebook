@@ -26,7 +26,6 @@ export default function Login({setUser}){
 
     return(
     <>
-        <GoogleLogin setUser={setUser}/>
         <form onSubmit={e => Login(e)}>
             <input
                 placeholder='email...'
@@ -39,7 +38,8 @@ export default function Login({setUser}){
                 className='form-input'
                 type='password'
             /><br/>
-            <button type='submit' className='form-btn'>Login</button>
+            <button type='submit' className='form-btn'>Login</button>  
+            <GoogleLogin setUser={setUser}/>
         </form>
     </>
     )

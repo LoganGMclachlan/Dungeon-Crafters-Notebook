@@ -39,7 +39,7 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
     return(
     <div className="board-control">
         <div>
-            <select defaultValue="default" className="form-input" style={{"width":"200px"}}
+            <select defaultValue="default" className="form-input" style={{"padding":"6px"}}
                 onChange={e => select(e.target.value)}>
                 <option value="default" disabled>Select a Board</option>
                 {boards.map(board => 

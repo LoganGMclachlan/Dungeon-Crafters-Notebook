@@ -5,7 +5,7 @@
     display:flex;
     gap:20px;
     flex-wrap: wrap;
-    opacity: 0.9;
+    border-bottom: 1.5px solid;
 }
 
 .nav-item{
@@ -39,7 +39,7 @@
 .roll-result div{
     background: white;
     text-align: center;
-    height: 30px;
+    height: 29px;
     font-size: 1.3em;
 }
 

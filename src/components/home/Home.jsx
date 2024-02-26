@@ -11,6 +11,8 @@ export default function Home({user,setUser}){
     const [tabSelected, setTabSelected] = useState("select_game")
 
     return(
+    <>
+    <h1 className='title'>Dungeon Crafters Notebook</h1>
     <div className='menu'>
     {user
         ?
@@ -53,5 +55,7 @@ export default function Home({user,setUser}){
         </div>
     }
     </div>
+    </>
+    
     )
 }

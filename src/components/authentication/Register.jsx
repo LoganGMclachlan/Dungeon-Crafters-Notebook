@@ -47,29 +47,26 @@ export default function Register({setUser}){
     }
 
     return(
-    <>
+    <form onSubmit={e => Register(e)}>
+        <input
+            placeholder='email...'
+            onChange={e => setEmail(e.target.value)}
+            className='form-input'
+        /><br/>
+        <input
+            placeholder='password...'
+            onChange={e => setPassword(e.target.value)}
+            className='form-input'
+            type='password'
+        /><br/>
+        <input
+            placeholder='confirm password...'
+            onChange={e => setConfirmPassword(e.target.value)}
+            className='form-input'
+            type='password'
+        /><br/>
+        <button type='submit' className='form-btn'>Register</button>
         <GoogleLogin setUser={setUser}/>
-        <form onSubmit={e => Register(e)}>
-            <input
-                placeholder='email...'
-                onChange={e => setEmail(e.target.value)}
-                className='form-input'
-            /><br/>
-            <input
-                placeholder='password...'
-                onChange={e => setPassword(e.target.value)}
-                className='form-input'
-                type='password'
-                style={{"transform":"translate(25px, 0px)","marginRight":"22px"}}
-            /><br/>
-            <input
-                placeholder='confirm password...'
-                onChange={e => setConfirmPassword(e.target.value)}
-                className='form-input'
-                type='password'
-            /><br/>
-            <button type='submit' className='form-btn'>Register</button>
-        </form>
-    </>
+    </form>
     )
 }
