@@ -9,6 +9,7 @@ body{
     background-image: radial-gradient(circle,rgb(0,0,0,0),rgb(0,0,0,.05),rgb(0,0,0,.1)), 
         url('/src/assets/background-light.avif');
     background-attachment: fixed;
+    height: 100vh;
 }
 
 @font-face{
