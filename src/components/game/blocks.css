@@ -192,15 +192,18 @@
 
 @media (max-width: 1000px) {
     .folderList{
-        width:95%;
-        margin:10px
+        width:100%;
+        margin:0px;
+        border: none;
+        border-bottom: 1.5px solid;
     }
     .blocks-container{
         flex-direction: column;
     }
     .block{ 
-        margin: 10px;
-        min-width: 95%;
+        margin:0px;
+        margin-top: 10px;
+        width: 100%;
     }
     .block-list{
         flex-direction: column;

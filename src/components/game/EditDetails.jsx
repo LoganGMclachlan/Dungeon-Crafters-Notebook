@@ -120,13 +120,14 @@ export default function EditDetails({game,setGame,details}){
                     </select><br/>
 
                     <div style={{"display":"flex","gap":"10px","flexWrap":"wrap","justifyContent":"center"}}>
+                        <button type='submit' className='form-btn'>Save Details</button>
+                        <button className='form-btn' onClick={() => exitGame()}>Exit Game</button>
+                        <button className='form-btn red' onClick={() => deleteGame()}>Delete Game</button>
                         {downloaded 
                             ?<button className='form-btn' onClick={() => removeDownload()}>Downloaded</button>
                             :<button className='form-btn' onClick={() => downloadGame()}>Download Game</button>
                         }
-                        <button type='submit' className='form-btn'>Save Details</button>
-                        <button className='form-btn' onClick={() => exitGame()}>Exit Game</button>
-                        <button className='form-btn red' onClick={() => deleteGame()}>Delete Game</button>
+                        <small>Download feature not yet fully functional.</small>
                     </div>
                 </form>
                 

@@ -46,6 +46,6 @@
 @media (max-width: 1000px) {
     .nav-bar{gap:0px}
     .nav-title{display: none;}
-    .menu{width:70%}
+    .menu{width:100%}
     .nav-item{font-size: 1.5em;}
 }
