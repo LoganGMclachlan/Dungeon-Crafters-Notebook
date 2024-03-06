@@ -8,9 +8,9 @@ import { htmlToText } from "html-to-text"
 
 export default function Share(){
     const { id } = useParams()
-    const [block,setBlock] = useState(null)
+    const [block,setBlock] = useState("")
 
-    useEffect(() => getBlock, [])
+    useEffect(() => getBlock(), [])
 
     const getBlock = useCallback(async () => {
         try{
@@ -21,26 +21,22 @@ export default function Share(){
     })
 
     return(
-        <>
-        {block &&
-            <div className="block-share">
-                <h1>{block.title}</h1>
-                {navigator.onLine
-                ? <Editor 
-                        apiKey="c70a4j85ev1e4q1dopyxbpw772r0lz047pef9umlig63xfdh"
-                        value={block.content}
-                        disabled={true}
-                        inline={true}
-                        init={{
-                            menubar:false,
-                            toolbar:false,
-                            resize:false
-                        }}
-                    />
-                : <textarea value={htmlToText(block.content,{wordwrap: 80})}/>
-                }
-            </div>
-        }
-        </>
+        <div className="block-share">
+            <h1>{block.title}</h1>
+            {navigator.onLine
+            ? <Editor 
+                    apiKey="c70a4j85ev1e4q1dopyxbpw772r0lz047pef9umlig63xfdh"
+                    value={block.content}
+                    disabled={true}
+                    inline={true}
+                    init={{
+                        menubar:false,
+                        toolbar:false,
+                        resize:false
+                    }}
+                />
+            : <textarea value={htmlToText(block.content,{wordwrap: 80})}/>
+            }
+        </div>
     )
 }
