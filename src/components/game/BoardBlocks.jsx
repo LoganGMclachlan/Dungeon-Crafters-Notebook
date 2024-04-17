@@ -29,7 +29,7 @@ export default function BoardBlocks({blocks,setPlacements,placements}){
             <span >
             {navigator.onLine
             ? <Editor 
-                    apiKey="c70a4j85ev1e4q1dopyxbpw772r0lz047pef9umlig63xfdh"
+                    apiKey={import.meta.env.VITE_TINY_API_KEY}
                     value={block.content}
                     disabled={true}
                     inline={true}
