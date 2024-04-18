@@ -19,30 +19,16 @@ export default function Dashboard({user}){
     const [folders, setFolders] = useState([])
 
     useEffect(() => {
-        if (navigator.onLine){
-            getGameData()
-            getData("Blocks").then(blocks => setBlocks(blocks))
-            getData("Folders").then(folders => setFolders(folders))
-            getData("Links").then(links => setLinks(links))
-            getData("Boards").then(boards => setBoards(boards))
-            getData("Placements").then(placements => setPlacements(placements))
-        } else {
-            const localValue = localStorage.getItem("SAVED_GAMES")
-            if (localValue !== null){
-                JSON.parse(localValue).map(saved => {
-                    if (saved.game.id === location?.state.gameid){
-                        setGame(saved.game)
-                        setBlocks(saved.blocks)
-                        setFolders(saved.folders)
-                        setLinks(saved.links)
-                        setBoards(saved.boards)
-                        setPlacements(saved.placements)
-                    }
-                })
-            } 
-        }
+        // when page is loaded, gets data
+        getGameData()
+        getData("Blocks").then(blocks => setBlocks(blocks))
+        getData("Folders").then(folders => setFolders(folders))
+        getData("Links").then(links => setLinks(links))
+        getData("Boards").then(boards => setBoards(boards))
+        getData("Placements").then(placements => setPlacements(placements))
     }, [])
 
+    // gets basic game details (title, colour, ect) from firebase
     const getGameData = useCallback(async () => {
         try{
             const rawData = await getDoc(doc(db, "Games", location?.state.gameid))
@@ -52,13 +38,13 @@ export default function Dashboard({user}){
         catch(err){console.error(err)}
     })
 
+    // generic function to get some data from firebase
     const getData = useCallback(async collectionName => {
         try{
             const rawData = await getDocs(collection(db,collectionName))
             const filteredData = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            // console.log(filteredData)
             return filteredData.filter(data => data.gameid === location?.state.gameid)
         }
         catch(err){console.error(err)}

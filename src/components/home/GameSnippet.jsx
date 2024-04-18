@@ -4,6 +4,7 @@ export default function GameSnippet({game}){
     const navigate = useNavigate()
 
     function SelectGame(){
+        localStorage.setItem("SELECTED_BLOCKS", "[]")
         navigate("/dashboard", {state:{gameid:game.id}})
     }
 
