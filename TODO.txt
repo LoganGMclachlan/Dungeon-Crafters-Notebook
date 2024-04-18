@@ -1,5 +1,4 @@
 FIXES:
-1) unsaved block data lost when tab changed
 2) desktop view, folders should reach bottom of screen always
 3) related blocks overflow (make verticle scroll?)
 
@@ -16,7 +15,6 @@ FEATURES:
 
 CHANGES:
 1) move options menu to under options button
-2) on game creation, load dashboard
 3) make new folder button open popup to enter title
 4) on open folder, auto scroll so contents in view
 5) make clearer that block title is editable

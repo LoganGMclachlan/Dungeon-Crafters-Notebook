@@ -13,14 +13,31 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     const [blockLinks, setBlockLinks] = useState([])
 
     useEffect(() => {
+        // updates local state data when new block is selceted
         setTitle(block.title)
         setContent(block.content)
         setBlockLinks(filterLinks())
-    }, [block])    // updates local state data when new block is selceted
+    }, [block])
 
     useEffect(() => {
+        // updates selected blocks link data when link array is updated
         setBlockLinks(filterLinks())
-    }, [links])    // updates selected blocks link data when link array is updated
+    }, [links])
+
+    useEffect(() => {
+        // auto updates local storage value for block on change
+        let selected = JSON.parse(localStorage.getItem("SELECTED_BLOCKS"))
+        if(selected === null || selected.length < 1) return
+        
+        for (let i=0; i<selected.length; i++){
+            if(selected[i].id === block.id){
+                selected[i].title = title
+                selected[i].content = content
+                localStorage.setItem("SELECTED_BLOCKS", JSON.stringify(selected))
+                return
+            }
+        }
+    }, [title,content])
 
     const filterLinks = () => {
         let filtered = []
