@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "../../config/firebase"
+import { useNavigate } from "react-router-dom"
 
-export default function CreateGame({userId, goto}){
+export default function CreateGame({userId}){
     const [title, setTitle] = useState("")
+    const navigate = useNavigate()
 
     async function NewGame(){
         if(title === ""){
@@ -20,8 +22,10 @@ export default function CreateGame({userId, goto}){
                 "title":title,
                 "userid": userId,
                 "colour":"red"
+            }).then(docRef => {
+                navigate("/dashboard", {state:{gameid:docRef.id}})
             })
-            goto("select_game")
+            
         }
         catch(err){console.error(err)}
     }
