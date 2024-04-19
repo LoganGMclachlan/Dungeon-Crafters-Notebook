@@ -9,7 +9,7 @@
     margin:10px;
     margin-bottom: 0px;
     text-align: center;
-    height: min-content;
+    height: 85vh;
 }
 
 .accordion-container{
@@ -22,8 +22,9 @@
     margin-right: 10px;
     width: 100%;
     min-width: 50%;
+    height: fit-content;
     border: 1.5px solid black;
-    padding:10px;
+    padding:5px;
     border-radius: 8px;
     background-image: url('/src/assets/napkin.jpg');
     background-size:cover;
@@ -98,16 +99,6 @@
     font-family: raleway;
 }
 
-.block-content{
-    width:100%;
-    padding: 5px;
-    border: none;
-    margin-top: 10px;
-    height: 350px;
-    resize: none;
-    overflow-y: scroll;
-}
-
 .folder-btn{
     font-size: 0.9em;
 }
@@ -166,25 +157,31 @@
     background-color: white;
     font-size: small;
     padding-left: 5px;
-    padding-right: 5px;
     margin-top: 10px;
-    max-height: 50px;
-}
-.related-blocks span{
-    width: fit-content;
+    height: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y:scroll;
+    align-items: center;
 }
 
 .related-blocks span{
     cursor: pointer;
+    height: fit-content;
+    background-color: rgb(233, 233, 233);
+    margin:3px;
+    padding-left: 1.5px;
+    border-radius: 5px;
 }
 .related-blocks span:hover{
     text-decoration: underline;
+    background-color: lightgray;
 }
 
 .related-blocks span label{
-    margin-left:5px;
+    margin-left:3px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 3px;
 }
 .related-blocks span label:hover{
     font-weight: bold;
