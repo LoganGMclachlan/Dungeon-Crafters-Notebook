@@ -22,8 +22,15 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
         setSelectedBlocks(filtered)
     }, [selectedBoard,placements])
 
+    // gets title of selcted board from id
+    const getBoardTitle = id => {
+        if (id == undefined) return ""
+        return boards.filter(board => board.id == id)[0].title
+    }
+
     return(
     <div className="boards-container">
+        <h1 style={{"fontWeight":"bold"}}>{getBoardTitle(selectedBoard)}</h1>
         <BoardBlocks blocks={selectedBlocks} setPlacements={setPlacements} placements={placements} gameId={gameId}/>
         <BoardControl boards={boards} select={setSelectedBoard} gameId={gameId} setBoards={setBoards}
             placements={placements} setPlacements={setPlacements} selected={selectedBoard}/>
