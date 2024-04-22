@@ -1,5 +1,4 @@
-import { headings, numberedList, dottedList, table } from "./Templates"
-
+import { statBlock, encounterPlan } from "./Templates"
 
 export default function SelectTemplate({content,close}){
 
@@ -12,10 +11,8 @@ export default function SelectTemplate({content,close}){
                 close()
             }}>
             <option value="defualt" disabled>None</option>
-            <option value={headings}>Headings</option>
-            <option value={numberedList}>Numbered List</option>
-            <option value={dottedList}>Dotted List</option>
-            <option value={table}>Table</option>
+            <option value={statBlock}>Stat Block</option>
+            <option value={encounterPlan}>Encounter Plan</option>
         </select>
     </li>
     )
