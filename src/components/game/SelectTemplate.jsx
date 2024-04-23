@@ -1,4 +1,4 @@
-import { statBlock, encounterPlan } from "./Templates"
+import { statBlock, encounterPlan, characterSheet } from "./Templates"
 
 export default function SelectTemplate({content,close}){
 
@@ -13,6 +13,7 @@ export default function SelectTemplate({content,close}){
             <option value="defualt" disabled>None</option>
             <option value={statBlock}>Stat Block</option>
             <option value={encounterPlan}>Encounter Plan</option>
+            <option value={characterSheet}>Character Sheet</option>
         </select>
     </li>
     )
