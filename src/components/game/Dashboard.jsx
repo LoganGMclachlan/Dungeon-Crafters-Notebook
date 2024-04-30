@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { db } from '../../config/firebase'
-import { getDoc, doc, getDocs, collection } from 'firebase/firestore'
+import { getDoc, doc, getDocs, collection, query, where } from 'firebase/firestore'
 import EditDetails from './EditDetails'
 import Blocks from './Blocks'
 import Navbar from './Navbar'
@@ -41,11 +41,11 @@ export default function Dashboard({user}){
     // generic function to get some data from firebase
     const getData = useCallback(async collectionName => {
         try{
-            const rawData = await getDocs(collection(db,collectionName))
-            const filteredData = rawData.docs.map(doc => ({
+            const q = query(collection(db,collectionName),where('gameid','==',location?.state.gameid))
+            const rawData = await getDocs(q)
+            return data = rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
-            return filteredData.filter(data => data.gameid === location?.state.gameid)
         }
         catch(err){console.error(err)}
     })
