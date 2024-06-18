@@ -12,8 +12,7 @@ export default function BlockEditor({content,setContent}){
             menubar: false,
             browser_spellcheck: true,
             resize:false,
-            plugins:
-                "table | lists",
+            plugins: ["table","lists"],
             toolbar:
                 "undo redo | blocks | " +
                 "bold italic forecolor | bullist numlist outdent indent | " +

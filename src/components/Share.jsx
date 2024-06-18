@@ -10,7 +10,7 @@ export default function Share(){
     const { id } = useParams()
     const [block,setBlock] = useState("")
 
-    useEffect(() => getBlock(), [])
+    useEffect(() => {getBlock()}, [])
 
     const getBlock = useCallback(async () => {
         try{
