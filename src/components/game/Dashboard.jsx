@@ -43,7 +43,7 @@ export default function Dashboard({user}){
         try{
             const q = query(collection(db,collectionName),where('gameid','==',location?.state.gameid))
             const rawData = await getDocs(q)
-            return data = rawData.docs.map(doc => ({
+            return rawData.docs.map(doc => ({
                 ...doc.data(), id: doc.id
             }))
         }
