@@ -1,20 +1,12 @@
 FIXES:
-2) desktop view, folders should reach bottom of screen always
-3) related blocks overflow (make verticle scroll?)
+
 
 FEATURES:
-1) adjustable block widths (50 - 100)
-2) download game data (json, html, or text options)
-3) add character sheet template
-4) add creature stats template
-5) keyboard shortcuts?
-6) change password option
-7) option to open block in a new tab by itself
-8) minimize a selected blocks
-9) dark mode
+download game data (json, html, or text options)
+keyboard shortcuts?
+change password option
+dark mode
 
 CHANGES:
-1) move options menu to under options button
-3) make new folder button open popup to enter title
-4) on open folder, auto scroll so contents in view
-5) make clearer that block title is editable
+make new folder button open popup to enter title
+on open folder, auto scroll so contents in view

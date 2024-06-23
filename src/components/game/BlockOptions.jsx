@@ -115,8 +115,8 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
     const close = () => setExpandOptions(false)
 
     return(
-        <div style={{"display":"inline"}}>
-            <button className="options-btn" onClick={() => setExpandOptions(!expandOptions)}
+        <div style={{"display":"inline"}} onMouseLeave={() => setExpandOptions(false)}>
+            <button className="options-btn" onMouseOver={() => setExpandOptions(true)}
                 style={{"backgroundColor":`${colour}`}}>Options</button>
             <Hint message={blockOptions}/>
 
