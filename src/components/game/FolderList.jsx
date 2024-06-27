@@ -29,10 +29,12 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders,ga
     }
 
     return(
-        <Accordion className="accordion-container">
+        <Accordion className="accordion-container" onSelect={e => {
+            document.getElementById(e).scrollIntoView();
+        }}>
         {folders.map(folder =>
-            <Accordion.Item key={folder.id} eventKey={folder.id} style={{"border":"1px solid grey"}}>
-                <Accordion.Header>{folder.title}</Accordion.Header>
+            <Accordion.Item id={folder.id} key={folder.id} eventKey={folder.id} style={{"border":"1px solid grey"}}>
+                <Accordion.Header>{folder.title}</Accordion.Header> 
                 
                 <Accordion.Body style={{"paddingTop":"20px","paddingLeft":"8px","paddingRight":"8px"}}>
                     <BlockList blocks={blocks.filter(block => block.folderid === folder.id)} select={select}/>
