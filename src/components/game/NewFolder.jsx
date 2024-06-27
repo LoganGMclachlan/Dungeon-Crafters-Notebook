@@ -6,6 +6,7 @@ import { folder } from "../HintMessages"
 
 export default function NewFolder({setFolders, folders, gameId}){
     const [title, setTitle] = useState("")
+    const [showForm,setShowForm] = useState(false)
 
     async function addNewFolder(e){
         e.preventDefault()
@@ -25,6 +26,7 @@ export default function NewFolder({setFolders, folders, gameId}){
             })
             
             setTitle("")
+            setShowForm(false)
         }
         // logs any errors and alerts user of failure
         catch(error){
@@ -34,18 +36,22 @@ export default function NewFolder({setFolders, folders, gameId}){
     } 
 
     return(
-        <form onSubmit={e => addNewFolder(e)}>
-            <input
-                placeholder="Folder title..."
-                className="form-input"
-                style={{"width":"85%","marginBottom":"-5px"}}
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                style={{"width":"70%","marginBottom":"0px"}}
-            />
-            <Hint message={folder}/>
-            <button className="form-btn" style={{"width":"85%","padding":"5px"}}
-                type="submit">New Folder</button>
-        </form>
+    <>
+        {showForm &&
+            <form onSubmit={e => addNewFolder(e)} className="new-folder">
+                <input
+                    placeholder="Folder title..."
+                    className="form-input"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                /><br/>
+                <button type="submit" className="form-btn">Create Folder</button><br/>
+                <button onClick={() => setShowForm(false)} className="form-btn"
+                    style={{"backgroundColor":"red"}}>Cancel</button>
+            </form>
+        }
+        
+        <button className="form-btn" onClick={() => setShowForm(true)}>New Folder</button>
+    </>
     )
 }

@@ -13,7 +13,7 @@
 }
 
 .accordion-container{
-    height: 340px;
+    height: 370px;
     overflow-y: scroll;
 }
 
@@ -183,6 +183,20 @@
 .related-blocks span label:hover{
     font-weight: bold;
 }
+
+.new-folder{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 8px;
+    background-image: url('/src/assets/napkin.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    border:black 1.5px solid;
+    border-radius: 8px;
+}
+
 
 @media (max-width: 1000px) {
     .folderList{
