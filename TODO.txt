@@ -1,6 +1,5 @@
 FIXES:
 
-
 FEATURES:
 download game data (json, html, or text options)
 keyboard shortcuts?
@@ -8,5 +7,3 @@ change password option
 dark mode
 
 CHANGES:
-make new folder button open popup to enter title
-on open folder, auto scroll so contents in view
