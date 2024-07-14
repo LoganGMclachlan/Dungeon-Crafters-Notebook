@@ -5,6 +5,7 @@ export default function GameSnippet({game}){
 
     function SelectGame(){
         localStorage.setItem("SELECTED_BLOCKS", "[]")
+        localStorage.setItem("SELECTED_BOARD", "")
         navigate("/dashboard", {state:{gameid:game.id}})
     }
 

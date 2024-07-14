@@ -6,12 +6,14 @@ import "./boards.css"
 export default function Boards({boards, placements, blocks, gameId, setBoards, setPlacements}){
     const [selectedBoard, setSelectedBoard] = useState(() => {
         const localValue = localStorage.getItem("SELECTED_BOARD")
+        if (localValue === "") return
         return JSON.parse(localValue)
     })
     const [selectedBlocks, setSelectedBlocks] = useState([])
 
     useEffect(() => {localStorage.setItem("SELECTED_BOARD", JSON.stringify(selectedBoard))}, [selectedBoard])
 
+    // filters block list for ones placed in selected board
     useEffect(() => {
         let filtered = []
         placements.filter(p => p.boardid === selectedBoard).map(p => {
