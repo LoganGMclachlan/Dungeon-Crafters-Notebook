@@ -20,8 +20,6 @@ export default function BlockEditor({content,setContent}){
                 "tableinsertrowbefore tableinsertrowafter tabledeleterow | " + 
                 "tableinsertcolbefore tableinsertcolafter tabledeletecol"
         }}
-        //  toolbar: 
-
     />
     )
 }

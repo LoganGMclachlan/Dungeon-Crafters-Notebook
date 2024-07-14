@@ -8,7 +8,7 @@ export default function NoPage(){
     <div className="menu">
         <h1 className="title">Page Not Found!</h1>
         <p style={{"textAlign":"center"}}>
-            <Link onClick={() => navigate("/")}>Return to Home</Link>
+            <u onClick={() => navigate("/")}>Return to Home</u>
         </p>
     </div>
     )
