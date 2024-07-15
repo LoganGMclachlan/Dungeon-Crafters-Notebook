@@ -11,7 +11,8 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
     })
     const [selectedBlocks, setSelectedBlocks] = useState([])
 
-    useEffect(() => {localStorage.setItem("SELECTED_BOARD", JSON.stringify(selectedBoard))}, [selectedBoard])
+    useEffect(() => {localStorage.setItem("SELECTED_BOARD", JSON.stringify(selectedBoard))}
+    , [selectedBoard])
 
     // filters block list for ones placed in selected board
     useEffect(() => {

@@ -27,7 +27,7 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,
 
     // functions to add and remove blocks from selected list
     const addSelected = block => {
-        if(!selected.includes(block)){
+        if(!selected.includes(block) && selected.length < 2){
             setSelected([...selected,block])
         }
     }
