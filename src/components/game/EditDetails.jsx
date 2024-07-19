@@ -1,64 +1,31 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { db } from "../../config/firebase"
 import { updateDoc, doc, deleteDoc } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
+import JSZip from "jszip"
+import { saveAs } from "file-saver"
 
 export default function EditDetails({game,setGame,details}){
     const navigate = useNavigate()
     const [newTitle, setNewTitle] = useState(game.title)
     const [newColour, setNewColour] = useState(game.colour)
-    const [downloaded, setDownloaded] = useState(false)
-
-    useEffect(() => {checkDownloaded()}, [])
-
-    const checkDownloaded = () => {
-        const localValue = localStorage.getItem("SAVED_GAMES")
-        if(localValue === null) return
-        const savedGames = JSON.parse(localValue)
-        savedGames.map(saved => {if(saved.game.id === game.id){setDownloaded(true)}})
-    }
-
-    const downloadGame = () => {
-        let savedGames = []
-        const localValue = localStorage.getItem("SAVED_GAMES")
-        if(localValue !== null) savedGames = JSON.parse(localValue)
-        savedGames.push({"game":game,"blocks":details[0],"folders":details[1],
-                            "links":details[2],"boards":details[3],"placements":details[4]})
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(savedGames))
-        setDownloaded(true)
-        alert(`Downloaded ${game.title}`)
-    }
-
-    const removeDownload = () => {
-        if(!window.confirm("Remove this game from downloads?")){return}
-        const localValue = localStorage.getItem("SAVED_GAMES")
-        let savedGames = JSON.parse(localValue)
-        savedGames = savedGames.filter(saved => saved.game.id !== game.id)
-        localStorage.setItem("SAVED_GAMES", JSON.stringify(savedGames))
-        setDownloaded(false)
-    }
 
     const SaveDetails = async e => {
         e.preventDefault()
-        if (newTitle === ""){
-            alert("Please enter a title")
-            return
-        }
-
-        setGame({...game,title:newTitle,colour:newColour})
+        if (newTitle === ""){alert("Please enter a title");return}
 
         try{
             await updateDoc(
                 doc(db, "Games", game.id),
                 {title:newTitle,colour:newColour}
             )
+            setGame({...game,title:newTitle,colour:newColour})
         }
         catch(error){console.error(error)}
     }
 
     const deleteGame = async () => {
         if(!window.confirm("Are you sure you want to delete this game?")) return
-
         try{
             // deletes all game blocks, folders, links, & boards
             details.map((info, i) => {
@@ -83,7 +50,7 @@ export default function EditDetails({game,setGame,details}){
             })
 
             await deleteDoc(doc(db, "Games", game.id))
-            console.log("Delete game: " + game.title)
+            console.log("Deleted game: " + game.title)
             navigate("/")
         }
         catch(error){
@@ -97,6 +64,20 @@ export default function EditDetails({game,setGame,details}){
         navigate("/")
     }
 
+    const handleDownload = () => {
+        const zip = new JSZip()
+        details[0].map(block => zip.file(`${block.title}.html`,block.content))
+
+        const getDate = () => {
+            const date = new Date();
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+
+        zip.generateAsync({type:"blob"}).then(data => {
+            saveAs(data,`${game.title}_data_${getDate()}.zip`)
+        })
+    }
+
     return(
         <div className="menu">
             <div className="container details">
@@ -108,6 +89,7 @@ export default function EditDetails({game,setGame,details}){
                         className='form-input'
                         placeholder="Enter a title..."
                     /><br/>
+
                     <select onChange={e => setNewColour(e.target.value)}
                         className='form-input' value={newColour}>
                         <option disabled>Select a Colour</option>
@@ -119,15 +101,11 @@ export default function EditDetails({game,setGame,details}){
                         <option value="rgb(155, 3, 155)">Purple</option>
                     </select><br/>
 
-                    <div style={{"display":"flex","gap":"10px","flexWrap":"wrap","justifyContent":"center"}}>
+                    <div className="details-buttons">
                         <button type='submit' className='form-btn'>Save Details</button>
                         <button className='form-btn' onClick={() => exitGame()}>Exit Game</button>
                         <button className='form-btn red' onClick={() => deleteGame()}>Delete Game</button>
-                        {downloaded 
-                            ?<button className='form-btn' onClick={() => removeDownload()}>Downloaded</button>
-                            :<button className='form-btn' onClick={() => downloadGame()}>Download Game</button>
-                        }
-                        <small>Download feature not yet fully functional.</small>
+                        <button className='form-btn' onClick={handleDownload}>Download Game</button>
                     </div>
                 </form>
                 

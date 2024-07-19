@@ -43,6 +43,13 @@
     font-size: 1.3em;
 }
 
+.details-buttons{
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 @media (max-width: 1000px) {
     .nav-bar{gap:0px}
     .nav-title{display: none;}
