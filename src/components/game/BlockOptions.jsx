@@ -5,6 +5,8 @@ import Hint from "../Hint"
 import SelectTemplate from "./SelectTemplate"
 import { blockOptions } from "../HintMessages"
 import { Link } from "react-router-dom"
+import Alert from "../Alert"
+import ReactDOM from 'react-dom';
 
 export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
     blockLinks,block,placements,boards,content}){
@@ -13,8 +15,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
     const save = async e => {
         e.preventDefault()
         setExpandOptions(false)
-        if(!navigator.onLine){ alert("Cannot save blocks while offline"); return}
-
         try{
             let newBlock = block
             newBlock.title = data[0]
@@ -41,13 +41,17 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                     return b
                 }))
             }
-            alert("Block saved successfuly!")
+            ReactDOM.render(<Alert message="Block saved successfuly!" type="success"/>, 
+                document.getElementById("alert-container"))
         }
-        catch(error){ console.error(error); alert("Failed to save this block, try again later.")}
+        catch(error){
+            console.error(error)
+            ReactDOM.render(<Alert message="Cannot save block at this time, try again later." type="failure"/>, 
+                document.getElementById("alert-container"))
+        }
     }
 
     const Delete = async () => {
-        if(!navigator.onLine){ alert("Cannot delete blocks while offline"); return}
         if(!window.confirm("Are you sure you want to delete this block?")){ return }
         try{
             // removes block data
@@ -74,16 +78,24 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         }
         catch(error){
             console.error(error)
-            alert("Something went wrong, try again later.")
+            ReactDOM.render(<Alert message="Cannot delete block at this time, try again later." type="failure"/>, 
+                document.getElementById("alert-container"))
         }
     }
 
     const createLink = async linkTo => {
-        if(!navigator.onLine){ alert("Cannot link blocks while offline"); return}
-        if(linkTo === block.id){alert("Cannot link a block to itself");return}
+        if(linkTo === block.id){
+            ReactDOM.render(<Alert message="Cannot link block to itself." type="warning"/>, 
+            document.getElementById("alert-container"))
+            return
+        }
         let linkExists = false
         blockLinks.map(link => {if(link.id === linkTo){linkExists = true}})
-        if(linkExists){alert("Selected block is already linked to this one");return}
+        if(linkExists){
+            ReactDOM.render(<Alert message="Selected block is already linked." type="failure"/>, 
+            document.getElementById("alert-container"))
+            return
+        }
 
         try{
             let link = {"block1":block.id,"block2":linkTo,"gameid":gameId}
@@ -95,24 +107,28 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         }
         catch(error){
             console.error(error)
-            alert("Something went wrong, try again later.")
+            ReactDOM.render(<Alert message="Cannot create links at this time, try again later." type="failure"/>, 
+                document.getElementById("alert-container"))
         }
     }
 
+    // places block into selected board
     const createPlacement = async placeIn => {
-        if(!navigator.onLine){ alert("Cannot add to boards while offline"); return}
-
         try{
             let placement = {"blockid":block.id,"boardid":placeIn,"gameid":gameId}
             await addDoc(collection(db,"Placements"), placement)
-            .then(docRef => {placement.id = docRef.id})
-            placements[1]([...placements[0],placement])
-            alert("Block added to selected board.")
-        }
-        catch(error){console.error(error);alert("Something went wrong, try again later.")}
-    }
+                .then(docRef => {placement.id = docRef.id})
 
-    const close = () => setExpandOptions(false)
+            placements[1]([...placements[0],placement])
+            ReactDOM.render(<Alert message="Block placed into board successfuly!" type="success"/>, 
+                document.getElementById("alert-container"))
+        }
+        catch(error){
+            console.error(error)
+            ReactDOM.render(<Alert message="Cannot place block in board at this time, try again later." type="failure"/>, 
+                document.getElementById("alert-container"))
+        }
+    }
 
     return(
         <div style={{"display":"inline"}} onMouseLeave={() => setExpandOptions(false)}>
@@ -122,7 +138,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
 
             {expandOptions &&
             <ul className="options-collapse">
-                <li onClick={close}>Close Options</li>
                 <li onClick={e => save(e)}>Save</li>
 
                 <SelectTemplate content={content} close={close}/>
@@ -149,6 +164,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                 </>}
             </ul>
             }
+            <div id="alert-container" style={{"display":"inline"}}/>
         </div>
     )
 }

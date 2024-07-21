@@ -1,7 +1,8 @@
 import "./styles.css"
+import ReactDOM from 'react-dom';
 
 export default function Alert({message,type}){
-    const close = () => document.getElementById("alert").remove()
+    const close = () => ReactDOM.unmountComponentAtNode(document.getElementById("alert-container"));
 
     return(
         <span id="alert" className={type}>

@@ -101,7 +101,7 @@ h1{letter-spacing: -1.2px;font-family:'raleway';}
     margin-left: 10px;
 
 }
-.danger{
+.failure{
     background-color: red;
 }
 .success{
