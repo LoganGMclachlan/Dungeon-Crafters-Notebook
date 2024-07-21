@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { lazy, Suspense } from 'react'
-import Layout from './components/Layout'
 import Home from './components/home/Home'
 import Share from './components/Share'
 const NoPage = lazy(() => import('./components/NoPage'))
@@ -23,13 +22,11 @@ export default function App() {
   <Suspense fallback="Loading Page...">
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Layout/>}>
         <Route index element={<Home user={user} setUser={setUser}/>}/>
         <Route path="login" element={<Authenticate user={user} setUser={setUser}/>}/>
         <Route path="dashboard" element={<Dashboard user={user}/>}/>
         <Route path="share/:id" element={<Share/>}/>
         <Route path="*" element={<NoPage/>}/>
-      </Route>
     </Routes>
   </BrowserRouter>
   </Suspense>

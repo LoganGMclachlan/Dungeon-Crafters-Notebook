@@ -1,9 +1,19 @@
-FIXES:
-
-FEATURES:
-download game data (json, html, or text options)
-keyboard shortcuts?
+download game data (option for json format)
+keyboard shortcuts(
+    save block: ctrl + s
+    change tab: ctrl + 1/2/3/4
+    open search results: ctrl + o
+    roll dice: ctrl + d
+    hide/show navbar: ctrl + n
+)
+implament zustand for state management
 change password option
-dark mode
-
-CHANGES:
+guide tab in game dashboard
+background img options
+custom alert pop-up
+update about section
+style improvements(
+    replace napkin with paper
+    folder change colour on hover, gradiant?
+    increase block content hight
+)

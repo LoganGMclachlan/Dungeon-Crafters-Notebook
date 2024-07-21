@@ -1,8 +1,6 @@
 import { addDoc, collection } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
-import Hint from "../Hint"
-import { folder } from "../HintMessages"
 
 export default function NewFolder({setFolders, folders, gameId}){
     const [title, setTitle] = useState("")
