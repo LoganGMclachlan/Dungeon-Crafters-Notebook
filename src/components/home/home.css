@@ -27,7 +27,7 @@
     margin-right: auto;
     width: 45%;
     border: 1.5px solid black;
-    background-image: url('/src/assets/napkin.jpg');
+    background-image: url('/src/assets/paper-background.avif');
     background-size:cover;
     background-repeat: no-repeat;
     border-radius: 8px;

@@ -16,7 +16,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         // updates local state data when new block is selceted
         setTitle(block.title)
         setContent(block.content)
-        setBlockLinks(filterLinks())
+        // setBlockLinks(filterLinks())
     }, [block])
 
     useEffect(() => {
@@ -44,13 +44,15 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         links.map(link => {
             if(link.block1 === block.id){
                 let linked = blocks.filter(b => b.id === link.block2)[0]
+                console.log("linked: " + linked)
                 linked.linkId = link.id
                 filtered.push(linked)
             } else 
             if(link.block2 === block.id){
                 let linked = blocks.filter(b => b.id === link.block1)[0]
                 linked.linkId = link.id
-                filtered.push(linked)            }
+                filtered.push(linked)
+            }
         })
         return filtered
     }
@@ -63,7 +65,6 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     }
 
     const deleteLink = async (linkId,linkTo) => {
-        if(!navigator.onLine){ alert("Cannot delete links while offline"); return}
         if(!window.confirm(`Are you sure you want to delete the link to "${linkTo}"?`)){return}
 
         try{
@@ -100,12 +101,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
             className="block-title"
             onChange={e => setTitle(e.target.value)}/><br/>
 
-            {navigator.onLine
-            ? <BlockEditor content={content} setContent={setContent}/>
-            : <textarea 
-                value={htmlToText(content,{wordwrap: 80})}
-                className="block-content"/>
-            }
+        <BlockEditor content={content} setContent={setContent}/>
 
         <p className="related-blocks">{blockLinks.map(link => 
         <span key={link.id}>

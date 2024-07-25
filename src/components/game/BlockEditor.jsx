@@ -8,7 +8,7 @@ export default function BlockEditor({content,setContent}){
         value={content}
         onEditorChange={(e,editor) => setContent(editor.getContent())}
         init={{
-            height: 360,
+            height: 375,
             menubar: false,
             browser_spellcheck: true,
             resize:false,

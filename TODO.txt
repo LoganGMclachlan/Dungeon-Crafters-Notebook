@@ -6,11 +6,13 @@ keyboard shortcuts(
     roll dice: ctrl + d
     hide/show navbar: ctrl + n
 )
-implament zustand for state management
 change password option
 guide tab in game dashboard
 background img options
-custom alert pop-up
+custom alert pop-up(
+    close on return press
+    close after 5 seconds
+)
 update about section
 style improvements(
     replace napkin with paper

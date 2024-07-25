@@ -57,7 +57,7 @@ h1{letter-spacing: -1.2px;font-family:'raleway';}
     width:100%;
     margin-top:50px;
     padding:5px;
-    background-image: url('/src/assets/napkin.jpg');
+    background-image: url('/src/assets/paper-background.avif');
     background-size:cover;
     background-repeat: no-repeat;
     box-sizing: border-box;
