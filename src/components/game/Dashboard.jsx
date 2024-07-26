@@ -7,6 +7,7 @@ import Blocks from './Blocks'
 import Navbar from './Navbar'
 import Boards from './Boards'
 import "./game.css"
+import { useHotkeys } from 'react-hotkeys-hook'
 
 export default function Dashboard({user}){
     const location = useLocation()
@@ -27,6 +28,11 @@ export default function Dashboard({user}){
         getData("Boards").then(boards => setBoards(boards))
         getData("Placements").then(placements => setPlacements(placements))
     }, [])
+
+    
+    useHotkeys("shift+1", () => setTabSelected("blocks"))
+    useHotkeys("shift+2", () => setTabSelected("boards"))
+    useHotkeys("shift+3", () => setTabSelected("details"))
 
     // gets basic game details (title, colour, ect) from firebase
     const getGameData = useCallback(async () => {

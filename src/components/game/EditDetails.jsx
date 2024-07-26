@@ -67,12 +67,6 @@ export default function EditDetails({game,setGame,details}){
             console.error(error)}
     }
 
-    const exitGame = () => {
-        localStorage.setItem("SELECTED_BLOCKS",JSON.stringify(null))
-        localStorage.setItem("SELECTED_BOARD",JSON.stringify(null))
-        navigate("/")
-    }
-
     const handleDownload = () => {
         const zip = new JSZip()
         details[0].map(block => zip.file(`${block.title}.html`,block.content))
@@ -112,8 +106,8 @@ export default function EditDetails({game,setGame,details}){
 
                     <div className="details-buttons">
                         <button type='submit' className='form-btn'>Save Details</button>
-                        <button className='form-btn' onClick={() => exitGame()}>Exit Game</button>
-                        <button className='form-btn red' onClick={() => deleteGame()}>Delete Game</button>
+                        <button className='form-btn' onClick={() => navigate("/")}>Exit Game</button>
+                        <button className='form-btn red' onClick={deleteGame}>Delete Game</button>
                         <button className='form-btn' onClick={handleDownload}>Download Game</button>
                     </div>
                 </form>

@@ -6,7 +6,7 @@ import "./boards.css"
 export default function Boards({boards, placements, blocks, gameId, setBoards, setPlacements}){
     const [selectedBoard, setSelectedBoard] = useState(() => {
         const localValue = localStorage.getItem("SELECTED_BOARD")
-        if (localValue === "") return
+        if (localValue === "" || localValue === "undefined") return 
         return JSON.parse(localValue)
     })
     const [selectedBlocks, setSelectedBlocks] = useState([])
@@ -27,7 +27,7 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
 
     // gets title of selcted board from id
     const getBoardTitle = id => {
-        if (id == undefined) return ""
+        if (id === undefined) return ""
         return boards.filter(board => board.id == id)[0].title
     }
 

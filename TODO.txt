@@ -9,13 +9,7 @@ keyboard shortcuts(
 change password option
 guide tab in game dashboard
 background img options
-custom alert pop-up(
-    close on return press
-    close after 5 seconds
-)
 update about section
 style improvements(
-    replace napkin with paper
     folder change colour on hover, gradiant?
-    increase block content hight
 )
