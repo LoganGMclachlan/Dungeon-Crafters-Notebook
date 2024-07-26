@@ -19,7 +19,8 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-bootstrap-accordion": "^1.0.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hotkeys-hook": "^4.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
