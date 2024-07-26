@@ -4,7 +4,8 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useEffect } from "react"
 import BlockOptions from "./BlockOptions"
 import BlockEditor from "./BlockEditor"
-import { htmlToText } from "html-to-text"
+import Alert from "../Alert"
+import ReactDOM from 'react-dom';
 
 export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     links,setLinks,select,setPlacements,boards,placements}){
@@ -75,7 +76,8 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         }
         catch(error){
             console.error(error)
-            alert("Something went wrong, try again later.")
+            ReactDOM.render(<Alert message="Cannot delete link at this time, try again later!" type="failure"/>, 
+                document.getElementById("alert-container"))
         }
     }
 

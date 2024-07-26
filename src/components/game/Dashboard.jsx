@@ -11,7 +11,7 @@ import "./game.css"
 export default function Dashboard({user}){
     const location = useLocation()
     const [tabSelected, setTabSelected] = useState("blocks")
-    const [game,setGame] = useState({"title":"Loading","colour":"red"})
+    const [game,setGame] = useState({"title":"Loading Game...","colour":"red"})
     const [blocks, setBlocks] = useState([])
     const [links, setLinks] = useState([])
     const [boards, setBoards] = useState([])

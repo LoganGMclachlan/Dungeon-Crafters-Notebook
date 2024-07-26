@@ -1,13 +1,14 @@
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../config/firebase"
+import Alert from "../Alert"
+import ReactDOM from 'react-dom';
 
-export default function BoardControl({boards,select,gameId,setBoards,placements,
-    setPlacements,selected}){
+export default function BoardControl(
+    {boards,select,gameId,setBoards,placements,setPlacements,selected}){
     const [newBoard, setNewBoard] = useState("")
 
     const createNewBoard = async () => {
-        if(!navigator.onLine){ alert("Cannot create board while offline"); return}
         try{
             let board = {"title":newBoard,"gameid":gameId}
             await addDoc(collection(db,"Boards"),board)
@@ -15,14 +16,19 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
             setBoards([...boards, board])
             select(board.id)
             setNewBoard("")
-            alert("New Board Created!")
+            ReactDOM.render(<Alert message="Board created successfuly!" type="success"/>, 
+                document.getElementById("alert-container"))
         }
-        catch(error){console.log(error); alert("Something went wrong, try again later.")}
+        catch(error){console.log(error)
+            ReactDOM.render(<Alert message="Cannot create board at this time, try again later!" type="failure"/>, 
+                document.getElementById("alert-container"))
+        }
     }
 
     const deleteBoard = async () => {
-        if(!selected){ alert("Select a board to delete."); return}
-        if(!navigator.onLine){ alert("Cannot delete boards while offline"); return}
+        if(!selected){
+            ReactDOM.render(<Alert message="Select a board to delete first!" type="warning"/>, 
+                document.getElementById("alert-container")); return}
         if(!window.confirm("Are you sure you want to delete this board?")){ return }
 
         try{
@@ -33,7 +39,10 @@ export default function BoardControl({boards,select,gameId,setBoards,placements,
             await deleteDoc(doc(db,"Boards",selected))
             select(null)
         }
-        catch(error){console.log(error); alert("Something went wrong, try again later.")}
+        catch(error){console.log(error)
+            ReactDOM.render(<Alert message="Cannot delete board at this time, try again later!" type="failure"/>, 
+                document.getElementById("alert-container"))
+        }
     }
 
     return(

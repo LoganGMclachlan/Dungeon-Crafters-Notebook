@@ -164,7 +164,6 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                 </>}
             </ul>
             }
-            <div id="alert-container" style={{"display":"inline"}}/>
         </div>
     )
 }

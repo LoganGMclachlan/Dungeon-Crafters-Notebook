@@ -3,6 +3,8 @@ import GoogleLogin from './GoogleLogin'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase'
 import { useNavigate } from 'react-router-dom'
+import Alert from '../Alert'
+import ReactDOM from 'react-dom'
 
 export default function Register({setUser}){
     const [email, setEmail] = useState("")
@@ -11,24 +13,29 @@ export default function Register({setUser}){
     const navigate = useNavigate()
 
     const checkPassword = () => {
-        if(email === "" || password === ""){
-            alert("Email or password is empty.")
+        if(email === ""){
+            ReactDOM.render(<Alert message="You must provide an email!" type="warning"/>, 
+                document.getElementById("alert-container"))
             return false
         }
         if(password.length < 8){
-            alert("Password must be at least 8 characters long.")
+            ReactDOM.render(<Alert message="Password must be at least 8 characters long!" type="warning"/>, 
+                document.getElementById("alert-container"))
             return false
         }
         if(!/[A-Z]/.test(password)){
-            alert("Password must contain at least one uppercase letter.")
+            ReactDOM.render(<Alert message="Password must contain at least one uppercase letter!" type="warning"/>, 
+                document.getElementById("alert-container"))
             return false
         }
         if(!/[^A-Za-z0-9]/.test(password)){
-            alert("Password must contain at least one special character.")
+            ReactDOM.render(<Alert message="Password must contain at least one special character!" type="warning"/>, 
+                document.getElementById("alert-container"))
             return false
         }
         if(password !== confirmPassword){
-            alert("Passwords do not match.")
+            ReactDOM.render(<Alert message="Passwords do not match!" type="warning"/>, 
+                document.getElementById("alert-container"))
             return false
         }
         return true
@@ -43,7 +50,9 @@ export default function Register({setUser}){
             setUser(auth.currentUser)
             navigate("/")
         }
-        catch(err){ console.error(err); alert("Email is not valid.") }
+        catch(err){console.error(err)
+            ReactDOM.render(<Alert message="Failed to create account, check your email is correct!" type="Failure"/>, 
+                document.getElementById("alert-container"))}
     }
 
     return(

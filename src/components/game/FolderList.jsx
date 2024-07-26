@@ -1,12 +1,13 @@
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore"
 import BlockList from "./BlockList"
-import Accordion from "react-bootstrap/Accordion";
-import { db } from "../../config/firebase";
+import Accordion from "react-bootstrap/Accordion"
+import { db } from "../../config/firebase"
+import Alert from "../Alert"
+import ReactDOM from 'react-dom'
 
-export default function FolderList({folders,blocks,select,newBlock,setFolders,gameId}){
+export default function FolderList({folders,blocks,select,newBlock,setFolders}){
 
     async function deleteFolder(folder){
-        if(!navigator.onLine){ alert("Cannot delete folders while offline"); return}
         if(!window.confirm("Are you sure want to delete this folder & its blocks?")){ return }
 
         // gets all blocks with folder id
@@ -24,7 +25,8 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders,ga
         // logs errors and alerts user of failure
         catch(error){
             console.error(error)
-            alert("Failed to delete this folder, try again later.")
+            ReactDOM.render(<Alert message="Cannot delete folder at this time, try again later!" type="failure"/>, 
+                document.getElementById("alert-container"))
         }
     }
 

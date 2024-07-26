@@ -2,6 +2,8 @@ import { useState } from "react"
 import { collection, addDoc } from "firebase/firestore"
 import { db } from "../../config/firebase"
 import { useNavigate } from "react-router-dom"
+import Alert from "../Alert"
+import ReactDOM from 'react-dom'
 
 export default function CreateGame({userId}){
     const [title, setTitle] = useState("")
@@ -9,13 +11,11 @@ export default function CreateGame({userId}){
 
     async function NewGame(){
         if(title === ""){
-            alert("Enter a title for your game.")
-            return
-        }
+            ReactDOM.render(<Alert message="Enter a title for your game!" type="warning"/>, 
+                document.getElementById("alert-container")); return}
         if(title === "Loading..."){
-            alert("Invalid game title.")
-            return
-        }
+            ReactDOM.render(<Alert message="Invalid game title!" type="warning"/>, 
+                document.getElementById("alert-container")); return}
 
         try{
             await addDoc(collection(db, "Games"), {
@@ -27,7 +27,9 @@ export default function CreateGame({userId}){
             })
             
         }
-        catch(err){console.error(err)}
+        catch(err){console.error(err)
+            ReactDOM.render(<Alert message="Cannot create game at this time, try again later!" type="failure"/>, 
+                document.getElementById("alert-container"))}
     }
 
     return (

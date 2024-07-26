@@ -29,6 +29,7 @@ export default function App() {
         <Route path="*" element={<NoPage/>}/>
     </Routes>
   </BrowserRouter>
+  <div id="alert-container" style={{"display":"inline"}}/>
   </Suspense>
   )
 }
