@@ -5,7 +5,8 @@ import { useEffect } from "react"
 import BlockOptions from "./BlockOptions"
 import BlockEditor from "./BlockEditor"
 import Alert from "../Alert"
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
+import { useHotkeys } from "react-hotkeys-hook"
 
 export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     links,setLinks,select,setPlacements,boards,placements}){
@@ -64,6 +65,8 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         }
         close()
     }
+    
+    useHotkeys("shift+w",handleClose)
 
     const deleteLink = async (linkId,linkTo) => {
         if(!window.confirm(`Are you sure you want to delete the link to "${linkTo}"?`)){return}

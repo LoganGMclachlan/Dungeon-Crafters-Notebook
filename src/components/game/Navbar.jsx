@@ -4,7 +4,7 @@ import DiceRoller from "./DiceRoller"
 import { useHotkeys } from "react-hotkeys-hook"
 
 export default function Navbar({selected,setSelected,game}){
-    const [showNav,setShowNav] = useState(false)
+    const [showNav,setShowNav] = useState(true)
     const toggleShow = () => {setShowNav(!showNav)}
 
     useHotkeys("shift+n", toggleShow)

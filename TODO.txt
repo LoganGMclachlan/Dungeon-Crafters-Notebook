@@ -1,10 +1,7 @@
 download game data (option for json format)
 keyboard shortcuts(
-    save block: ctrl + s
-    change tab: ctrl + 1/2/3/4
-    open search results: ctrl + o
-    roll dice: ctrl + d
-    hide/show navbar: ctrl + n
+    save block: shift + s
+    close block: shift + w specific
 )
 change password option
 guide tab in game dashboard

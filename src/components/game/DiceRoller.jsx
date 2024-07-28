@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useHotkeys } from "react-hotkeys-hook"
 
 export default function DiceRoller(){
     const [result,setResult] = useState(null)
@@ -9,8 +10,9 @@ export default function DiceRoller(){
         var div = document.getElementById("result")
         div.style.fontSize = "1.4em"
         setTimeout(()=>div.style.fontSize = "1.3em", 200)
-        
     }
+
+    useHotkeys("shift+r",roll)
 
     return(
     <span style={{"marginTop":"10px","marginLeft":"auto"}}>
