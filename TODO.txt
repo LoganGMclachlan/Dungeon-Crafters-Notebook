@@ -2,6 +2,7 @@ download game data (option for json format)
 keyboard shortcuts(
     save block: shift + s
     close block: shift + w specific
+    hide screen: shift + h
 )
 change password option
 guide tab in game dashboard

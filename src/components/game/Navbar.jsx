@@ -28,6 +28,10 @@ export default function Navbar({selected,setSelected,game}){
             ?<button className='nav-item' style={{"textDecoration":"underline"}}>Details</button>
             :<button className='nav-item' onClick={() => setSelected("details")}>Details</button>
             }
+            {selected === "guide"
+            ?<button className='nav-item' style={{"textDecoration":"underline"}}>Guide</button>
+            :<button className='nav-item' onClick={() => setSelected("guide")}>Guide</button>
+            }
 
             <DiceRoller/>
         </div>

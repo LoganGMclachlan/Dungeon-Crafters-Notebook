@@ -1,0 +1,29 @@
+table{width: 100%;border: none;border-collapse: collapse;}
+
+td{border-right: lightskyblue 1.5px solid;vertical-align: top;}
+
+ul{
+    list-style: none;
+    padding: 10px;
+    padding-right: 0px;
+}
+
+td h2{
+    padding: 10px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+
+li{
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+li:hover{
+    color:lightskyblue
+}
+
+.left-bar{width:30%}
+
+.right-bar{padding-left: 10px;}
+.right-bar p{padding-left: 15px;margin-bottom: 0px;}

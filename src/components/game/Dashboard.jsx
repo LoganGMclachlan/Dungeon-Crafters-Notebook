@@ -6,6 +6,7 @@ import EditDetails from './EditDetails'
 import Blocks from './Blocks'
 import Navbar from './Navbar'
 import Boards from './Boards'
+import Guide from './Guide'
 import "./game.css"
 import { useHotkeys } from 'react-hotkeys-hook'
 
@@ -79,6 +80,10 @@ export default function Dashboard({user}){
         {tabSelected === "boards" &&
             <Boards boards={boards} setBoards={setBoards} placements={placements} blocks={blocks} gameId={game.id}
                 setPlacements={setPlacements}/>}
+
+        {tabSelected === "guide" &&
+            <Guide/>
+        }
         </>
         }
     </div>
