@@ -1,8 +1,8 @@
 import { deleteDoc, doc } from "firebase/firestore"
 import BlockList from "./BlockList"
 import Accordion from "react-bootstrap/Accordion"
-import { db } from "../../config/firebase"
-import useAlert from "../Alert"
+import { db } from "../../../config/firebase"
+import useAlert from "../../Alert"
 
 export default function FolderList({folders,blocks,select,newBlock,setFolders}){
 

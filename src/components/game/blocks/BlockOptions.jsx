@@ -1,11 +1,11 @@
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useState } from "react"
-import { db } from "../../config/firebase"
-import Hint from "../Hint"
+import { db } from "../../../config/firebase"
+import Hint from "../../Hint"
 import SelectTemplate from "./SelectTemplate"
-import { blockOptions } from "../HintMessages"
+import { blockOptions } from "../../HintMessages"
 import { Link } from "react-router-dom"
-import useAlert from "../Alert"
+import useAlert from "../../Alert"
 
 export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
     blockLinks,block,placements,boards,content}){

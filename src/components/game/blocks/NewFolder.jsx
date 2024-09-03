@@ -1,9 +1,9 @@
 import { addDoc, collection } from "firebase/firestore"
 import { useState } from "react"
-import { db } from "../../config/firebase"
-import Alert from "../Alert"
+import { db } from "../../../config/firebase"
+import Alert from "../../Alert"
 import ReactDOM from 'react-dom'
-import useAlert from "../Alert"
+import useAlert from "../../Alert"
 
 export default function NewFolder({setFolders, folders, gameId}){
     const [title, setTitle] = useState("")

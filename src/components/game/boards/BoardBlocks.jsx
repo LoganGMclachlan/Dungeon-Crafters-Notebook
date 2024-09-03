@@ -1,9 +1,9 @@
 import { deleteDoc, doc } from "firebase/firestore"
-import { db } from "../../config/firebase"
+import { db } from "../../../config/firebase"
 import { useEffect, useState } from "react"
 import { Editor } from "@tinymce/tinymce-react"
 import { htmlToText } from "html-to-text"
-import useAlert from "../Alert"
+import useAlert from "../../Alert"
 
 export default function BoardBlocks({blocks,setPlacements,placements}){
     const [orderedBlocks,setOrderedBlocks] = useState([])

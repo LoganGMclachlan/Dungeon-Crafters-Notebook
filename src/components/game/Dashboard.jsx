@@ -3,10 +3,10 @@ import { useLocation, Link } from 'react-router-dom'
 import { db } from '../../config/firebase'
 import { getDoc, doc, getDocs, collection, query, where } from 'firebase/firestore'
 import EditDetails from './EditDetails'
-import Blocks from './Blocks'
+import Blocks from './blocks/Blocks'
 import Navbar from './Navbar'
-import Boards from './Boards'
-import Guide from './Guide'
+import Boards from './boards/Boards'
+import Guide from './guides/Guide'
 import "./game.css"
 import { useHotkeys } from 'react-hotkeys-hook'
 

@@ -1,9 +1,9 @@
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import { useState } from "react"
-import { db } from "../../config/firebase"
-import Alert from "../Alert"
+import { db } from "../../../config/firebase"
+import Alert from "../../Alert"
 import ReactDOM from 'react-dom';
-import useAlert from "../Alert";
+import useAlert from "../../Alert";
 
 export default function BoardControl(
     {boards,select,gameId,setBoards,placements,setPlacements,selected}){
