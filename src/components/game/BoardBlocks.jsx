@@ -3,8 +3,7 @@ import { db } from "../../config/firebase"
 import { useEffect, useState } from "react"
 import { Editor } from "@tinymce/tinymce-react"
 import { htmlToText } from "html-to-text"
-import Alert from "../Alert"
-import ReactDOM from 'react-dom';
+import useAlert from "../Alert"
 
 export default function BoardBlocks({blocks,setPlacements,placements}){
     const [orderedBlocks,setOrderedBlocks] = useState([])
@@ -20,9 +19,10 @@ export default function BoardBlocks({blocks,setPlacements,placements}){
             await deleteDoc(doc(db,"Placements",block.placement))
             setPlacements([...placements].filter(p => p.id !== block.placement))
         }
-        catch(error){console.log(error);
-            ReactDOM.render(<Alert message="Cannot remove block frmo board at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))}
+        catch(error){
+            console.log(error)
+            useAlert("Cannot remove block frmo board at this time, try again later!","failure")
+        }
     }
 
     return(
@@ -46,7 +46,6 @@ export default function BoardBlocks({blocks,setPlacements,placements}){
             : <textarea 
                 value={htmlToText(block.content,{wordwrap: 80})}/>
             }
-            
             </span>
         </div>)}
     </div>

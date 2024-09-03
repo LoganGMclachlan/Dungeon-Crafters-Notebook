@@ -3,6 +3,7 @@ import { useState } from "react"
 import { db } from "../../config/firebase"
 import Alert from "../Alert"
 import ReactDOM from 'react-dom';
+import useAlert from "../Alert";
 
 export default function BoardControl(
     {boards,select,gameId,setBoards,placements,setPlacements,selected}){
@@ -16,19 +17,15 @@ export default function BoardControl(
             setBoards([...boards, board])
             select(board.id)
             setNewBoard("")
-            ReactDOM.render(<Alert message="Board created successfuly!" type="success"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Board created successfuly!","success")
         }
         catch(error){console.log(error)
-            ReactDOM.render(<Alert message="Cannot create board at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot create board at this time, try again later!","failure")
         }
     }
 
     const deleteBoard = async () => {
-        if(!selected){
-            ReactDOM.render(<Alert message="Select a board to delete first!" type="warning"/>, 
-                document.getElementById("alert-container")); return}
+        if(!selected){useAlert("Select a board to delete first!","warning"); return}
         if(!window.confirm("Are you sure you want to delete this board?")){ return }
 
         try{
@@ -40,8 +37,7 @@ export default function BoardControl(
             select(null)
         }
         catch(error){console.log(error)
-            ReactDOM.render(<Alert message="Cannot delete board at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot delete board at this time, try again later!","failure")
         }
     }
 

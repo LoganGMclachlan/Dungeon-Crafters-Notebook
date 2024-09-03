@@ -2,8 +2,7 @@ import { deleteDoc, doc } from "firebase/firestore"
 import BlockList from "./BlockList"
 import Accordion from "react-bootstrap/Accordion"
 import { db } from "../../config/firebase"
-import Alert from "../Alert"
-import ReactDOM from 'react-dom'
+import useAlert from "../Alert"
 
 export default function FolderList({folders,blocks,select,newBlock,setFolders}){
 
@@ -25,8 +24,7 @@ export default function FolderList({folders,blocks,select,newBlock,setFolders}){
         // logs errors and alerts user of failure
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot delete folder at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot delete folder at this time, try again later!","failure")
         }
     }
 

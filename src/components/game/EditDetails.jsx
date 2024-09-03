@@ -4,8 +4,7 @@ import { updateDoc, doc, deleteDoc } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import JSZip from "jszip"
 import { saveAs } from "file-saver"
-import Alert from "../Alert"
-import ReactDOM from 'react-dom';
+import useAlert from "../Alert"
 
 export default function EditDetails({game,setGame,details}){
     const navigate = useNavigate()
@@ -14,13 +13,7 @@ export default function EditDetails({game,setGame,details}){
 
     const SaveDetails = async e => {
         e.preventDefault()
-        if (newTitle === ""){
-            ReactDOM.render(<Alert message="Enter a title for your game!" type="warning"/>, 
-                document.getElementById("alert-container")); return}
-        if(title === "Loading..."){
-            ReactDOM.render(<Alert message="Invalid game title!" type="warning"/>, 
-                document.getElementById("alert-container")); return
-        }
+        if (newTitle === ""){useAlert("Enter a title for your game!","warning"); return}
 
         try{
             await updateDoc(
@@ -62,8 +55,7 @@ export default function EditDetails({game,setGame,details}){
             navigate("/")
         }
         catch(error){
-            ReactDOM.render(<Alert message="Cannot delete game at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot delete game at this time, try again later!","failure")
             console.error(error)}
     }
 

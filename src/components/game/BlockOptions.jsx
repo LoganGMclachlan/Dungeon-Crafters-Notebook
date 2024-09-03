@@ -5,8 +5,7 @@ import Hint from "../Hint"
 import SelectTemplate from "./SelectTemplate"
 import { blockOptions } from "../HintMessages"
 import { Link } from "react-router-dom"
-import Alert from "../Alert"
-import ReactDOM from 'react-dom';
+import useAlert from "../Alert"
 
 export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock,
     blockLinks,block,placements,boards,content}){
@@ -41,13 +40,11 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                     return b
                 }))
             }
-            ReactDOM.render(<Alert message="Block saved successfuly!" type="success"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Block saved successfuly!","success")
         }
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot save block at this time, try again later." type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot save block at this time, try again later.","failure")
         }
     }
 
@@ -78,22 +75,19 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         }
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot delete block at this time, try again later." type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot delete block at this time, try again later.","failure")
         }
     }
 
     const createLink = async linkTo => {
         if(linkTo === block.id){
-            ReactDOM.render(<Alert message="Cannot link block to itself." type="warning"/>, 
-            document.getElementById("alert-container"))
+            useAlert("Cannot link block to itself.","warning")
             return
         }
         let linkExists = false
         blockLinks.map(link => {if(link.id === linkTo){linkExists = true}})
         if(linkExists){
-            ReactDOM.render(<Alert message="Selected block is already linked." type="failure"/>, 
-            document.getElementById("alert-container"))
+            useAlert("Selected block is already linked.","failure")
             return
         }
 
@@ -107,8 +101,7 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
         }
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot create links at this time, try again later." type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot create links at this time, try again later.","failure")
         }
     }
 
@@ -120,13 +113,11 @@ export default function BlockOptions({colour,gameId,data,blocks,links,closeBlock
                 .then(docRef => {placement.id = docRef.id})
 
             placements[1]([...placements[0],placement])
-            ReactDOM.render(<Alert message="Block placed into board successfuly!" type="success"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Block placed into board successfuly!","success")
         }
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot place block in board at this time, try again later." type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot place block in board at this time, try again later.","failure")
         }
     }
 

@@ -16,7 +16,7 @@ export default function HotkeysGuide(){
 
         <h3>Block Tab Shortcuts</h3>
         <p><b>Shift + o :</b> Opens search bar.</p>
-        <p><b>Shift + w :</b> Closes all blocks.</p>
+        <p><b>Shift + c :</b> Closes all blocks.</p>
     </div>
     )
 }

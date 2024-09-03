@@ -13,7 +13,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 export default function Dashboard({user}){
     const location = useLocation()
     const [tabSelected, setTabSelected] = useState("blocks")
-    const [game,setGame] = useState({"title":"Loading Game...","colour":"red"})
+    const [game,setGame] = useState({"title":null,"colour":"red"})
     const [blocks, setBlocks] = useState([])
     const [links, setLinks] = useState([])
     const [boards, setBoards] = useState([])
@@ -34,6 +34,7 @@ export default function Dashboard({user}){
     useHotkeys("shift+1", () => setTabSelected("blocks"))
     useHotkeys("shift+2", () => setTabSelected("boards"))
     useHotkeys("shift+3", () => setTabSelected("details"))
+    useHotkeys("shift+4", () => setTabSelected("guide"))
 
     // gets basic game details (title, colour, ect) from firebase
     const getGameData = useCallback(async () => {
@@ -65,26 +66,24 @@ export default function Dashboard({user}){
     <Navbar selected={tabSelected} setSelected={setTabSelected} game={game}/>
 
     <div>
-        {game.title !== "Loading..." &&
-        <>
-        {tabSelected === "details" &&  
-            <EditDetails game={game} setGame={setGame} 
-                details={[blocks,folders,links,boards,placements]}/>}
-        
-        {tabSelected === "blocks" && 
-            <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour} 
-                setLinks={setLinks} boards={boards} gameId={game.id} folders={folders}
-                setFolders={setFolders} links={links} setPlacements={setPlacements}
-                placements={placements}/>}
-        
-        {tabSelected === "boards" &&
-            <Boards boards={boards} setBoards={setBoards} placements={placements} blocks={blocks} gameId={game.id}
-                setPlacements={setPlacements}/>}
+        {game.title &&
+            <>
+            {tabSelected === "details" &&  
+                <EditDetails game={game} setGame={setGame} 
+                    details={[blocks,folders,links,boards,placements]}/>}
+            
+            {tabSelected === "blocks" && 
+                <Blocks blocks={blocks} setBlocks={setBlocks} colour={game.colour} 
+                    setLinks={setLinks} boards={boards} gameId={game.id} folders={folders}
+                    setFolders={setFolders} links={links} setPlacements={setPlacements}
+                    placements={placements}/>}
+            
+            {tabSelected === "boards" &&
+                <Boards boards={boards} setBoards={setBoards} placements={placements} blocks={blocks} gameId={game.id}
+                    setPlacements={setPlacements}/>}
 
-        {tabSelected === "guide" &&
-            <Guide/>
-        }
-        </>
+            {tabSelected === "guide" && <Guide/>}
+            </>
         }
     </div>
     </>

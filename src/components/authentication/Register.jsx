@@ -3,8 +3,7 @@ import GoogleLogin from './GoogleLogin'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase'
 import { useNavigate } from 'react-router-dom'
-import Alert from '../Alert'
-import ReactDOM from 'react-dom'
+import useAlert from '../Alert'
 
 export default function Register({setUser}){
     const [email, setEmail] = useState("")
@@ -14,28 +13,23 @@ export default function Register({setUser}){
 
     const checkPassword = () => {
         if(email === ""){
-            ReactDOM.render(<Alert message="You must provide an email!" type="warning"/>, 
-                document.getElementById("alert-container"))
+            useAlert("You must provide an email!","warning")
             return false
         }
         if(password.length < 8){
-            ReactDOM.render(<Alert message="Password must be at least 8 characters long!" type="warning"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Password must be at least 8 characters long!","warning")
             return false
         }
-        if(!/[A-Z]/.test(password)){
-            ReactDOM.render(<Alert message="Password must contain at least one uppercase letter!" type="warning"/>, 
-                document.getElementById("alert-container"))
+        if(!/[A-Z]/.test(password)){// ensures pw contains a upper case letter
+            useAlert("Password must contain at least one uppercase letter!","warning")
             return false
         }
-        if(!/[^A-Za-z0-9]/.test(password)){
-            ReactDOM.render(<Alert message="Password must contain at least one special character!" type="warning"/>, 
-                document.getElementById("alert-container"))
+        if(!/[^A-Za-z0-9]/.test(password)){// ensures pw contains a special character
+            useAlert("Password must contain at least one special character!","warning")
             return false
         }
         if(password !== confirmPassword){
-            ReactDOM.render(<Alert message="Passwords do not match!" type="warning"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Passwords do not match!","warning")
             return false
         }
         return true
@@ -50,9 +44,10 @@ export default function Register({setUser}){
             setUser(auth.currentUser)
             navigate("/")
         }
-        catch(err){console.error(err)
-            ReactDOM.render(<Alert message="Failed to create account, check your email is correct!" type="Failure"/>, 
-                document.getElementById("alert-container"))}
+        catch(err){
+            console.error(err)
+            useAlert("Failed to create account, check your email is correct!","failure")
+        }
     }
 
     return(

@@ -4,9 +4,8 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useEffect } from "react"
 import BlockOptions from "./BlockOptions"
 import BlockEditor from "./BlockEditor"
-import Alert from "../Alert"
-import ReactDOM from 'react-dom'
 import { useHotkeys } from "react-hotkeys-hook"
+import useAlert from "../Alert"
 
 export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
     links,setLinks,select,setPlacements,boards,placements}){
@@ -59,14 +58,14 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         return filtered
     }
 
-    const handleClose = () => {     // warns user of unsaved changes before closing block
+    const handleClose = () => {// warns user of unsaved changes before closing block
         if(content !== block.content){
             if(!window.confirm("Unsaved changes detected, are you sure you want to continue?")){return}
         }
         close()
     }
     
-    useHotkeys("shift+w",handleClose)
+    useHotkeys("shift+c",handleClose)
 
     const deleteLink = async (linkId,linkTo) => {
         if(!window.confirm(`Are you sure you want to delete the link to "${linkTo}"?`)){return}
@@ -79,8 +78,7 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         }
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot delete link at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot delete link at this time, try again later!","failure")
         }
     }
 
@@ -100,11 +98,11 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
             blocks={[blocks,setBlocks]} boards={boards} links={[links,setLinks]}
             closeBlock={close} blockLinks={blockLinks} block={block} placements={[placements,setPlacements]}/>
 
-        <button className="x-btn" onClick={handleClose}>X</button>
-        <input
-            value={title}
+        <input value={title}
             className="block-title"
-            onChange={e => setTitle(e.target.value)}/><br/>
+            onChange={e => setTitle(e.target.value)}/>
+
+        <button className="x-btn" onClick={handleClose}>X</button><br/>
 
         <BlockEditor content={content} setContent={setContent}/>
 

@@ -12,25 +12,27 @@ export default function Navbar({selected,setSelected,game}){
     return(
     <>{showNav &&
         <div className='nav-bar' style={{"backgroundColor":`${game.colour}`}}>
-            <h1 className='nav-title'>{game.title}</h1>
-
-            {game.title === "Loading" && <img src={loading} className="loading-icon"/>}
+            {game.title ? <h1 className='nav-title'>{game.title}</h1>
+            :<>
+                <h1 className='nav-title'>Loading Game...</h1>
+                <img src={loading} className="loading-icon"/>
+            </>}
             
             {selected === "blocks"
-            ?<button className='nav-item' style={{"textDecoration":"underline"}}>Blocks</button>
-            :<button className='nav-item' onClick={() => setSelected("blocks")}>Blocks</button>
+                ?<button className='nav-item' style={{"textDecoration":"underline"}}>Blocks</button>
+                :<button className='nav-item' onClick={() => setSelected("blocks")}>Blocks</button>
             }
             {selected === "boards"
-            ?<button className='nav-item' style={{"textDecoration":"underline"}}>Boards</button>
-            :<button className='nav-item' onClick={() => setSelected("boards")}>Boards</button>
+                ?<button className='nav-item' style={{"textDecoration":"underline"}}>Boards</button>
+                :<button className='nav-item' onClick={() => setSelected("boards")}>Boards</button>
             }
             {selected === "details"
-            ?<button className='nav-item' style={{"textDecoration":"underline"}}>Details</button>
-            :<button className='nav-item' onClick={() => setSelected("details")}>Details</button>
+                ?<button className='nav-item' style={{"textDecoration":"underline"}}>Details</button>
+                :<button className='nav-item' onClick={() => setSelected("details")}>Details</button>
             }
             {selected === "guide"
-            ?<button className='nav-item' style={{"textDecoration":"underline"}}>Guide</button>
-            :<button className='nav-item' onClick={() => setSelected("guide")}>Guide</button>
+                ?<button className='nav-item' style={{"textDecoration":"underline"}}>Guide</button>
+                :<button className='nav-item' onClick={() => setSelected("guide")}>Guide</button>
             }
 
             <DiceRoller/>

@@ -2,7 +2,8 @@ import "./styles.css"
 import ReactDOM from 'react-dom';
 import { useHotkeys } from "react-hotkeys-hook";
 
-export default function Alert({message,type}){
+// Alert component
+function Alert({message,type}){
     const close = () => ReactDOM.unmountComponentAtNode(document.getElementById("alert-container"));
 
     useHotkeys("return", close)
@@ -14,3 +15,9 @@ export default function Alert({message,type}){
         </span>
     )
 }
+
+// function to insert alert component into DOM
+const useAlert = (messageIn,typeIn) => ReactDOM.render(<Alert message={messageIn} type={typeIn}/>, 
+    document.getElementById("alert-container"))
+
+export default useAlert

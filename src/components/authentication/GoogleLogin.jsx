@@ -2,8 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import icon from '../../assets/google_icon.png'
 import { googleProvider, auth } from "../../config/firebase"
 import { signInWithPopup } from "firebase/auth"
-import Alert from '../Alert'
-import ReactDOM from 'react-dom'
+import useAlert from '../Alert'
 
 export default function GoogleLogin({setUser}){
     const navigate = useNavigate()
@@ -14,9 +13,10 @@ export default function GoogleLogin({setUser}){
             setUser(auth.currentUser)
             navigate("/")
         }
-        catch(err){console.error(err)
-            ReactDOM.render(<Alert message="Failed to sign in with google!" type="failure"/>, 
-                document.getElementById("alert-container"))}
+        catch(err){
+            console.error(err)
+            useAlert("Failed to sign in with google!","failure")
+        }
     }
 
     return(

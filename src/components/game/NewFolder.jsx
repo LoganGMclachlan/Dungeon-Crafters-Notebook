@@ -3,6 +3,7 @@ import { useState } from "react"
 import { db } from "../../config/firebase"
 import Alert from "../Alert"
 import ReactDOM from 'react-dom'
+import useAlert from "../Alert"
 
 export default function NewFolder({setFolders, folders, gameId}){
     const [title, setTitle] = useState("")
@@ -11,12 +12,11 @@ export default function NewFolder({setFolders, folders, gameId}){
     async function addNewFolder(e){
         e.preventDefault()
         // prevents invalid folder titles from being added
-        if(title === ""){
-            ReactDOM.render(<Alert message="Enter a title for this folder!" type="warning"/>, 
-                document.getElementById("alert-container")); return}
+        if(title === ""){useAlert("Enter a title for this folder!","warning"); return}
         if(title.length > 25){
-            ReactDOM.render(<Alert message="Folder title is too long, shorten to 25 characters ir less!" type="warning"/>, 
-                document.getElementById("alert-container")); return}
+            useAlert("Folder title is too long, shorten to 25 characters ir less!","warning")
+            return
+        }
 
         try{
             // adds new folder to firebase collection
@@ -34,8 +34,7 @@ export default function NewFolder({setFolders, folders, gameId}){
         // logs any errors and alerts user of failure
         catch(error){
             console.error(error)
-            ReactDOM.render(<Alert message="Cannot create folder at this time, try again later!" type="failure"/>, 
-                document.getElementById("alert-container"))
+            useAlert("Cannot create folder at this time, try again later!","failure")
         }
     } 
 
