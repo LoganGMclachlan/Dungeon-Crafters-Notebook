@@ -1,5 +1,5 @@
 import { useState } from "react"
-import loading from "../../assets/YLWC.gif"
+import loading from "../../assets/loading-icon.gif"
 import DiceRoller from "./DiceRoller"
 import { useHotkeys } from "react-hotkeys-hook"
 
