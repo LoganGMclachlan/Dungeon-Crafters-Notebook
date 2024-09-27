@@ -1,25 +1,25 @@
-table{width: 100%;border: none;border-collapse: collapse;}
+#guide table{width: 100%;border: none;border-collapse: collapse;}
 
-td{border-right: lightskyblue 1.5px solid;vertical-align: top;}
+#guide td{border-right: lightskyblue 1.5px solid;vertical-align: top;}
 
-ul{
+#guide ul{
     list-style: none;
     padding: 10px;
     padding-right: 0px;
 }
 
-td h2{
+#guide td h2{
     padding: 10px;
     padding-bottom: 0px;
     text-align: center;
 }
 
-li{
+#guide li{
     text-decoration: underline;
     cursor: pointer;
     margin-bottom: 10px;
 }
-li:hover{
+#guide li:hover{
     color:lightskyblue
 }
 

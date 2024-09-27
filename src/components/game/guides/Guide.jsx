@@ -7,7 +7,7 @@ export default function Guide(){
     const [section,setSection] = useState(0)
 
     return(
-    <div className="menu" style={{"padding":"0px"}}>
+    <div className="menu" style={{"padding":"0px"}} id="guide">
         <table>
         <tr>
             <td className="left-bar">
