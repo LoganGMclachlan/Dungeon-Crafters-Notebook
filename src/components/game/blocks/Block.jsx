@@ -108,10 +108,10 @@ export default function FolderList({block,setBlocks,close,blocks,colour,gameId,
         <BlockEditor content={content} setContent={setContent}/>
 
         <p className="related-blocks">{blockLinks.map(link => 
-        <span key={link.id}>
-            <span onClick={() => select(link)}>{link.title}</span>
-            <label onClick={() => deleteLink(link.linkId,link.title)}>X</label>
-        </span>
+            <span key={link.id}>
+                <span onClick={() => select(link)}>{link.title}</span>
+                <label onClick={() => deleteLink(link.linkId,link.title)}>X</label>
+            </span>
         )}</p>
     </div>
     )

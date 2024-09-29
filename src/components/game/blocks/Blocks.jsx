@@ -52,7 +52,6 @@ export default function Blocks({blocks,gameId,setBlocks,folders,setFolders,
             <Block key={block.id} block={block} blocks={blocks} colour={colour} gameId={gameId} setLinks={setLinks}
                 setBlocks={setBlocks} close={() => removeSelected(block.id)} links={links} select={addSelected}
                 setPlacements={setPlacements} boards={boards} placements={placements}/>
-
         )}
         </div>
     </div>

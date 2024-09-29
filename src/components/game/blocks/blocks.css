@@ -9,12 +9,12 @@
     margin:10px;
     margin-bottom: 0px;
     text-align: center;
-    height: fit-content;
+    height: 83vh;
 }
 
 .accordion-container{
-    height: 370px;
-    overflow-y: scroll;
+    height: 65vh;
+    overflow-y: auto;
 }
 
 .block{
@@ -22,7 +22,7 @@
     margin-right: 10px;
     width: 100%;
     min-width: 40%;
-    height: fit-content;
+    height: 83vh;
     border: 1.5px solid black;
     padding:5px;
     border-radius: 8px;
@@ -35,6 +35,10 @@
     width: 100%;
     display: flex;
     overflow-x: hidden;
+}
+
+.folder-header{
+    background-color: rgb(220, 135, 23);
 }
 
 .block-snippets{
