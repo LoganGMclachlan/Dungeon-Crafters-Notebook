@@ -5,6 +5,3 @@ change password option
 guide tab in game dashboard
 background img options
 update about section
-style improvements(
-    folder change colour on hover, gradiant?
-)

@@ -1,8 +1,6 @@
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import { useState } from "react"
 import { db } from "../../../config/firebase"
-import Alert from "../../Alert"
-import ReactDOM from 'react-dom';
 import useAlert from "../../Alert";
 
 export default function BoardControl(
@@ -35,6 +33,7 @@ export default function BoardControl(
             setPlacements([...placements].filter(p => p.boardid !== selected))
             await deleteDoc(doc(db,"Boards",selected))
             select(null)
+            localStorage.setItem("SELECTED_BOARD", "")
         }
         catch(error){console.log(error)
             useAlert("Cannot delete board at this time, try again later!","failure")

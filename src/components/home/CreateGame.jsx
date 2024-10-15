@@ -17,6 +17,8 @@ export default function CreateGame({userId}){
                 "userid": userId,
                 "colour":"red"
             }).then(docRef => {
+                localStorage.setItem("SELECTED_BLOCKS", "[]")
+                localStorage.setItem("SELECTED_BOARD", "")
                 navigate("/dashboard", {state:{gameid:docRef.id}})
             })
             

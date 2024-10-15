@@ -33,8 +33,10 @@ export default function Boards({boards, placements, blocks, gameId, setBoards, s
 
     return(
     <div className="boards-container">
-        <h1 style={{"fontWeight":"bold"}}>{getBoardTitle(selectedBoard)}</h1>
-        <BoardBlocks blocks={selectedBlocks} setPlacements={setPlacements} placements={placements} gameId={gameId}/>
+        {selectedBoard && <>
+            <h1 style={{"fontWeight":"bold"}}>{getBoardTitle(selectedBoard)}</h1>
+            <BoardBlocks blocks={selectedBlocks} setPlacements={setPlacements} placements={placements} gameId={gameId}/>
+        </>}
         <BoardControl boards={boards} select={setSelectedBoard} gameId={gameId} setBoards={setBoards}
             placements={placements} setPlacements={setPlacements} selected={selectedBoard}/>
         <p className="board-control">
