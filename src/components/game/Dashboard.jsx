@@ -21,7 +21,7 @@ export default function Dashboard({user}){
     const [folders, setFolders] = useState([])
 
     useEffect(() => {
-        // when page is loaded, gets data
+        // when page is loaded, fetches all game data from firebase
         getGameData()
         getData("Blocks").then(blocks => setBlocks(blocks))
         getData("Folders").then(folders => setFolders(folders))
@@ -30,7 +30,7 @@ export default function Dashboard({user}){
         getData("Placements").then(placements => setPlacements(placements))
     }, [])
 
-    
+    // enables use of hotkeys for navigating the dashboard
     useHotkeys("shift+1", () => setTabSelected("blocks"))
     useHotkeys("shift+2", () => setTabSelected("boards"))
     useHotkeys("shift+3", () => setTabSelected("details"))
